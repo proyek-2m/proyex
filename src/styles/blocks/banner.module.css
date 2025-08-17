@@ -1,0 +1,80 @@
+@reference '../global.css';
+
+.banner {
+	@apply w-full pt-32 pb-16;
+	@apply flex flex-col justify-center;
+	@apply relative overflow-hidden;
+
+	@media all and (min-width: theme(--breakpoint-md)) {
+		@apply min-h-screen min-h-dvh pt-40 pb-32;
+	}
+
+	&::before {
+		@apply content-[''] absolute top-0 left-0 z-[1];
+		@apply size-full;
+		@apply bg-gradient-to-b from-[var(--bg-color)]/80 to-white to-100%;
+	}
+
+	.image {
+		@apply absolute top-0 left-0 z-[0];
+		@apply size-full;
+		animation: zoomInOut 20s infinite;
+	}
+
+	&[data-align='center'] {
+		.inner {
+			@apply mx-auto;
+			@apply justify-center;
+			@apply text-center;
+		}
+
+		[data-slot='rich-text'] > * {
+			@apply text-center;
+		}
+	}
+
+	&[data-align='right'] {
+		.inner {
+			@apply ml-auto;
+			@apply justify-end;
+			@apply text-right;
+		}
+
+		[data-slot='rich-text'] > * {
+			@apply text-right;
+		}
+	}
+}
+
+.inner {
+	@apply relative z-[2];
+	@apply w-full max-w-[684px];
+	@apply flex flex-wrap;
+}
+
+.content {
+	h1,
+	h2 {
+		@apply first:md:text-[3.5rem];
+	}
+}
+
+.featured_link {
+	@apply inline-flex items-center justify-center flex-wrap;
+	@apply py-1 px-2 gap-2 gap-y-0 mb-4;
+	@apply font-medium;
+	@apply rounded-full bg-white hover:bg-secondary-light;
+	@apply shadow-2xl shadow-primary/40;
+}
+
+@keyframes zoomInOut {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

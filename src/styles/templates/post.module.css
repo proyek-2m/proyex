@@ -1,0 +1,48 @@
+@reference '../global.css';
+
+.main {
+	@apply pt-6 pb-20 md:pb-32;
+}
+
+.featuredImage {
+	@apply w-full aspect-[16/9];
+	@apply rounded-lg;
+	@apply bg-gray-100;
+}
+
+.article {
+	@apply relative;
+	@apply w-full mt-6 md:mt-10;
+	@apply flex items-stretch flex-wrap;
+
+	.heading {
+		@apply w-full pr-12 md:pr-0;
+	}
+
+	.content,
+	.sidebar {
+		@apply w-full;
+	}
+
+	@media all and (min-width: theme(--breakpoint-lg)) {
+		--sidebar-size: 280px;
+
+		.sidebar {
+			@apply w-[var(--sidebar-size)];
+		}
+
+		.content {
+			@apply w-[calc(100%-var(--sidebar-size))] pl-16;
+		}
+	}
+
+	@media all and (max-width: theme(--breakpoint-lg)) {
+		.content {
+			@apply -order-1;
+		}
+
+		.sidebar {
+			@apply mt-8;
+		}
+	}
+}

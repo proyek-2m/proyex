@@ -1,0 +1,20 @@
+@reference '../global.css';
+
+.admin_bar {
+	@apply fixed bottom-0 left-0 z-max;
+	@apply w-full py-3;
+	@apply bg-white;
+	@apply transition opacity-0;
+
+	&:hover {
+		@apply opacity-100;
+
+		[class*='container'] {
+			@apply translate-y-0;
+		}
+	}
+
+	[class*='container'] {
+		@apply transition transform translate-y-1/2;
+	}
+}

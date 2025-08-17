@@ -1,0 +1,15 @@
+@reference '../global.css';
+
+.grid {
+	@apply w-full;
+	@apply flex flex-col items-start;
+	@apply cursor-pointer;
+
+	.title {
+		@apply font-semibold;
+	}
+
+	.thumbnail {
+		@apply w-full aspect-[3/2];
+	}
+}

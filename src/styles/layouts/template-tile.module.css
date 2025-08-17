@@ -1,0 +1,70 @@
+@reference '../global.css';
+
+.tile {
+	@apply relative overflow-hidden;
+	@apply h-full;
+	@apply rounded-lg;
+}
+
+.inner {
+	@apply relative;
+	@apply flex flex-col justify-end;
+	@apply w-full aspect-[16/10] p-5 md:p-8;
+
+	&::before {
+		@apply content-[''] absolute top-0 left-0 z-1;
+		@apply w-full h-1/3;
+		@apply bg-gradient-to-b from-black/50 to-transparent to-100%;
+	}
+
+	&::after {
+		@apply content-[''] absolute bottom-0 left-0 z-2;
+		@apply w-full h-3/4;
+		@apply bg-gradient-to-t from-black/95 to-transparent to-100%;
+	}
+
+	&:hover {
+		/* .thumbnail {
+			@apply scale-105;
+		} */
+
+		.icon {
+			@apply text-primary;
+			@apply translate-x-2 -translate-y-2;
+		}
+	}
+}
+
+.thumbnail {
+	@apply absolute top-0 left-0 z-0;
+	@apply size-full;
+	@apply transition scale-100;
+}
+
+.content {
+	@apply relative z-3;
+}
+
+.title {
+	@apply mt-0;
+	@apply text-2xl text-white font-semibold;
+}
+
+.services {
+	@apply relative z-3;
+	@apply w-full mb-2;
+
+	[class*='mantine-Badge-root'] {
+		@apply font-medium;
+	}
+}
+
+.icon {
+	@apply absolute top-4 right-4 z-4;
+	@apply text-white;
+	@apply transition duration-500 translate-0;
+
+	svg {
+		@apply size-10;
+	}
+}

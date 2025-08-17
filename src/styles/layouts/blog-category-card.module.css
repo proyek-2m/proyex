@@ -1,0 +1,18 @@
+@reference '../global.css';
+
+.card {
+	@apply items-center;
+	@apply h-full;
+	@apply bg-white;
+	@apply transition cursor-pointer;
+	box-shadow: var(--shadow);
+
+	&:hover {
+		@apply border-primary;
+	}
+}
+
+.title {
+	@apply mt-0;
+	@apply text-lg font-bold leading-snug text-primary;
+}

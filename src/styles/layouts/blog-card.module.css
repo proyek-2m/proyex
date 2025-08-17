@@ -1,0 +1,84 @@
+@reference '../global.css';
+
+.card {
+	@apply h-full;
+	@apply bg-white;
+	box-shadow: var(--shadow);
+
+	&:hover {
+		.thumbnail img {
+			@apply scale-105;
+		}
+	}
+}
+
+.category {
+	@apply absolute top-3 right-3 z-2;
+	@apply max-w-[calc(100%-24px)];
+	@apply cursor-pointer;
+}
+
+.thumbnail {
+	@apply relative overflow-hidden;
+	@apply w-full aspect-[3/2];
+	@apply flex items-start;
+
+	img {
+		@apply size-full;
+		@apply bg-gray-100;
+		@apply transition duration-1000 scale-100;
+	}
+}
+
+.content {
+	@apply flex flex-col;
+	@apply h-full md:px-2 md:pb-2;
+}
+
+.title {
+	@apply mt-0;
+	@apply text-md sm:text-lg md:line-clamp-2 font-bold leading-snug;
+	@apply hover:text-secondary;
+}
+
+.excerpt {
+	@apply hidden sm:block;
+}
+
+.author {
+	--avatar-size: 40px;
+	@apply w-full pt-6 mt-auto;
+	@apply flex items-start;
+
+	@media all and (max-width: theme(--breakpoint-sm)) {
+		--avatar-size: 32px;
+	}
+
+	.avatar {
+		@apply relative overflow-hidden;
+		@apply size-[var(--avatar-size)];
+		@apply rounded-full;
+
+		img {
+			@apply size-full;
+		}
+	}
+
+	.profile {
+		@apply w-[calc(100%-var(--avatar-size))] pl-3;
+	}
+
+	.name_profile {
+		@apply text-sm font-semibold line-clamp-1;
+		@apply hover:text-secondary;
+	}
+
+	.position_profile {
+		@apply text-xs font-medium text-secondary;
+		@apply mt-0 sm:mt-1;
+
+		a:hover {
+			@apply underline;
+		}
+	}
+}

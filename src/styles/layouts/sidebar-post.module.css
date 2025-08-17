@@ -1,0 +1,59 @@
+@reference '../global.css';
+
+.sidebar_inner {
+	@apply lg:sticky top-32;
+}
+
+.author {
+	--avatar-size: 80px;
+	@apply w-full;
+	@apply flex items-center;
+
+	@media all and (max-width: theme(--breakpoint-lg)) {
+		--avatar-size: 66px;
+		@apply p-3 pr-12;
+		@apply bg-white rounded-lg;
+		box-shadow: var(--shadow);
+	}
+
+	.avatar {
+		@apply relative overflow-hidden;
+		@apply size-[var(--avatar-size)];
+		@apply rounded-full;
+
+		img {
+			@apply size-full;
+		}
+	}
+
+	.profile {
+		@apply w-[calc(100%-var(--avatar-size))] pl-3;
+	}
+
+	.name_profile {
+		@apply md:text-sm font-semibold line-clamp-1;
+		@apply hover:text-secondary;
+	}
+
+	.position_profile {
+		@apply text-sm md:text-xs font-medium text-secondary;
+		@apply mt-1;
+
+		a:hover {
+			@apply underline;
+		}
+	}
+}
+
+.share {
+	@apply lg:mt-6;
+
+	@media all and (max-width: theme(--breakpoint-lg)) {
+		@apply absolute top-0 right-0;
+		@apply h-full;
+
+		.share_inner {
+			@apply sticky top-20 sm:top-32 z-10;
+		}
+	}
+}

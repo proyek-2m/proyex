@@ -1,0 +1,39 @@
+@reference '../global.css';
+
+.heading {
+	--avatar-size: 120px;
+	@apply w-full pt-10 md:pt-16;
+	@apply flex items-center;
+
+	@media all and (max-width: theme(--breakpoint-md)) {
+		--avatar-size: 80px;
+	}
+
+	&[data-gender='female'] {
+		.avatar {
+			@apply border-pink/20 border-4;
+		}
+	}
+
+	.avatar {
+		@apply relative overflow-hidden;
+		@apply size-[var(--avatar-size)];
+		@apply rounded-full;
+
+		img {
+			@apply size-full;
+		}
+	}
+
+	.profile {
+		@apply w-[calc(100%-var(--avatar-size))] pl-6;
+	}
+
+	.positions {
+		@apply text-sm font-medium text-secondary;
+
+		a:hover {
+			@apply underline;
+		}
+	}
+}

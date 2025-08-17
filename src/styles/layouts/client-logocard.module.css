@@ -1,0 +1,31 @@
+@reference '../global.css';
+
+.card {
+	@apply h-full;
+	@apply bg-white;
+	@apply cursor-pointer;
+	@apply transition;
+
+	&:hover {
+		@apply border-secondary bg-secondary-50/50;
+
+		.title {
+			@apply text-secondary;
+		}
+	}
+}
+
+.thumbnail {
+	@apply relative overflow-hidden;
+	@apply size-20 max-w-full mb-sm mx-auto;
+	@apply flex justify-center items-center;
+
+	img {
+		@apply size-full;
+		@apply object-contain;
+	}
+}
+
+.title {
+	@apply text-xs text-center font-medium leading-snug;
+}

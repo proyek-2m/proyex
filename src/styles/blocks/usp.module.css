@@ -1,0 +1,58 @@
+@reference '../global.css';
+
+.usps {
+	@apply grid grid-cols-1 grid-rows-2 gap-2 md:gap-6 md:grid-cols-4 md:grid-rows-1;
+}
+
+.usp {
+	--size-clip: 36px;
+	@apply relative overflow-hidden z-10;
+	@apply block;
+	@apply size-full mt-0 px-4 pt-5 pb-[18px];
+	@apply transition;
+	@apply rounded-lg rounded-tr-[26px];
+	@apply bg-white shadow-[inset_0_0_0_1px] shadow-gray-200;
+
+	&:hover {
+		--size-clip: 42px;
+		&:after {
+			@apply shadow-lg shadow-gray-200;
+		}
+	}
+
+	&::before {
+		@apply content-[''] absolute top-0 right-0 z-3;
+		@apply size-[var(--size-clip)] shadow-[0_1px_0_0_] shadow-gray-200;
+		@apply translate-x-1/2 -translate-y-1/2 rotate-45 transition-all;
+	}
+
+	&::after {
+		@apply content-[''] absolute top-0 right-0 z-2;
+		@apply size-[var(--size-clip)] hover:size-[50px];
+		@apply border border-gray-200 bg-white;
+		@apply rounded-bl-lg hover:rounded-tr-[45px];
+		@apply translate-x-2 -translate-y-2 transition-all;
+	}
+}
+
+.heading {
+	@apply relative flex items-center gap-2;
+	@apply text-primary;
+
+	&::before {
+		@apply content-[''] absolute top-0 -left-4;
+		@apply h-full w-[3px] rounded-r-sm bg-current;
+	}
+
+	.icon {
+		@apply w-auto h-5;
+	}
+
+	.title {
+		@apply text-sm font-semibold;
+
+		strong {
+			@apply font-extrabold;
+		}
+	}
+}

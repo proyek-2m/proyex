@@ -1,0 +1,65 @@
+@reference '../global.css';
+
+.footer {
+	@apply relative;
+	@apply w-[calc(100%-32px)] mx-auto max-w-[var(--container)];
+	@apply flex flex-wrap;
+}
+
+.branding {
+	@apply w-full mr-auto lg:w-auto;
+	@apply flex justify-between flex-wrap lg:flex-col lg:justify-start;
+}
+
+.logo {
+	@apply order-1;
+	@apply size-[60px];
+	@apply flex items-start;
+
+	img {
+		@apply size-full;
+		@apply object-contain;
+	}
+}
+
+.desc {
+	@apply w-full mt-4;
+	@apply order-3 lg:order-2;
+}
+
+.colophon {
+	@apply order-2 lg:order-3;
+	@apply mt-auto lg:pt-10;
+}
+
+.socials {
+	@apply mb-1 flex items-center gap-1;
+}
+
+.copyright {
+	@apply hidden lg:inline;
+	@apply ml-2;
+	@apply text-sm;
+}
+
+.navigation {
+	@apply w-1/2 mt-10 pl-2;
+	@apply sm:w-auto sm:min-w-44 lg:mt-0 lg:pl-0;
+
+	.title_nav {
+		@apply text-base font-semibold;
+		@apply mb-4;
+	}
+
+	.menu_nav {
+		@apply text-sm text-gray;
+
+		li + li {
+			@apply mt-2;
+		}
+
+		a:hover {
+			@apply text-[var(--primary-color)];
+		}
+	}
+}

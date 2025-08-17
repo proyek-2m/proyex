@@ -1,0 +1,49 @@
+@reference '../global.css';
+
+.grid {
+	@apply h-full;
+	@apply bg-white;
+
+	&:hover {
+		.thumbnail img {
+			@apply scale-110;
+		}
+	}
+
+	&[data-gender='female'] {
+		.title:hover {
+			@apply text-pink;
+		}
+	}
+}
+
+.thumbnail {
+	@apply relative overflow-hidden;
+	@apply w-full aspect-[3/4] mb-4 mx-auto;
+	@apply flex justify-center items-center;
+	@apply rounded-lg;
+
+	img {
+		@apply size-full;
+		@apply bg-gray-100;
+		@apply transition scale-100;
+	}
+}
+
+.title {
+	@apply text-lg text-center font-bold leading-snug line-clamp-2;
+	@apply hover:text-primary;
+}
+
+.positions {
+	@apply gap-x-1 gap-y-0;
+	@apply text-body;
+
+	a {
+		@apply text-inherit;
+
+		&:hover {
+			@apply text-primary;
+		}
+	}
+}

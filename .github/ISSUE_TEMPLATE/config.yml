@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+    - name: 💬 Diskusi & Tanya Jawab
+      url: https://github.com/proyek-2m/proyex/discussions
+      about: Untuk pertanyaan umum, ide, atau diskusi yang bukan bug/fitur.
+    - name: 🙌 Panduan Kontribusi
+      url: https://github.com/proyek-2m/proyex/blob/main/CONTRIBUTING.md
+      about: Pelajari cara berkontribusi ke proyek ini.

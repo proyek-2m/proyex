@@ -1,0 +1,79 @@
+@reference '../global.css';
+
+.social_map {
+	@apply relative;
+
+	@media all and (min-width: theme(--breakpoint-md)) {
+		&[data-position='top'] {
+			@apply pt-16;
+
+			.socials {
+				@apply top-0;
+			}
+		}
+
+		&[data-position='center'] {
+			.socials {
+				@apply top-1/2;
+				@apply -translate-y-1/2;
+			}
+		}
+
+		&[data-position='bottom'] {
+			@apply pb-16;
+
+			.socials {
+				@apply bottom-0;
+			}
+		}
+	}
+}
+
+.gmap {
+	@apply relative z-1;
+	@apply w-full aspect-video;
+	@apply bg-gray-100;
+	@apply pointer-events-none;
+}
+
+.socials {
+	@apply relative md:absolute left-0 z-3;
+	@apply w-full px-4 md:px-10 -mt-10 md:mt-0;
+}
+
+.social_card {
+	--size-icon: 48px;
+	@apply p-4 md:p-6;
+	@apply bg-white/60 hover:bg-white backdrop-blur-sm;
+	@apply transition;
+	box-shadow: var(--shadow);
+
+	.heading_social {
+		@apply relative;
+		@apply min-h-[var(--size-icon)];
+
+		.icon {
+			@apply absolute top-0 left-0;
+			@apply size-[var(--size-icon)] p-3.5;
+			@apply flex items-center justify-center;
+			@apply bg-gradient-to-r from-current/25 to-current/5;
+			@apply rounded-full;
+
+			svg {
+				@apply size-full;
+			}
+		}
+
+		.title {
+			@apply w-[calc(100%-var(--size-icon))] pt-2 pl-3 ml-auto;
+			@apply block;
+			@apply text-lg font-semibold;
+		}
+	}
+
+	.label {
+		@apply w-[calc(100%-var(--size-icon))] mt-1 pl-3 ml-auto;
+		@apply block;
+		@apply text-dark-300;
+	}
+}

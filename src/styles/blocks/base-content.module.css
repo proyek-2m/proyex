@@ -1,0 +1,43 @@
+@reference '../global.css';
+
+.base_content {
+	@apply flex flex-col items-start;
+
+	&[data-align='right'] {
+		@apply items-end;
+		@apply text-right;
+	}
+
+	&[data-align='center'] {
+		@apply items-center;
+		@apply text-center;
+	}
+}
+
+.featured_text {
+	@apply inline-block;
+	@apply p-0 pl-4 mr-0;
+	@apply bg-transparent shadow-none;
+
+	&::before {
+		@apply top-0 bottom-0;
+		@apply w-1;
+	}
+
+	[class*='mantine-Notification-body'] {
+		@apply mr-0;
+	}
+
+	[class*='mantine-Notification-description'] {
+		@apply text-base font-bold text-[var(--notification-color)];
+
+		b,
+		strong {
+			@apply font-black;
+		}
+	}
+
+	& + [data-slot='rich-text'] {
+		@apply mt-1;
+	}
+}

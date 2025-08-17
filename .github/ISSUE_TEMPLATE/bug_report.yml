@@ -1,0 +1,52 @@
+name: 🐛 Bug Report
+description: Laporkan bug untuk membantu kami memperbaiki masalah
+title: '[BUG] '
+labels: ['bug']
+assignees: []
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Terima kasih sudah melaporkan bug! 🙏  
+              Mohon isi form ini agar tim bisa mereproduksi dan memperbaikinya.
+    - type: input
+      id: summary
+      attributes:
+          label: Ringkasan Bug
+          description: Jelaskan bug secara singkat.
+          placeholder: 'Contoh: Error saat klik tombol Simpan'
+      validations:
+          required: true
+    - type: textarea
+      id: steps
+      attributes:
+          label: Langkah Reproduksi
+          description: Langkah apa saja untuk memunculkan bug?
+          placeholder: |
+              1. Buka halaman X
+              2. Klik tombol Y
+              3. Lihat error
+      validations:
+          required: true
+    - type: textarea
+      id: expected
+      attributes:
+          label: Perilaku yang Diharapkan
+          description: Apa yang seharusnya terjadi?
+          placeholder: 'Data tersimpan dengan benar'
+      validations:
+          required: true
+    - type: textarea
+      id: actual
+      attributes:
+          label: Perilaku yang Terjadi
+          description: Apa yang sebenarnya terjadi?
+          placeholder: 'Muncul error 500'
+      validations:
+          required: true
+    - type: input
+      id: environment
+      attributes:
+          label: Lingkungan
+          description: Versi atau kondisi lingkungan saat bug terjadi
+          placeholder: 'OS, Browser, Node.js version'

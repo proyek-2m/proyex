@@ -1,0 +1,32 @@
+@reference '../global.css';
+
+.content_media {
+	@apply flex items-center flex-wrap;
+
+	.content,
+	.media {
+		@apply w-full;
+	}
+
+	.actions {
+		@apply mt-lg;
+	}
+
+	.content {
+		@apply md:w-2/5;
+	}
+
+	.media {
+		@apply md:w-3/5;
+	}
+
+	&[data-mobile-position='media-content'] .media {
+		@apply -order-1 md:order-2;
+	}
+
+	&[data-desktop-position='media-content'] {
+		.media {
+			@apply md:-order-1;
+		}
+	}
+}

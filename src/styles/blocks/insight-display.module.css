@@ -1,0 +1,55 @@
+@reference '../global.css';
+
+.pattern {
+	@apply absolute left-0 z-[2];
+	@apply w-[var(--size-pattern)] h-full;
+	@apply opacity-10;
+
+	& + .pattern {
+		@apply left-auto right-0;
+	}
+
+	.svg {
+		@apply size-full;
+		@apply border-r border-current stroke-current;
+	}
+}
+
+.insight_display {
+	--size-pattern: 80px;
+	@apply relative overflow-hidden;
+	@apply w-full py-10 sm:py-14 md:py-20;
+	@apply flex flex-col justify-center;
+
+	&[data-align='center'] {
+		@apply mx-auto;
+		@apply justify-center;
+		@apply text-center;
+	}
+
+	&[data-align='right'] {
+		@apply ml-auto;
+		@apply justify-end;
+		@apply text-right;
+	}
+}
+
+.content {
+	@apply w-[calc(100%-32px-(var(--size-pattern)*2))] max-w-xl mx-auto;
+
+	.featured_text {
+		@apply text-sm md:text-base font-bold;
+		@apply mb-1 sm:mb-4;
+	}
+}
+
+.media {
+	@apply w-[calc(100%-32px-(var(--size-pattern)*2))] max-w-4xl mx-auto mt-8 sm:mt-12;
+	@apply aspect-[16/9];
+}
+
+@media all and (max-width: theme(--breakpoint-sm)) {
+	.insight_display {
+		--size-pattern: 16px;
+	}
+}

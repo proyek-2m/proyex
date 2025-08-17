@@ -1,0 +1,29 @@
+@reference '../global.css';
+
+.card_form {
+	@apply lg:p-20;
+	@apply bg-white rounded-lg md:rounded-4xl;
+	box-shadow: var(--shadow-lg);
+
+	@media all and (max-width: theme(--breakpoint-sm)) {
+		@apply !p-5;
+	}
+
+	@media all and (min-width: theme(--breakpoint-sm)) and (max-width: theme(--breakpoint-lg)) {
+		@apply !p-14;
+	}
+
+	.content {
+		@apply text-center;
+		@apply mb-8;
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			@apply text-primary;
+		}
+	}
+}

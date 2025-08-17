@@ -1,0 +1,19 @@
+@reference '../global.css';
+
+.actions {
+	@apply flex flex-wrap;
+
+	&[data-direction='column'] {
+		@apply flex-col items-start;
+	}
+
+	&[data-align='center'] {
+		@apply mx-auto;
+		@apply items-center justify-center;
+	}
+
+	&[data-align='right'] {
+		@apply ml-auto;
+		@apply items-end justify-end;
+	}
+}

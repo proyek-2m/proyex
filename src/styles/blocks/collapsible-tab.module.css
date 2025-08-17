@@ -1,0 +1,7 @@
+@reference '../global.css';
+
+.chevron {
+	&[data-rotate] {
+		transform: rotate(45deg);
+	}
+}

@@ -1,0 +1,87 @@
+@reference '../global.css';
+
+.card {
+	@apply relative overflow-hidden;
+	@apply flex items-stretch flex-wrap;
+	@apply w-full;
+	@apply rounded-xl;
+	@apply bg-gray-50;
+	@apply cursor-pointer;
+	box-shadow: var(--shadow);
+
+	&:hover {
+		.thumbnail img {
+			@apply scale-105;
+		}
+	}
+
+	.thumbnail {
+		@apply relative overflow-hidden;
+		@apply w-full sm:w-1/2 sm:h-full sm:min-h-md aspect-[4/3] sm:aspect-auto;
+		@apply -order-1 sm:order-2;
+
+		img {
+			@apply absolute top-0 left-0 z-1;
+			@apply size-full;
+			@apply transition;
+		}
+	}
+
+	.content {
+		@apply w-full sm:w-1/2 p-5 md:p-10;
+	}
+}
+
+.logo {
+	@apply flex items-center justify-center;
+	@apply w-20 aspect-square mb-4;
+
+	img {
+		@apply size-full;
+		@apply object-contain;
+	}
+}
+
+.title {
+	@apply text-xl font-bold leading-tight;
+	@apply mt-0;
+
+	&:hover {
+		@apply text-primary;
+	}
+}
+
+.story {
+	@apply mt-1;
+}
+
+.author {
+	--avatar-size: 48px;
+	@apply w-full pt-6 mt-auto;
+	@apply flex items-start;
+
+	.avatar {
+		@apply relative overflow-hidden;
+		@apply size-[var(--avatar-size)];
+		@apply rounded-full;
+
+		img {
+			@apply size-full;
+		}
+	}
+
+	.profile {
+		@apply flex flex-col;
+		@apply w-[calc(100%-var(--avatar-size))] pl-3;
+	}
+
+	.name_profile {
+		@apply text-sm font-semibold line-clamp-1;
+		@apply mt-0.5;
+	}
+
+	.position_profile {
+		@apply text-xs font-medium text-secondary;
+		@apply mt-1;
+	}
+}

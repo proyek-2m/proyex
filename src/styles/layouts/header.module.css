@@ -1,0 +1,76 @@
+@reference '../global.css';
+
+[role='banner'] + .header {
+	@apply fixed;
+}
+
+.header {
+	@apply sticky top-0 z-max;
+	@apply w-full max-h-full p-2 md:p-4;
+	@apply flex flex-col;
+}
+
+.inner {
+	@apply w-full max-h-full mx-auto max-w-[var(--container)] px-4 py-2 md:py-4;
+	@apply flex items-center flex-wrap;
+	@apply rounded-md md:rounded-lg bg-white/80 shadow-xl shadow-gray-100;
+	@apply backdrop-blur-sm transition;
+}
+
+.branding {
+	@apply lg:w-1/4;
+}
+
+.navigation_desktop {
+	@apply w-1/2;
+
+	.menu {
+		@apply flex items-center justify-center;
+		@apply font-medium;
+		@apply gap-6;
+	}
+
+	a:hover,
+	a[aria-expanded='true'] {
+		@apply text-primary;
+	}
+}
+
+.actions_desktop {
+	@apply w-1/4;
+	@apply flex justify-end;
+}
+
+.logo {
+	@apply size-[34px] md:size-[48px];
+	@apply flex items-start;
+
+	img {
+		@apply size-full;
+		@apply object-contain;
+	}
+}
+
+.menu_action {
+	@apply ml-auto;
+}
+
+.navigation_mobile {
+	@apply absolute top-[calc(100%+8px)] left-0 z-50;
+	@apply w-full max-h-[calc(100dvh-100%-28px)] p-6;
+	@apply rounded-md bg-white shadow-xl shadow-gray-100;
+	@apply overflow-auto;
+
+	.menu {
+		@apply flex flex-col;
+		@apply gap-4;
+		@apply font-semibold;
+
+		& + .actions_mobile {
+			@apply mt-4;
+		}
+	}
+}
+
+@media (min-width: theme(--breakpoint-lg)) {
+}

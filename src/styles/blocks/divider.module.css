@@ -1,0 +1,18 @@
+@reference '../global.css';
+
+.wrapper {
+	@apply relative z-[-1];
+}
+
+.divider {
+	@apply bg-linear-to-l from-[var(--color)]/5 via-[var(--color)] to-[var(--color)]/5;
+}
+
+.icon {
+	@apply absolute top-1/2 left-1/2 z-[2];
+	@apply inline-block;
+	@apply w-16 h-full min-h-8 px-2;
+	@apply text-primary/60;
+	@apply bg-white;
+	@apply -translate-1/2;
+}

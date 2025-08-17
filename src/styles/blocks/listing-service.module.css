@@ -1,0 +1,10 @@
+@reference '../global.css';
+
+.listing {
+	@apply grid grid-cols-1 gap-8;
+	@apply md:grid-cols-[repeat(var(--column),minmax(0,1fr))] md:gap-[var(--gap)] md:gap-y-[var(--gap-y)];
+
+	&[class*='infinite-scroll-component'] {
+		@apply !overflow-visible;
+	}
+}

@@ -1,0 +1,62 @@
+@reference '../global.css';
+
+.solutions {
+	@apply relative overflow-hidden;
+	@apply lg:py-10;
+
+	[class*='container'] {
+		@apply relative;
+	}
+
+	&[data-align='center'] .content {
+		@apply mx-auto;
+		@apply justify-center;
+		@apply text-center;
+	}
+
+	&[data-align='right'] .content {
+		@apply ml-auto;
+		@apply justify-end;
+		@apply text-right;
+	}
+
+	&[data-mobile-position='media-content'] .media,
+	&[data-mobile-position='content-media'] .content {
+		@apply -order-1 md:order-2;
+		@apply mb-4 lg:mb-0;
+	}
+
+	&[data-desktop-position='content-media'] {
+		.content {
+			@apply md:pr-10 lg:pr-[var(--gap)];
+			@apply md:-order-1;
+		}
+	}
+
+	&[data-desktop-position='media-content'] {
+		.content {
+			@apply md:pl-10 lg:pl-[var(--gap)];
+		}
+
+		.media {
+			@apply md:-order-1;
+		}
+	}
+}
+
+.grid {
+	@apply gap-10 lg:gap-[var(--gap-y)];
+}
+
+.content_wrapper {
+	@apply flex flex-col justify-center;
+}
+
+.content {
+	@apply flex flex-col justify-center;
+}
+
+.media {
+	@apply relative;
+	@apply mb-4 md:mb-0;
+}

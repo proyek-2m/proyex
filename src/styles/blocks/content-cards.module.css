@@ -1,0 +1,13 @@
+@reference '../global.css';
+
+.card {
+	@apply relative;
+	@apply w-full;
+	@apply p-6 py-8 pb-16 sm:p-10 lg:p-16 md:pb-24;
+
+	.icon {
+		@apply absolute bottom-4 right-4 md:bottom-8 md:right-8 -z-1;
+		@apply size-16 md:size-20;
+		@apply text-[var(--icon-color)];
+	}
+}

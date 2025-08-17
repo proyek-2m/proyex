@@ -1,0 +1,39 @@
+name: ✨ Feature Request
+description: Ajukan ide atau permintaan fitur baru
+title: '[FEATURE] '
+labels: ['enhancement']
+assignees: []
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Terima kasih sudah berbagi ide! 🚀  
+              Mohon isi detail berikut agar tim bisa memahami kebutuhan fitur.
+    - type: textarea
+      id: problem
+      attributes:
+          label: Masalah yang Ingin Diselesaikan
+          description: Apa masalah yang kamu hadapi sehingga butuh fitur ini?
+          placeholder: 'Contoh: Sulit melacak kontribusi Warga2M...'
+      validations:
+          required: true
+    - type: textarea
+      id: solution
+      attributes:
+          label: Solusi yang Diusulkan
+          description: Jelaskan fitur atau solusi yang kamu pikirkan.
+          placeholder: 'Tambahkan dashboard tracking kontribusi...'
+      validations:
+          required: true
+    - type: textarea
+      id: alternatives
+      attributes:
+          label: Alternatif Lain yang Dipertimbangkan
+          description: Apakah ada cara lain yang kamu pikirkan?
+          placeholder: 'Menggunakan spreadsheet manual...'
+    - type: textarea
+      id: additional
+      attributes:
+          label: Informasi Tambahan
+          description: Tambahan konteks, referensi, atau mockup.
+          placeholder: 'Screenshot, link, dsb.'

@@ -1,0 +1,9 @@
+@reference '../global.css';
+
+.listing {
+	@apply flex flex-wrap justify-center;
+
+	& > * {
+		@apply w-1/2 md:w-[calc(100%/var(--column))];
+	}
+}

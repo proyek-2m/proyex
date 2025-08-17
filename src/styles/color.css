@@ -1,0 +1,122 @@
+html[lang]:root {
+	--black-color: var(--mantine-color-black);
+	--white-color: var(--mantine-color-white);
+
+	--red-color: var(--color-red-500);
+	--red-soft-color: var(--color-red-100);
+	--red-dark-color: var(--color-red-800);
+
+	--orange-color: var(--color-orange-500);
+	--orange-soft-color: var(--color-orange-100);
+	--orange-dark-color: var(--color-orange-800);
+
+	--amber-color: var(--color-amber-500);
+	--amber-soft-color: var(--color-amber-100);
+	--amber-dark-color: var(--color-amber-800);
+
+	--yellow-color: var(--color-yellow-500);
+	--yellow-soft-color: var(--color-yellow-100);
+	--yellow-dark-color: var(--color-yellow-800);
+
+	--lime-color: var(--color-lime-500);
+	--lime-soft-color: var(--color-lime-100);
+	--lime-dark-color: var(--color-lime-800);
+
+	--green-color: var(--color-green-500);
+	--green-soft-color: var(--color-green-100);
+	--green-dark-color: var(--color-green-800);
+
+	--emerald-color: var(--color-emerald-500);
+	--emerald-soft-color: var(--color-emerald-100);
+	--emerald-dark-color: var(--color-emerald-800);
+
+	--teal-color: var(--color-teal-500);
+	--teal-soft-color: var(--color-teal-100);
+	--teal-dark-color: var(--color-teal-800);
+
+	--cyan-color: var(--color-cyan-500);
+	--cyan-soft-color: var(--color-cyan-100);
+	--cyan-dark-color: var(--color-cyan-800);
+
+	--sky-color: var(--color-sky-500);
+	--sky-soft-color: var(--color-sky-100);
+	--sky-dark-color: var(--color-sky-800);
+
+	--blue-color: var(--color-blue-500);
+	--blue-soft-color: var(--color-blue-100);
+	--blue-dark-color: var(--color-blue-800);
+
+	--indigo-color: var(--color-indigo-500);
+	--indigo-soft-color: var(--color-indigo-100);
+	--indigo-dark-color: var(--color-indigo-800);
+
+	--violet-color: var(--color-violet-500);
+	--violet-soft-color: var(--color-violet-100);
+	--violet-dark-color: var(--color-violet-800);
+
+	--purple-color: var(--color-purple-500);
+	--purple-soft-color: var(--color-purple-100);
+	--purple-dark-color: var(--color-purple-800);
+
+	--fuchsia-color: var(--color-fuchsia-500);
+	--fuchsia-soft-color: var(--color-fuchsia-100);
+	--fuchsia-dark-color: var(--color-fuchsia-800);
+
+	--pink-color: var(--color-pink-500);
+	--pink-soft-color: var(--color-pink-100);
+	--pink-dark-color: var(--color-pink-800);
+
+	--rose-color: var(--color-rose-500);
+	--rose-soft-color: var(--color-rose-100);
+	--rose-dark-color: var(--color-rose-800);
+
+	--slate-color: var(--color-slate-500);
+	--slate-soft-color: var(--color-slate-100);
+	--slate-dark-color: var(--color-slate-800);
+
+	--gray-color: var(--color-gray-500);
+	--gray-soft-color: var(--color-gray-50);
+	--gray-dark-color: var(--color-gray-800);
+
+	--zinc-color: var(--color-zinc-500);
+	--zinc-soft-color: var(--color-zinc-100);
+	--zinc-dark-color: var(--color-zinc-800);
+
+	--neutral-color: var(--color-neutral-500);
+	--neutral-soft-color: var(--color-neutral-100);
+	--neutral-dark-color: var(--color-neutral-800);
+
+	--stone-color: var(--color-stone-500);
+	--stone-soft-color: var(--color-stone-100);
+	--stone-dark-color: var(--color-stone-800);
+
+	--primary-color: var(--color-primary-400);
+	--primary-soft-color: var(--color-primary-50);
+	--primary-dark-color: var(--color-primary-600);
+
+	--secondary-color: var(--color-secondary-800);
+	--secondary-soft-color: var(--color-secondary-50);
+	--secondary-dark-color: var(--color-secondary-900);
+
+	--text-base-color: var(--black-color);
+
+	--mantine-color-primary-filled: var(--primary-color);
+	--mantine-color-primary-filled-color: var(--primary-soft-color);
+	--mantine-color-primary-filled-hover: var(--primary-dark-color);
+	--mantine-color-primary-light: var(--primary-soft-color);
+	--mantine-color-primary-light-color: var(--primary-color);
+	--mantine-color-primary-light-hover: var(--primary-soft-color);
+	--mantine-color-primary-outline: var(--primary-color);
+	--mantine-color-primary-outline-color: var(--primary-color);
+	--mantine-color-primary-outline-hover: var(--primary-soft-color);
+
+	--mantine-color-secondary-filled: var(--secondary-color);
+	--mantine-color-secondary-filled-color: var(--secondary-soft-color);
+	--mantine-color-secondary-filled-hover: var(--secondary-dark-color);
+	--mantine-color-secondary-light: var(--secondary-soft-color);
+	--mantine-color-secondary-light-color: var(--secondary-color);
+	--mantine-color-secondary-light-hover: var(--secondary-soft-color);
+	--mantine-color-secondary-outline: var(--secondary-color);
+	--mantine-color-secondary-outline-color: var(--secondary-color);
+	--mantine-color-secondary-outline-hover: var(--secondary-soft-color);
+}

@@ -1,0 +1,60 @@
+@reference '../global.css';
+
+.heading_listing {
+	@apply flex items-center justify-between flex-wrap;
+
+	.content,
+	.actions {
+		@apply w-full;
+	}
+
+	@media all and (min-width: theme(--breakpoint-md)) {
+		&[data-align='center'] {
+			@apply justify-center;
+			@apply text-center;
+
+			.content {
+				@apply max-w-2xl;
+
+				& + .actions {
+					@apply mt-xs;
+				}
+			}
+		}
+
+		&[data-align='between'] {
+			@media all and (min-width: theme(--breakpoint-md)) {
+				.content,
+				.actions {
+					@apply w-auto;
+				}
+
+				.content {
+					@apply max-w-3/5;
+				}
+
+				.actions {
+					@apply max-w-2/5;
+				}
+			}
+		}
+	}
+
+	@media all and (max-width: theme(--breakpoint-md)) {
+		@apply justify-center;
+		@apply text-center;
+
+		.content {
+			@apply items-center;
+
+			& + .actions {
+				@apply mt-xs;
+			}
+		}
+
+		.actions {
+			@apply justify-center;
+			@apply mx-auto;
+		}
+	}
+}

@@ -1,0 +1,52 @@
+@reference '../global.css';
+
+.content_icon_grid {
+	@apply relative overflow-hidden;
+	@apply flex items-stretch flex-wrap;
+
+	.content,
+	.usps {
+		@apply w-full md:w-1/2;
+	}
+
+	.content {
+		@apply md:max-w-md;
+	}
+
+	.actions {
+		@apply mt-xs;
+	}
+
+	&[data-position='content-usps'] {
+		.content {
+			@apply mb-xl md:pr-10 md:mr-auto md:mb-0;
+		}
+	}
+
+	&[data-position='usps-content'] {
+		.usps {
+			@apply -order-1;
+		}
+
+		.content {
+			@apply mt-xl md:pl-10 md:ml-auto md:mt-0;
+		}
+	}
+}
+
+.usps {
+	.icon {
+		@apply size-10 mb-sm md:mb-md;
+		@apply text-primary;
+	}
+
+	.title {
+		@apply text-lg font-semibold leading-snug;
+		@apply mt-0;
+		@apply mb-xs;
+	}
+
+	.usp_content {
+		@apply text-sm;
+	}
+}

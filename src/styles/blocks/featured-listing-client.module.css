@@ -1,0 +1,10 @@
+@reference '../global.css';
+
+.heading_listing {
+	@apply mb-10;
+}
+
+.listing {
+	@apply grid grid-cols-2 gap-3;
+	@apply md:grid-cols-[repeat(var(--column),minmax(0,1fr))] md:gap-[var(--gap)] md:gap-y-[var(--gap-y)];
+}

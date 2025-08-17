@@ -1,0 +1,49 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"lib": ["DOM", "DOM.Iterable", "ES2022"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"noImplicitAny": true,
+		"verbatimModuleSyntax": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"$root/*": ["./src/*"],
+			"$payload-blocks/*": ["./src/admin/blocks/*"],
+			"$payload-config": ["./src/payload.config.ts"],
+			"$payload-global/*": ["./src/admin/global/*"],
+			"$payload-collections/*": ["./src/admin/collections/*"],
+			"$payload-fields/*": ["./src/admin/fields/*"],
+			"$payload-libs/*": ["./src/lib/payload/*"],
+			"$payload-types": ["./src/payload-types.ts"],
+			"$type": ["./src/lib/type.ts"],
+			"$hooks/*": ["./src/lib/hooks/*"],
+			"$utils/*": ["./src/lib/utils/*"],
+			"$modules/*": ["./src/lib/modules/*"],
+			"$seo/*": ["./src/lib/seo/*"],
+			"$styles/*": ["./src/styles/*"],
+			"$server-functions/*": ["./src/lib/server-functions/*"],
+			"$templates/*": ["src/ui/templates/*"],
+			"$components/*": ["src/ui/components/*"],
+			"$icons/*": ["src/ui/icons/*"],
+			"$layouts/*": ["src/ui/layouts/*"],
+			"$blocks/*": ["src/ui/blocks/*"]
+		},
+		"target": "ES2022"
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
+}

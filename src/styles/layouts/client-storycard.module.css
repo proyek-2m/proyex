@@ -1,0 +1,55 @@
+@reference '../global.css';
+
+.card {
+	@apply relative;
+	@apply h-full pt-10;
+	@apply bg-white border-white;
+	box-shadow: var(--shadow);
+
+	.icon {
+		@apply absolute top-3 right-3 z-1;
+		@apply size-10;
+		@apply text-secondary;
+		@apply opacity-40;
+	}
+}
+
+.title {
+	@apply text-lg font-semibold leading-snug;
+	@apply mt-0;
+
+	a {
+		@apply hover:text-primary;
+	}
+}
+
+.author {
+	--avatar-size: 48px;
+	@apply w-full pt-6 mt-auto;
+	@apply flex items-start;
+
+	.avatar {
+		@apply relative overflow-hidden;
+		@apply size-[var(--avatar-size)];
+		@apply rounded-full;
+
+		img {
+			@apply size-full;
+		}
+	}
+
+	.profile {
+		@apply flex flex-col;
+		@apply w-[calc(100%-var(--avatar-size))] pl-3;
+	}
+
+	.name_profile {
+		@apply text-sm font-semibold line-clamp-1;
+		@apply mt-0.5;
+	}
+
+	.position_profile {
+		@apply text-xs font-medium text-secondary;
+		@apply mt-1;
+	}
+}

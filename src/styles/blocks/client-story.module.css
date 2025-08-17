@@ -1,0 +1,66 @@
+@reference '../global.css';
+
+.wrapper {
+	@apply relative overflow-hidden;
+
+	&::before {
+		@apply content-[''] absolute top-0 left-0 z-[2];
+		@apply size-full;
+		@apply bg-gradient-to-b from-[var(--bg-color)]/80 to-white/98 to-100%;
+	}
+}
+
+.inner {
+	@apply relative z-[3];
+	@apply lg:p-28;
+
+	@media all and (max-width: theme(--breakpoint-md)) {
+		@apply !p-10 !pt-16;
+	}
+
+	@media all and (min-width: theme(--breakpoint-md)) and (max-width: theme(--breakpoint-lg)) {
+		@apply p-14;
+	}
+}
+
+.background_image {
+	@apply absolute top-0 left-0;
+	@apply size-full;
+	@apply blur-2xl opacity-40;
+}
+
+.foreground_image {
+	@apply absolute top-0 left-0 z-[1];
+	@apply size-full;
+	animation: zoomInOut 20s infinite;
+}
+
+.story {
+	@apply text-2xl leading-relaxed font-semibold sm:text-3xl;
+
+	&::before {
+		@apply content-['"'] text-primary text-6xl leading-0 italic font-black;
+	}
+}
+
+.avatar {
+	@apply size-14;
+	@apply rounded-full;
+}
+
+.client {
+	@apply mt-6 md:mt-14;
+	@apply flex flex-col items-start gap-4 sm:flex-row sm:items-center;
+}
+
+@keyframes zoomInOut {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

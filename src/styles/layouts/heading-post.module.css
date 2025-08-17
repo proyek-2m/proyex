@@ -1,0 +1,5 @@
+@reference '../global.css';
+
+.heading {
+	@apply w-full pr-12 md:pr-0;
+}

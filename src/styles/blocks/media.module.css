@@ -1,0 +1,14 @@
+@reference '../global.css';
+
+.media {
+	@apply relative overflow-hidden;
+}
+
+.inner {
+	@apply flex items-start;
+	@apply size-full;
+
+	img {
+		@apply size-full;
+	}
+}

@@ -1,0 +1,6 @@
+@reference '../global.css';
+
+.media {
+	@apply rounded-xl;
+	box-shadow: var(--shadow);
+}

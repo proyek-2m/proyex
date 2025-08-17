@@ -1,0 +1,46 @@
+@reference '../global.css';
+
+.content_media {
+	--inner-gap: 40px;
+	@apply relative overflow-hidden;
+	@apply flex items-stretch flex-wrap;
+	@apply bg-gray-50 rounded-lg md:rounded-4xl;
+	box-shadow: var(--shadow);
+
+	.content,
+	.media {
+		@apply w-full md:w-1/2;
+	}
+
+	.content {
+		@apply p-[var(--inner-gap)];
+	}
+
+	.actions {
+		@apply mt-xs;
+	}
+
+	&[data-desktop-position='content-media'] {
+		.content {
+			@apply md:pr-[var(--gap)] md:-order-2;
+		}
+	}
+
+	&[data-desktop-position='media-content'] {
+		.media {
+			@apply md:-order-1;
+		}
+
+		.content {
+			@apply md:pl-[var(--gap)];
+		}
+	}
+
+	&[data-mobile-position='media-content'] .media {
+		@apply -order-1;
+	}
+
+	@media all and (max-width: theme(--breakpoint-sm)) {
+		--inner-gap: 20px;
+	}
+}
