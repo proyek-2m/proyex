@@ -1,5 +1,5 @@
 'use client'
-import { Modal, ThemeIcon } from '@mantine/core'
+import { Drawer, ThemeIcon } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { MediaPlayer, MediaProvider, Poster } from '@vidstack/react'
 import { DefaultVideoLayout, defaultLayoutIcons } from '@vidstack/react/player/layouts/default'
@@ -7,6 +7,7 @@ import { Play } from 'lucide-react'
 import { useMemo, type HTMLAttributes } from 'react'
 
 import Image from '$components/Image'
+import { useIsMedia } from '$hooks/media-query'
 import type { Media as MediaBlock } from '$payload-types'
 import { assetUrl } from '$utils/common'
 import { cx, objectFitCls, radiusVars } from '$utils/styles'
@@ -14,11 +15,14 @@ import { cx, objectFitCls, radiusVars } from '$utils/styles'
 import '@vidstack/react/player/styles/default/layouts/video.css'
 import '@vidstack/react/player/styles/default/theme.css'
 
+import styles from '$styles/blocks/media.module.css'
+
 export type MediaVideoProps = {
 	block?: MediaBlock | Omit<MediaBlock, 'blockType'>
 } & HTMLAttributes<HTMLDivElement>
 
 export default function MediaVideo({ block, ...props }: MediaVideoProps) {
+	const { desktop } = useIsMedia()
 	const [openModal, { close: setCloseModal, open: setOpenModal }] = useDisclosure(false)
 
 	const rounded = useMemo(() => {
@@ -31,6 +35,16 @@ export default function MediaVideo({ block, ...props }: MediaVideoProps) {
 	const aspectRatio = useMemo(() => {
 		return block?.aspectRatio || '16/9'
 	}, [block])
+
+	const aspectRatioPopup = useMemo((): MediaBlock['aspectRatio'] | `${number}/${number}` => {
+		if (desktop) {
+			const [w, h] = aspectRatio.split('/')
+
+			return `${Number(h)}/${Number(w)}`
+		}
+
+		return aspectRatio
+	}, [aspectRatio, desktop])
 
 	const objectFit = useMemo(() => {
 		return block?.objectFit || 'cover'
@@ -62,29 +76,29 @@ export default function MediaVideo({ block, ...props }: MediaVideoProps) {
 				>
 					<Play />
 				</ThemeIcon>
-				<Modal
-					size="var(--container)"
-					yOffset="16px"
-					xOffset="16px"
-					centered
-					title="Preview Gambar Fullscreen"
-					classNames={{
-						title: '!text-md !font-bold',
-						root: 'relative z-max',
-					}}
-					opened={openModal}
-					onClose={setCloseModal}
-					closeOnEscape
-					closeOnClickOutside
-				>
-					<Video
-						{...props}
-						block={block}
-						rounded={rounded}
-						aspectRatio={aspectRatio}
-						objectFit={objectFit}
-					/>
-				</Modal>
+				{block?.action === 'lightbox' ? (
+					<Drawer
+						title="Preview Video Fullscreen"
+						classNames={{
+							title: styles.drawer_title,
+							root: styles.drawer_root,
+							body: styles.drawer_body,
+						}}
+						opened={openModal}
+						onClose={setCloseModal}
+						position="bottom"
+						size="98%"
+					>
+						<Video
+							{...props}
+							block={block}
+							rounded={rounded}
+							aspectRatio={aspectRatioPopup}
+							objectFit={objectFit}
+							className={styles.video_popup}
+						/>
+					</Drawer>
+				) : null}
 			</figure>
 		)
 	}
@@ -107,11 +121,13 @@ export function Video({
 	rounded,
 	aspectRatio,
 	objectFit,
+	className,
 }: {
 	block?: MediaVideoProps['block']
 	rounded: MediaBlock['rounded']
-	aspectRatio: MediaBlock['aspectRatio']
+	aspectRatio: MediaBlock['aspectRatio'] | `${number}/${number}`
 	objectFit: MediaBlock['objectFit']
+	className?: string
 }) {
 	const src = useMemo(() => {
 		if (block?.source === 'internal' && block.videoInternal) {
@@ -147,7 +163,7 @@ export function Video({
 				border: 'none',
 				borderRadius: radiusVars(rounded),
 			}}
-			className="relative overflow-hidden"
+			className={cx(styles.video, className)}
 		>
 			<MediaProvider>
 				<Poster className={cx('vds-poster', objectFitCls(objectFit))} />

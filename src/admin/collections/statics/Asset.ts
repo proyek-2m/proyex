@@ -12,6 +12,6 @@ export const Asset: CollectionConfig = {
 		},
 	],
 	upload: {
-		mimeTypes: ['image/*', 'video/*'],
+		mimeTypes: ['image/*', 'video/*', 'application/pdf'],
 	},
 }

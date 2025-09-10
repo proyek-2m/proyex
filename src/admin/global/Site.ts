@@ -105,7 +105,6 @@ export const SiteConfig: GlobalConfig = {
 											name: 'github',
 											admin: {
 												width: '33.333%',
-												placeholder: 'Fill with username',
 											},
 										},
 									],

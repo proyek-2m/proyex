@@ -193,7 +193,7 @@ img {
 	--input-padding-inline-end: 16px;
 }
 
-[data-with-left-section='true'] {
+.mantine-Input-section[data-with-left-section='true'] {
 	--input-right-section-size: 40px;
 
 	[data-position='left'] {
@@ -209,7 +209,7 @@ img {
 	}
 }
 
-[data-with-right-section='true'] {
+.mantine-Input-section[data-with-right-section='true'] {
 	--input-right-section-size: 40px;
 
 	[data-position='right'] {

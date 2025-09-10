@@ -79,6 +79,7 @@ export const Services: CollectionConfig = {
 						{
 							name: 'content',
 							type: 'blocks',
+							label: false,
 							blocks: [],
 							blockReferences: [
 								'actions',

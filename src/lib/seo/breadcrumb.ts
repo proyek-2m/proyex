@@ -1,5 +1,6 @@
 import type { BreadcrumbList, ListItem } from 'schema-dts'
 
+import { slugHomepage } from '$modules/vars'
 import { slugPostType } from '$payload-libs/link-utils'
 import type { Page } from '$payload-types'
 import type { SeoDts } from '$seo/index'
@@ -10,7 +11,7 @@ export const breadcrumbSchema = ({ data, collection, site }: SeoDts): Breadcrumb
 	const itemListElement = (): ListItem[] => {
 		const listElements: ListItem[] = []
 
-		if (collection === 'pages' && data.slug !== 'home') {
+		if (collection === 'pages' && data.slug !== slugHomepage) {
 			listElements.push({
 				'@type': 'ListItem',
 				position: listElements.length + 1,

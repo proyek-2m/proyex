@@ -10,6 +10,7 @@ export default function Link(props: ComponentProps<typeof NextLink>) {
 	return (
 		<NextLink
 			{...props}
+			prefetch={false}
 			onNavigate={(e) => {
 				if (pathname !== props.href) {
 					nprogress.start()

@@ -1,10 +1,9 @@
 'use server'
-import { writeFile } from 'fs/promises'
-import path from 'path'
 import { getPayload } from 'payload'
 
 import configPromise from '$payload-config'
 import type { FormSubmission } from '$payload-types'
+import { assetUrl } from '$utils/common'
 
 export type OptionsSendContactForm = {
 	formId: number
@@ -37,10 +36,18 @@ export const sendContactForm = async (options: OptionsSendContactForm) => {
 					const bytes = await value.arrayBuffer()
 					const buffer = Buffer.from(bytes)
 
-					const filePath = path.join(process.cwd(), 'public/uploads', value.name)
-					await writeFile(filePath, buffer)
+					const asset = await payload.create({
+						collection: 'asset',
+						data: {},
+						file: {
+							data: buffer,
+							size: value.size,
+							name: value.name,
+							mimetype: value.type,
+						},
+					})
 
-					value = `${process.env.NEXT_PUBLIC_SITE_URL}/uploads/${value.name}`
+					value = process.env.NEXT_PUBLIC_SITE_URL + assetUrl(asset)!
 				}
 
 				submissionData.push({

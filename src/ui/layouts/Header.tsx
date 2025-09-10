@@ -38,7 +38,11 @@ export default function Header({ site, ...props }: HeaderProps) {
 			size: action.size || 'sm',
 			color: {
 				...action.color,
-				base: action.color?.base || index === 0 ? 'secondary' : 'primary',
+				base: action.color?.base
+					? action.color.base
+					: index === 0
+						? 'secondary'
+						: 'primary',
 			},
 			rounded: {
 				...action.rounded,
@@ -88,11 +92,15 @@ export default function Header({ site, ...props }: HeaderProps) {
 													withinPortal={false}
 												>
 													<HoverCardTarget>
-														<Link
-															href={collectionLink(navigation.link)}
-														>
-															{navigation.label}
-														</Link>
+														<li>
+															<Link
+																href={collectionLink(
+																	navigation.link,
+																)}
+															>
+																{navigation.label}
+															</Link>
+														</li>
 													</HoverCardTarget>
 													<HoverCardDropdown>
 														<Stack

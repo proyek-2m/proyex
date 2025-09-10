@@ -59,7 +59,7 @@ function ContentMediaInner({ block, ...props }: Omit<ContentMediaProps, 'withCon
 	const actionItems = useMemo((): ActionsBlock['items'] => {
 		return block.actions?.map((action, index) => ({
 			...action,
-			variant: action.variant || index !== 0 ? 'light' : 'filled',
+			variant: action?.variant ? action.variant : index !== 0 ? 'light' : 'filled',
 		}))
 	}, [block.actions])
 
@@ -93,6 +93,7 @@ function ContentMediaInner({ block, ...props }: Omit<ContentMediaProps, 'withCon
 				<MediaInner
 					block={{
 						...block.media,
+						aspectRatio: '4/3',
 						rounded: {
 							base: 'lg',
 						},

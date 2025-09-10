@@ -3,6 +3,7 @@ import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
 
+import { slugHomepage } from '$modules/vars'
 import configPromise from '$payload-config'
 import { linkCollection } from '$payload-libs/link-utils'
 
@@ -167,7 +168,7 @@ export const pageLoader = async (slug: string[]) => {
 		})
 
 		if (page) {
-			if (!draft && pageLink !== 'home' && `/${pageLink}` !== pageLinkResult) {
+			if (!draft && pageLink !== slugHomepage && `/${pageLink}` !== pageLinkResult) {
 				return null
 			}
 

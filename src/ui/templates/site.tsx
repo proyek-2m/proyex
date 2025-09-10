@@ -1,4 +1,4 @@
-import type { Site, User } from '$payload-types'
+import type { Site } from '$payload-types'
 
 import AdminBar from '$layouts/AdminBar'
 import ClientTemplate from '$templates/post-types/client'
@@ -14,7 +14,6 @@ import LivePreviewListener from '$templates/preview'
 import type { Queried } from '$type'
 
 export type SiteTemplateProps = {
-	authUser: User | null
 	site: Site | null
 	draft?: boolean
 } & Queried
@@ -45,7 +44,6 @@ export default function SiteTemplate({ draft, ...props }: SiteTemplateProps) {
 			<AdminBar
 				data={props.data}
 				collection={props.collection}
-				authUser={props.authUser}
 			/>
 		</>
 	)

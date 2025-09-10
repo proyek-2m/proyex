@@ -126,6 +126,7 @@ function InsightDisplayInner({ block, ...props }: Omit<InsightDisplayProps, 'wit
 			<MediaInner
 				block={{
 					...block.media,
+					aspectRatio: '4/3',
 					rounded: {
 						base: 'lg',
 					},

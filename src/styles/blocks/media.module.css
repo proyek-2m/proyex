@@ -12,3 +12,28 @@
 		@apply size-full;
 	}
 }
+
+.video {
+	@apply relative overflow-hidden;
+}
+
+.img_popup {
+	@apply size-auto max-w-full max-h-full;
+	@apply object-contain;
+}
+
+.video_popup {
+	@apply max-w-full max-h-full;
+}
+
+.drawer_root {
+	@apply relative z-max;
+}
+
+.drawer_body {
+	@apply flex items-center justify-center;
+}
+
+.drawer_title {
+	@apply text-md font-bold;
+}

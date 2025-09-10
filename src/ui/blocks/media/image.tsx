@@ -1,5 +1,5 @@
 'use client'
-import { Modal } from '@mantine/core'
+import { Drawer } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useId, useMemo, type HTMLAttributes } from 'react'
 
@@ -105,20 +105,17 @@ export default function MediaImage({ block, imageProps, ...props }: MediaImagePr
 			)}
 
 			{block?.action === 'lightbox' ? (
-				<Modal
-					size="var(--container)"
-					yOffset="16px"
-					xOffset="16px"
-					centered
+				<Drawer
 					title="Preview Gambar Fullscreen"
 					classNames={{
-						title: '!text-md !font-bold',
-						root: 'relative z-max',
+						title: styles.drawer_title,
+						root: styles.drawer_root,
+						body: styles.drawer_body,
 					}}
 					opened={openModal}
 					onClose={setCloseModal}
-					closeOnEscape
-					closeOnClickOutside
+					position="bottom"
+					size="98%"
 				>
 					<Image
 						{...imageProps}
@@ -128,9 +125,9 @@ export default function MediaImage({ block, imageProps, ...props }: MediaImagePr
 						style={{
 							borderRadius: radiusVars(rounded),
 						}}
-						className="w-full object-contain"
+						className={styles.img_popup}
 					/>
-				</Modal>
+				</Drawer>
 			) : null}
 		</figure>
 	)

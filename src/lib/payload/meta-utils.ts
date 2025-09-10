@@ -6,7 +6,7 @@ import { assetUrl } from '$utils/common'
 export async function generateMeta(
 	doc: Pick<
 		Post | PostCategory | Page | Team | Client | Template,
-		'meta' | 'excerpt' | 'featuredImage' | 'title' | 'link'
+		'meta' | 'excerpt' | 'featuredImage' | 'title' | 'link' | '_status'
 	>,
 	site: Site | null,
 ): Promise<Metadata> {
@@ -38,7 +38,10 @@ export async function generateMeta(
 	return {
 		title,
 		description,
-		robots: !site?.sitePublicly ? 'noindex, nofollow' : doc.meta?.robots || 'index, follow',
+		robots:
+			!site?.sitePublicly || doc._status === 'draft'
+				? 'noindex, nofollow'
+				: doc.meta?.robots || 'index, follow',
 		keywords: doc.meta?.keywords,
 		icons: favicon,
 		openGraph: {
@@ -59,7 +62,7 @@ export async function generateMeta(
 		},
 		applicationName: siteTitle,
 		alternates: {
-			canonical: doc?.link || '/',
+			canonical: process.env.NEXT_PUBLIC_SITE_URL + doc?.link || '/',
 		},
 	}
 }

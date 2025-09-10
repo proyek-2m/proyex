@@ -81,6 +81,7 @@ export const Pages: CollectionConfig = {
 						{
 							name: 'content',
 							type: 'blocks',
+							label: false,
 							blocks: [],
 							blockReferences: [
 								'actions',

@@ -162,6 +162,7 @@ export const Clients: CollectionConfig = {
 						{
 							name: 'content',
 							type: 'blocks',
+							label: false,
 							blocks: [],
 							blockReferences: [
 								'actions',

@@ -1,23 +1,33 @@
 'use client'
 import { Button, Group, Menu } from '@mantine/core'
+import { useShallowEffect } from '@mantine/hooks'
 import { Database, FileText, LayoutGrid, UserRound } from 'lucide-react'
-import type { HTMLAttributes } from 'react'
+import { useState, useTransition, type HTMLAttributes } from 'react'
 
 import Link from '$components/Link'
 import { useIsMedia } from '$hooks/media-query'
+import { getAuthUser } from '$payload-libs/server/repos'
 import type { User } from '$payload-types'
 import type { SiteTemplateProps } from '$templates/site'
 import { cx } from '$utils/styles'
 
 import styles from '$styles/layouts/admin-bar.module.css'
 
-export type AdminBarProps = {
-	authUser: User | null
-} & Pick<SiteTemplateProps, 'data' | 'collection'> &
+export type AdminBarProps = Pick<SiteTemplateProps, 'data' | 'collection'> &
 	HTMLAttributes<HTMLDivElement>
 
-export default function AdminBar({ authUser, data, collection, ...props }: AdminBarProps) {
+export default function AdminBar({ data, collection, ...props }: AdminBarProps) {
 	const isMedia = useIsMedia()
+	const [authUser, setAuthUser] = useState<User | null>(null)
+	const [_, startAuthUser] = useTransition()
+
+	useShallowEffect(() => {
+		startAuthUser(async () => {
+			const auth = await getAuthUser()
+
+			setAuthUser(auth)
+		})
+	}, [])
 
 	if (!isMedia.desktop || !authUser) {
 		return null

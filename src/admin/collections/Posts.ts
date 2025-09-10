@@ -69,6 +69,7 @@ export const Posts: CollectionConfig = {
 						{
 							name: 'content',
 							type: 'blocks',
+							label: false,
 							blocks: [],
 							blockReferences: [
 								'actions',

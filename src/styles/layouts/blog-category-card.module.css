@@ -14,5 +14,5 @@
 
 .title {
 	@apply mt-0;
-	@apply text-lg font-bold leading-snug text-primary;
+	@apply text-lg font-bold leading-snug text-center text-primary;
 }

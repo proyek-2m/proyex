@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	]
 		.filter((post) => !!post.link)
 		.map((post) => ({
-			url: post.link!,
+			url: process.env.NEXT_PUBLIC_SITE_URL + post.link!,
 			lastModified: post.updatedAt,
 			priority: 1,
 		}))

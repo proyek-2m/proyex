@@ -1,5 +1,3 @@
-export const revalidateTagTimeout = process.env.NODE_ENV === 'development' ? false : 10080
-
 export const slugHomepage = 'home'
 
 export const slugPost = 'blog'

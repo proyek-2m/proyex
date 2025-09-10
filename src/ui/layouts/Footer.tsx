@@ -1,16 +1,26 @@
 'use client'
 import { ActionIcon } from '@mantine/core'
-import { Facebook, Github, Instagram, Linkedin, Music2, Twitter, Youtube } from 'lucide-react'
+import {
+	Facebook,
+	Github,
+	Instagram,
+	Linkedin,
+	Mail,
+	Music2,
+	Phone,
+	Twitter,
+	Youtube,
+} from 'lucide-react'
 import { useId, type HTMLAttributes } from 'react'
 
 import Image from '$components/Image'
 import Link from '$components/Link'
+import Richtext from '$components/Richtext'
 import type { Site } from '$payload-types'
 import { collectionLink } from '$utils/common'
 import { cx } from '$utils/styles'
 
 import styles from '$styles/layouts/footer.module.css'
-import Richtext from '../components/Richtext'
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -53,6 +63,26 @@ export default function Footer({ site, ...props }: FooterProps) {
 
 				<div className={styles.colophon}>
 					<div className={styles.socials}>
+						{site?.socials?.email ? (
+							<ActionIcon
+								variant="subtle"
+								component={Link}
+								href={`mailto:${site.socials.email}`}
+								target="_blank"
+							>
+								<Mail size={22} />
+							</ActionIcon>
+						) : null}
+						{site?.socials?.telephone ? (
+							<ActionIcon
+								variant="subtle"
+								component={Link}
+								href={`tel:${site.socials.telephone}`}
+								target="_blank"
+							>
+								<Phone size={22} />
+							</ActionIcon>
+						) : null}
 						{site?.socials?.instagram ? (
 							<ActionIcon
 								variant="subtle"
@@ -127,12 +157,12 @@ export default function Footer({ site, ...props }: FooterProps) {
 						) : null}
 						{site?.socials?.github ? (
 							<ActionIcon
-								variant="light"
+								variant="subtle"
 								component={Link}
-								href={`https://github.com/${site.socials.github}`}
+								href={site.socials.github}
 								target="_blank"
 							>
-								<Github size={18} />
+								<Github size={22} />
 							</ActionIcon>
 						) : null}
 					</div>

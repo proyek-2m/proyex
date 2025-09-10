@@ -4,18 +4,6 @@ export function isServer() {
 	return typeof window === 'undefined'
 }
 
-export function flattenObject(obj: Record<string, unknown>, prefix = '') {
-	return Object.keys(obj).reduce((acc: Record<string, unknown>, k: string) => {
-		const pre = prefix.length ? prefix + '.' : ''
-		if (typeof obj[k] === 'object' && obj[k] !== null && !Array.isArray(obj[k])) {
-			Object.assign(acc, flattenObject(obj[k] as Record<string, unknown>, pre + k))
-		} else {
-			acc[pre + k] = obj[k]
-		}
-		return acc
-	}, {})
-}
-
 export function slugify(str: string) {
 	return str
 		.normalize('NFD')

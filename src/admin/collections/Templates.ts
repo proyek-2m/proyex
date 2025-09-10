@@ -79,6 +79,7 @@ export const Templates: CollectionConfig = {
 						{
 							name: 'content',
 							type: 'blocks',
+							label: false,
 							blocks: [],
 							blockReferences: [
 								'actions',

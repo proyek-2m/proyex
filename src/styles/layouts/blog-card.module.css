@@ -42,7 +42,7 @@
 }
 
 .excerpt {
-	@apply hidden sm:block;
+	@apply hidden sm:line-clamp-5;
 }
 
 .author {

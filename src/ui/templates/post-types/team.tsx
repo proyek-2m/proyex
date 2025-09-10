@@ -127,7 +127,7 @@ export default function TeamTemplate({ data, site }: Props) {
 									<ActionIcon
 										variant="light"
 										component={Link}
-										href={`https://github.com/${data.socials.github}`}
+										href={data.socials.github}
 										target="_blank"
 									>
 										<Github size={18} />
@@ -147,7 +147,7 @@ export default function TeamTemplate({ data, site }: Props) {
 									<ActionIcon
 										variant="light"
 										component={Link}
-										href={`https://instagram.com/${data.socials.instagram}`}
+										href={data.socials.instagram}
 										target="_blank"
 									>
 										<Instagram size={18} />
@@ -157,7 +157,7 @@ export default function TeamTemplate({ data, site }: Props) {
 									<ActionIcon
 										variant="light"
 										component={Link}
-										href={`https://tiktok.com/@${data.socials.tiktok}`}
+										href={data.socials.tiktok}
 										target="_blank"
 									>
 										<Music2 size={18} />
@@ -187,7 +187,7 @@ export default function TeamTemplate({ data, site }: Props) {
 									<ActionIcon
 										variant="light"
 										component={Link}
-										href={`https://x.com/${data.socials.twitter}`}
+										href={data.socials.twitter}
 										target="_blank"
 									>
 										<Twitter size={18} />
