@@ -28,6 +28,7 @@ export const PostCategories: CollectionConfig = {
 	admin: {
 		useAsTitle: 'title',
 		defaultColumns: ['title', 'slug', '_status', 'updatedAt', 'author'],
+		group: 'Blog',
 		livePreview: {
 			url: ({ data, req }) =>
 				generatePreviewPath({

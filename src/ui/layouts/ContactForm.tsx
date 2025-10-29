@@ -18,7 +18,7 @@ import { useForm } from '@mantine/form'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useId, useMemo, useState, type HTMLAttributes } from 'react'
-import { z, ZodObject } from 'zod/v4'
+import * as z from 'zod'
 
 import Richtext from '$components/Richtext'
 import { useWindowScrollTo } from '$hooks/scroll'
@@ -46,7 +46,7 @@ export default function ContactForm({ data, ...props }: ContactFormType) {
 		return props.id || slugify(compId)
 	}, [props, compId])
 
-	const formSchema = useMemo((): ZodObject => {
+	const formSchema = useMemo((): z.ZodObject => {
 		if (typeof data === 'number') {
 			return z.object()
 		}

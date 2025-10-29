@@ -1,5 +1,5 @@
 'use server'
-import { unstable_cacheTag as cacheTag } from 'next/cache'
+import { cacheTag } from 'next/cache'
 import type { Options } from 'node_modules/payload/dist/collections/operations/local/find'
 import { getPayload, type PaginatedDocs, type Sort, type Where } from 'payload'
 

@@ -13,8 +13,8 @@ export const revalidateChange: CollectionAfterChangeHook<Post> = async ({
 	req: { context },
 }) => {
 	if (!context.disableRevalidate) {
-		revalidateTag('collection')
-		revalidateTag('sitemap')
+		revalidateTag('collection', 'max')
+		revalidateTag('sitemap', 'max')
 		revalidatePath('/', 'layout')
 	}
 
@@ -26,8 +26,8 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = async ({
 	req: { context },
 }) => {
 	if (!context.disableRevalidate) {
-		revalidateTag('collection')
-		revalidateTag('sitemap')
+		revalidateTag('collection', 'max')
+		revalidateTag('sitemap', 'max')
 		revalidatePath('/', 'layout')
 	}
 
@@ -39,7 +39,7 @@ export const revalidateChangeStatic: CollectionAfterChangeHook<Post> = async ({
 	req: { context },
 }) => {
 	if (!context.disableRevalidate) {
-		revalidateTag('collection')
+		revalidateTag('collection', 'max')
 		revalidatePath('/', 'layout')
 	}
 
@@ -51,7 +51,7 @@ export const revalidateDeleteStatic: CollectionAfterDeleteHook<Post> = async ({
 	req: { context },
 }) => {
 	if (!context.disableRevalidate) {
-		revalidateTag('collection')
+		revalidateTag('collection', 'max')
 		revalidatePath('/', 'layout')
 	}
 
@@ -60,7 +60,7 @@ export const revalidateDeleteStatic: CollectionAfterDeleteHook<Post> = async ({
 
 export const revalidateGlobal: GlobalAfterChangeHook = async ({ context }) => {
 	if (!context.disableRevalidate) {
-		revalidateTag('global')
+		revalidateTag('global', 'max')
 		revalidatePath('/', 'layout')
 	}
 }

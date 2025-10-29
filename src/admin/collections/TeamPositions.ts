@@ -28,6 +28,7 @@ export const TeamPositions: CollectionConfig = {
 	admin: {
 		useAsTitle: 'title',
 		defaultColumns: ['title', 'slug', '_status', 'updatedAt', 'author'],
+		group: 'Team',
 		livePreview: {
 			url: ({ data, req }) =>
 				generatePreviewPath({

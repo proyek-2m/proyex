@@ -6,6 +6,14 @@ dan versi mengikuti [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.1] - 2025-24-10
+
+### Upgrade
+
+- update and remove unused packages
+- adjustment code cause upgrade next.js 16 also implement react compiler
+- set group collection
+
 ## [1.1.0] - 2025-09-10
 
 ### Refactor

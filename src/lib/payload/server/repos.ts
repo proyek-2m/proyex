@@ -1,5 +1,5 @@
 'use server'
-import { unstable_cacheTag as cacheTag } from 'next/cache'
+import { cacheTag } from 'next/cache'
 import { headers as getHeaders } from 'next/headers'
 import type { Options as FindOneOptions } from 'node_modules/payload/dist/globals/operations/local/findOne'
 import { getPayload } from 'payload'

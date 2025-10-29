@@ -1,6 +1,6 @@
 import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
-import { z } from 'zod/v4'
+import * as z from 'zod'
 
 const schema = z.object({
 	tags: z.array(z.string()).optional(), // ['global', 'global:{slug}', 'posts', 'posts:{slug}', 'sitemap']
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 
 		const reTags = tags || ['global', 'collection', 'sitemap']
 
-		await Promise.all(reTags.map((tag) => revalidateTag(tag)))
+		await Promise.all(reTags.map((tag) => revalidateTag(tag, 'max')))
 
 		return NextResponse.json({
 			revalidated: true,

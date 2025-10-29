@@ -326,7 +326,14 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 
 	try {
 		// Don't generate metadata for Admin routes, API routes and public files
-		if (slug[0] === 'admin' || slug[0] === 'api' || slug.join('/').includes('.')) {
+		if (
+			slug[0] === 'admin' ||
+			slug[0] === '_next' ||
+			slug[0] === 'lib' ||
+			slug[0] === '.well-known' ||
+			slug[0] === 'api' ||
+			slug.join('/').includes('.')
+		) {
 			return {}
 		}
 
