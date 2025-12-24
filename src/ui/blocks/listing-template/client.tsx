@@ -197,6 +197,7 @@ function ListingTemplateInner({
 
 	useEffect(() => {
 		if (queryParams) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultTemplates(null)
 
 			startTransition(async () => {

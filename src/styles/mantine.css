@@ -2,170 +2,172 @@
 
 
 @theme {
-  
+	
 
-  /* colors - all */
-  
-  --color-primary-50: var(--mantine-color-primary-0);
-  --color-primary-100: var(--mantine-color-primary-1);
-  --color-primary-200: var(--mantine-color-primary-2);
-  --color-primary-300: var(--mantine-color-primary-3);
-  --color-primary-400: var(--mantine-color-primary-4);
-  --color-primary-500: var(--mantine-color-primary-5);
-  --color-primary-600: var(--mantine-color-primary-6);
-  --color-primary-700: var(--mantine-color-primary-7);
-  --color-primary-800: var(--mantine-color-primary-8);
-  --color-primary-900: var(--mantine-color-primary-9);
-  --color-primary: var(--mantine-color-primary-filled);
+	/* colors - all */
+	
+	--color-primary-50: var(--mantine-color-primary-0);
+	--color-primary-100: var(--mantine-color-primary-1);
+	--color-primary-200: var(--mantine-color-primary-2);
+	--color-primary-300: var(--mantine-color-primary-3);
+	--color-primary-400: var(--mantine-color-primary-4);
+	--color-primary-500: var(--mantine-color-primary-5);
+	--color-primary-600: var(--mantine-color-primary-6);
+	--color-primary-700: var(--mantine-color-primary-7);
+	--color-primary-800: var(--mantine-color-primary-8);
+	--color-primary-900: var(--mantine-color-primary-9);
+	--color-primary: var(--mantine-color-primary-filled);
 
-  --color-secondary-50: var(--mantine-color-secondary-0);
-  --color-secondary-100: var(--mantine-color-secondary-1);
-  --color-secondary-200: var(--mantine-color-secondary-2);
-  --color-secondary-300: var(--mantine-color-secondary-3);
-  --color-secondary-400: var(--mantine-color-secondary-4);
-  --color-secondary-500: var(--mantine-color-secondary-5);
-  --color-secondary-600: var(--mantine-color-secondary-6);
-  --color-secondary-700: var(--mantine-color-secondary-7);
-  --color-secondary-800: var(--mantine-color-secondary-8);
-  --color-secondary-900: var(--mantine-color-secondary-9);
-  --color-secondary: var(--mantine-color-secondary-filled);
+	--color-secondary-50: var(--mantine-color-secondary-0);
+	--color-secondary-100: var(--mantine-color-secondary-1);
+	--color-secondary-200: var(--mantine-color-secondary-2);
+	--color-secondary-300: var(--mantine-color-secondary-3);
+	--color-secondary-400: var(--mantine-color-secondary-4);
+	--color-secondary-500: var(--mantine-color-secondary-5);
+	--color-secondary-600: var(--mantine-color-secondary-6);
+	--color-secondary-700: var(--mantine-color-secondary-7);
+	--color-secondary-800: var(--mantine-color-secondary-8);
+	--color-secondary-900: var(--mantine-color-secondary-9);
+	--color-secondary: var(--mantine-color-secondary-filled);
 
-  /* colors - variant specific */
-  
-  --color-primary-filled: var(--mantine-color-primary-filled);
-  --color-primary-filled-hover: var(--mantine-color-primary-filled-hover);
-  --color-primary-light: var(--mantine-color-primary-light);
-  --color-primary-light-hover: var(--mantine-color-primary-light-hover);
-  --color-primary-light-color: var(--mantine-color-primary-light-color);
-  --color-primary-outline: var(--mantine-color-primary-outline);
-  --color-primary-outline-hover: var(--mantine-color-primary-outline-hover);
+	/* colors - variant specific */
+	
+	--color-primary-text: var(--mantine-color-primary-text);
+	--color-primary-filled: var(--mantine-color-primary-filled);
+	--color-primary-filled-hover: var(--mantine-color-primary-filled-hover);
+	--color-primary-light: var(--mantine-color-primary-light);
+	--color-primary-light-hover: var(--mantine-color-primary-light-hover);
+	--color-primary-light-color: var(--mantine-color-primary-light-color);
+	--color-primary-outline: var(--mantine-color-primary-outline);
+	--color-primary-outline-hover: var(--mantine-color-primary-outline-hover);
 
-  --color-secondary-filled: var(--mantine-color-secondary-filled);
-  --color-secondary-filled-hover: var(--mantine-color-secondary-filled-hover);
-  --color-secondary-light: var(--mantine-color-secondary-light);
-  --color-secondary-light-hover: var(--mantine-color-secondary-light-hover);
-  --color-secondary-light-color: var(--mantine-color-secondary-light-color);
-  --color-secondary-outline: var(--mantine-color-secondary-outline);
-  --color-secondary-outline-hover: var(--mantine-color-secondary-outline-hover);
+	--color-secondary-text: var(--mantine-color-secondary-text);
+	--color-secondary-filled: var(--mantine-color-secondary-filled);
+	--color-secondary-filled-hover: var(--mantine-color-secondary-filled-hover);
+	--color-secondary-light: var(--mantine-color-secondary-light);
+	--color-secondary-light-hover: var(--mantine-color-secondary-light-hover);
+	--color-secondary-light-color: var(--mantine-color-secondary-light-color);
+	--color-secondary-outline: var(--mantine-color-secondary-outline);
+	--color-secondary-outline-hover: var(--mantine-color-secondary-outline-hover);
 
-  /* breakpoints */
-  --breakpoint-*: initial;
-  --breakpoint-xs: 375px;
-  --breakpoint-sm: 600px;
-  --breakpoint-md: 901px;
-  --breakpoint-lg: 1200px;
-  --breakpoint-xl: 1600px;
+	/* breakpoints */
+	--breakpoint-*: initial;
+--breakpoint-xs: 375px;
+--breakpoint-sm: 600px;
+--breakpoint-md: 901px;
+--breakpoint-lg: 1200px;
+--breakpoint-xl: 1600px;
 
-  /* readd back tailwind's default containers vars to fix #24 */
-  --size-3xs: 16rem;
-  --size-2xs: 18rem;
-  --size-xs: 20rem;
-  --size-sm: 24rem;
-  --size-md: 28rem;
-  --size-lg: 32rem;
-  --size-xl: 36rem;
-  --size-2xl: 42rem;
-  --size-3xl: 48rem;
-  --size-4xl: 56rem;
-  --size-5xl: 64rem;
-  --size-6xl: 72rem;
-  --size-7xl: 80rem;
+	/* read back tailwind's default containers vars to fix #24 */
+	--size-3xs: 16rem;
+	--size-2xs: 18rem;
+	--size-xs: 20rem;
+	--size-sm: 24rem;
+	--size-md: 28rem;
+	--size-lg: 32rem;
+	--size-xl: 36rem;
+	--size-2xl: 42rem;
+	--size-3xl: 48rem;
+	--size-4xl: 56rem;
+	--size-5xl: 64rem;
+	--size-6xl: 72rem;
+	--size-7xl: 80rem;
 
-  --container-3xs: var(--size-3xs);
-  --container-2xs: var(--size-2xs);
-  --container-xs: var(--size-xs);
-  --container-sm: var(--size-sm);
-  --container-md: var(--size-md);
-  --container-lg: var(--size-lg);
-  --container-xl: var(--size-xl);
-  --container-2xl: var(--size-2xl);
-  --container-3xl: var(--size-3xl);
-  --container-4xl: var(--size-4xl);
-  --container-5xl: var(--size-5xl);
-  --container-6xl: var(--size-6xl);
-  --container-7xl: var(--size-7xl);
+	--container-3xs: var(--size-3xs);
+	--container-2xs: var(--size-2xs);
+	--container-xs: var(--size-xs);
+	--container-sm: var(--size-sm);
+	--container-md: var(--size-md);
+	--container-lg: var(--size-lg);
+	--container-xl: var(--size-xl);
+	--container-2xl: var(--size-2xl);
+	--container-3xl: var(--size-3xl);
+	--container-4xl: var(--size-4xl);
+	--container-5xl: var(--size-5xl);
+	--container-6xl: var(--size-6xl);
+	--container-7xl: var(--size-7xl);
 
-  --width-3xs: var(--size-3xs);
-  --width-2xs: var(--size-2xs);
-  --width-xs: var(--size-xs);
-  --width-sm: var(--size-sm);
-  --width-md: var(--size-md);
-  --width-lg: var(--size-lg);
-  --width-xl: var(--size-xl);
-  --width-2xl: var(--size-2xl);
-  --width-3xl: var(--size-3xl);
-  --width-4xl: var(--size-4xl);
-  --width-5xl: var(--size-5xl);
-  --width-6xl: var(--size-6xl);
-  --width-7xl: var(--size-7xl);
+	--width-3xs: var(--size-3xs);
+	--width-2xs: var(--size-2xs);
+	--width-xs: var(--size-xs);
+	--width-sm: var(--size-sm);
+	--width-md: var(--size-md);
+	--width-lg: var(--size-lg);
+	--width-xl: var(--size-xl);
+	--width-2xl: var(--size-2xl);
+	--width-3xl: var(--size-3xl);
+	--width-4xl: var(--size-4xl);
+	--width-5xl: var(--size-5xl);
+	--width-6xl: var(--size-6xl);
+	--width-7xl: var(--size-7xl);
 
-  --min-width-3xs: var(--size-3xs);
-  --min-width-2xs: var(--size-2xs);
-  --min-width-xs: var(--size-xs);
-  --min-width-sm: var(--size-sm);
-  --min-width-md: var(--size-md);
-  --min-width-lg: var(--size-lg);
-  --min-width-xl: var(--size-xl);
-  --min-width-2xl: var(--size-2xl);
-  --min-width-3xl: var(--size-3xl);
-  --min-width-4xl: var(--size-4xl);
-  --min-width-5xl: var(--size-5xl);
-  --min-width-6xl: var(--size-6xl);
-  --min-width-7xl: var(--size-7xl);
+	--min-width-3xs: var(--size-3xs);
+	--min-width-2xs: var(--size-2xs);
+	--min-width-xs: var(--size-xs);
+	--min-width-sm: var(--size-sm);
+	--min-width-md: var(--size-md);
+	--min-width-lg: var(--size-lg);
+	--min-width-xl: var(--size-xl);
+	--min-width-2xl: var(--size-2xl);
+	--min-width-3xl: var(--size-3xl);
+	--min-width-4xl: var(--size-4xl);
+	--min-width-5xl: var(--size-5xl);
+	--min-width-6xl: var(--size-6xl);
+	--min-width-7xl: var(--size-7xl);
 
-  --max-width-3xs: var(--size-3xs);
-  --max-width-2xs: var(--size-2xs);
-  --max-width-xs: var(--size-xs);
-  --max-width-sm: var(--size-sm);
-  --max-width-md: var(--size-md);
-  --max-width-lg: var(--size-lg);
-  --max-width-xl: var(--size-xl);
-  --max-width-2xl: var(--size-2xl);
-  --max-width-3xl: var(--size-3xl);
-  --max-width-4xl: var(--size-4xl);
-  --max-width-5xl: var(--size-5xl);
-  --max-width-6xl: var(--size-6xl);
-  --max-width-7xl: var(--size-7xl);
+	--max-width-3xs: var(--size-3xs);
+	--max-width-2xs: var(--size-2xs);
+	--max-width-xs: var(--size-xs);
+	--max-width-sm: var(--size-sm);
+	--max-width-md: var(--size-md);
+	--max-width-lg: var(--size-lg);
+	--max-width-xl: var(--size-xl);
+	--max-width-2xl: var(--size-2xl);
+	--max-width-3xl: var(--size-3xl);
+	--max-width-4xl: var(--size-4xl);
+	--max-width-5xl: var(--size-5xl);
+	--max-width-6xl: var(--size-6xl);
+	--max-width-7xl: var(--size-7xl);
 
-  --height-3xs: var(--size-3xs);
-  --height-2xs: var(--size-2xs);
-  --height-xs: var(--size-xs);
-  --height-sm: var(--size-sm);
-  --height-md: var(--size-md);
-  --height-lg: var(--size-lg);
-  --height-xl: var(--size-xl);
-  --height-2xl: var(--size-2xl);
-  --height-3xl: var(--size-3xl);
-  --height-4xl: var(--size-4xl);
-  --height-5xl: var(--size-5xl);
-  --height-6xl: var(--size-6xl);
-  --height-7xl: var(--size-7xl);
+	--height-3xs: var(--size-3xs);
+	--height-2xs: var(--size-2xs);
+	--height-xs: var(--size-xs);
+	--height-sm: var(--size-sm);
+	--height-md: var(--size-md);
+	--height-lg: var(--size-lg);
+	--height-xl: var(--size-xl);
+	--height-2xl: var(--size-2xl);
+	--height-3xl: var(--size-3xl);
+	--height-4xl: var(--size-4xl);
+	--height-5xl: var(--size-5xl);
+	--height-6xl: var(--size-6xl);
+	--height-7xl: var(--size-7xl);
 
-  --min-height-3xs: var(--size-3xs);
-  --min-height-2xs: var(--size-2xs);
-  --min-height-xs: var(--size-xs);
-  --min-height-sm: var(--size-sm);
-  --min-height-md: var(--size-md);
-  --min-height-lg: var(--size-lg);
-  --min-height-xl: var(--size-xl);
-  --min-height-2xl: var(--size-2xl);
-  --min-height-3xl: var(--size-3xl);
-  --min-height-4xl: var(--size-4xl);
-  --min-height-5xl: var(--size-5xl);
-  --min-height-6xl: var(--size-6xl);
-  --min-height-7xl: var(--size-7xl);
+	--min-height-3xs: var(--size-3xs);
+	--min-height-2xs: var(--size-2xs);
+	--min-height-xs: var(--size-xs);
+	--min-height-sm: var(--size-sm);
+	--min-height-md: var(--size-md);
+	--min-height-lg: var(--size-lg);
+	--min-height-xl: var(--size-xl);
+	--min-height-2xl: var(--size-2xl);
+	--min-height-3xl: var(--size-3xl);
+	--min-height-4xl: var(--size-4xl);
+	--min-height-5xl: var(--size-5xl);
+	--min-height-6xl: var(--size-6xl);
+	--min-height-7xl: var(--size-7xl);
 
-  --max-height-3xs: var(--size-3xs);
-  --max-height-2xs: var(--size-2xs);
-  --max-height-xs: var(--size-xs);
-  --max-height-sm: var(--size-sm);
-  --max-height-md: var(--size-md);
-  --max-height-lg: var(--size-lg);
-  --max-height-xl: var(--size-xl);
-  --max-height-2xl: var(--size-2xl);
-  --max-height-3xl: var(--size-3xl);
-  --max-height-4xl: var(--size-4xl);
-  --max-height-5xl: var(--size-5xl);
-  --max-height-6xl: var(--size-6xl);
-  --max-height-7xl: var(--size-7xl);
+	--max-height-3xs: var(--size-3xs);
+	--max-height-2xs: var(--size-2xs);
+	--max-height-xs: var(--size-xs);
+	--max-height-sm: var(--size-sm);
+	--max-height-md: var(--size-md);
+	--max-height-lg: var(--size-lg);
+	--max-height-xl: var(--size-xl);
+	--max-height-2xl: var(--size-2xl);
+	--max-height-3xl: var(--size-3xl);
+	--max-height-4xl: var(--size-4xl);
+	--max-height-5xl: var(--size-5xl);
+	--max-height-6xl: var(--size-6xl);
+	--max-height-7xl: var(--size-7xl);
 }

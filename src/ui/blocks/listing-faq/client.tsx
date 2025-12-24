@@ -184,6 +184,7 @@ function ListingFaqInner({
 
 	useEffect(() => {
 		if (queryParams) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultFaqs(null)
 
 			startTransition(async () => {

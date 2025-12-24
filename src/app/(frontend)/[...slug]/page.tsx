@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Head from 'next/head'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -33,7 +34,6 @@ import {
 } from '$server-functions/loader'
 import SiteTemplate from '$templates/site'
 import type { Queried } from '$type'
-import Head from 'next/head'
 
 type Args = {
 	params: Promise<{
@@ -42,7 +42,7 @@ type Args = {
 }
 
 export const dynamic = 'force-static'
-export const revalidate = 3600
+export const revalidate = 2592000
 export const dynamicParams = true
 
 export default async function Page({ params: paramsPromise }: Args) {

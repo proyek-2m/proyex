@@ -211,6 +211,7 @@ function ListingTeamInner({
 
 	useEffect(() => {
 		if (queryParams) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultTeams(null)
 
 			startTransition(async () => {

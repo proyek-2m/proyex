@@ -137,6 +137,7 @@ function ListingPostCategoryInner({
 
 	useEffect(() => {
 		if (queryParams) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultPostCategorys(null)
 
 			startTransition(async () => {

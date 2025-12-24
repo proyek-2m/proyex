@@ -224,6 +224,7 @@ function ListingClientInner({
 
 	useEffect(() => {
 		if (queryParams) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultClients(null)
 
 			startTransition(async () => {

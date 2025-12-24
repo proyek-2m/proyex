@@ -130,6 +130,7 @@ export function ListingServiceInner({
 
 	useEffect(() => {
 		if (queryParams) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setResultServices(null)
 
 			startTransition(async () => {
