@@ -2,9 +2,9 @@ export const slugHomepage = 'home'
 
 export const slugPost = 'blog'
 
-export const slugClient = 'klien2m'
+export const slugClient = 'pelanggan'
 
-export const slugProduct = 'layanan'
+export const slugProduct = 'katalog'
 
 export const slugReusable = 'reusable'
 
