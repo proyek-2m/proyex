@@ -10,7 +10,7 @@ export async function generateMeta(
 	>,
 	site: Site | null,
 ): Promise<Metadata> {
-	const siteTitle = site?.title || 'Proyex'
+	const siteTitle = site?.title || 'SMFOODSMart'
 
 	let ogImage = undefined
 	let title = siteTitle

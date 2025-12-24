@@ -70,6 +70,16 @@ export default buildConfig({
 		importMap: {
 			baseDir: '@',
 		},
+		meta: {
+			titleSuffix: ' | SMFOODSMart Dashboard',
+			icons: '/favicon.jpg',
+		},
+		components: {
+			graphics: {
+				Icon: '$payload-fields/components/branding#Icon',
+				Logo: '$payload-fields/components/branding#Logo',
+			},
+		},
 		livePreview: {
 			breakpoints: [
 				{
@@ -149,8 +159,8 @@ export default buildConfig({
 	}),
 	sharp,
 	email: nodemailerAdapter({
-		defaultFromAddress: 'example@proyex.com',
-		defaultFromName: 'Example Proyex',
+		defaultFromAddress: 'smfoods1266@gmail.com',
+		defaultFromName: 'SMFOODSMart',
 		transportOptions: {
 			host: process.env.SMTP_HOST,
 			port: Number(process.env.SMTP_PORT) || 587,
