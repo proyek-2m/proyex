@@ -1,14 +1,4 @@
-import type {
-	Client,
-	Page,
-	Post,
-	PostCategory,
-	Reusable,
-	Service,
-	Team,
-	TeamPosition,
-	Template,
-} from '$payload-types'
+import type { Client, Page, Post, PostCategory, Product, Reusable } from '$payload-types'
 
 export type Queried =
 	| {
@@ -20,16 +10,8 @@ export type Queried =
 			data: Post
 	  }
 	| {
-			collection: 'teams'
-			data: Team
-	  }
-	| {
-			collection: 'services'
-			data: Service
-	  }
-	| {
-			collection: 'teamPositions'
-			data: TeamPosition
+			collection: 'products'
+			data: Product
 	  }
 	| {
 			collection: 'clients'
@@ -38,10 +20,6 @@ export type Queried =
 	| {
 			collection: 'postCategories'
 			data: PostCategory
-	  }
-	| {
-			collection: 'templates'
-			data: Template
 	  }
 	| {
 			collection: 'reusables'

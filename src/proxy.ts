@@ -31,10 +31,7 @@ export async function proxy(request: NextRequest) {
 				'pages',
 				'posts',
 				'postCategories',
-				'services',
-				'templates',
-				'teams',
-				'teamPositions',
+				'products',
 				'clients',
 				'faqs',
 				'reusables',
@@ -53,7 +50,7 @@ export async function proxy(request: NextRequest) {
 	if (
 		pathname.startsWith('/api/media/') ||
 		pathname.startsWith('/images/') ||
-		pathname.startsWith('/templates/')
+		pathname.startsWith(`/${slugReusable}/`)
 	) {
 		response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
 		response.headers.set('Vary', 'Accept')

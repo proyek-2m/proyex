@@ -3,34 +3,18 @@ import Head from 'next/head'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import {
-	slugClient,
-	slugHomepage,
-	slugPost,
-	slugReusable,
-	slugService,
-	slugTeam,
-	slugTemplates,
-} from '$modules/vars'
+import { slugClient, slugHomepage, slugPost, slugProduct, slugReusable } from '$modules/vars'
 import { generateMeta } from '$payload-libs/meta-utils'
-import {
-	getSiteGlobal,
-	pageSitemap,
-	serviceSitemap,
-	templateSitemap,
-} from '$payload-libs/server/repos'
-import type { Client, Page, Post, PostCategory, Team, Template } from '$payload-types'
+import { getSiteGlobal, pageSitemap, productSitemap } from '$payload-libs/server/repos'
+import type { Client, Page, Post, PostCategory } from '$payload-types'
 import { seoSchema } from '$seo/index'
 import {
 	clientLoader,
 	pageLoader,
 	postCategoryLoader,
 	postLoader,
+	productLoader,
 	reusableLoader,
-	serviceLoader,
-	teamLoader,
-	teamPositionLoader,
-	templateLoader,
 } from '$server-functions/loader'
 import SiteTemplate from '$templates/site'
 import type { Queried } from '$type'
@@ -110,41 +94,6 @@ export default async function Page({ params: paramsPromise }: Args) {
 				data: doc,
 			}
 		}
-	} else if (slugs[0] === slugTeam) {
-		if (slugs.length === 1) {
-			const doc = await pageLoader(slugs)
-
-			if (!doc) {
-				return redirect('/404')
-			}
-
-			loader = {
-				collection: 'pages',
-				data: doc,
-			}
-		} else if (slugs.length === 2) {
-			const doc = await teamPositionLoader(slugs)
-
-			if (!doc) {
-				return redirect('/404')
-			}
-
-			loader = {
-				collection: 'teamPositions',
-				data: doc,
-			}
-		} else {
-			const doc = await teamLoader(slugs)
-
-			if (!doc) {
-				return redirect('/404')
-			}
-
-			loader = {
-				collection: 'teams',
-				data: doc,
-			}
-		}
 	} else if (slugs[0] === slugClient && slugs.length === 2) {
 		const doc = await clientLoader(slugs)
 
@@ -156,26 +105,15 @@ export default async function Page({ params: paramsPromise }: Args) {
 			collection: 'clients',
 			data: doc,
 		}
-	} else if (slugs[0] === slugService && slugs.length === 2) {
-		const doc = await serviceLoader(slugs)
+	} else if (slugs[0] === slugProduct && slugs.length === 2) {
+		const doc = await productLoader(slugs)
 
 		if (!doc) {
 			return redirect('/404')
 		}
 
 		loader = {
-			collection: 'services',
-			data: doc,
-		}
-	} else if (slugs[0] === slugTemplates && slugs.length === 2) {
-		const doc = await templateLoader(slugs)
-
-		if (!doc) {
-			return redirect('/404')
-		}
-
-		loader = {
-			collection: 'templates',
+			collection: 'products',
 			data: doc,
 		}
 	} else if (slugs[0] === slugReusable && slugs.length === 2) {
@@ -337,7 +275,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 			return {}
 		}
 
-		let doc: Page | Post | Team | Client | PostCategory | Template | null = null
+		let doc: Page | Post | Client | PostCategory | null = null
 
 		if (slug[0] === slugPost) {
 			if (slug.length === 1) {
@@ -347,20 +285,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 			} else {
 				doc = await postLoader(slug)
 			}
-		} else if (slug[0] === slugTeam) {
-			if (slug.length === 1) {
-				doc = await pageLoader(slug)
-			} else if (slug.length === 2) {
-				doc = await teamPositionLoader(slug)
-			} else {
-				doc = await teamLoader(slug)
-			}
 		} else if (slug[0] === slugClient && slug.length === 2) {
 			doc = await clientLoader(slug)
-		} else if (slug[0] === slugService && slug.length === 2) {
-			doc = await serviceLoader(slug)
-		} else if (slug[0] === slugTemplates && slug.length === 2) {
-			doc = await templateLoader(slug)
+		} else if (slug[0] === slugProduct && slug.length === 2) {
+			doc = await productLoader(slug)
 		} else if (slug[0] === slugReusable && slug.length === 2) {
 			doc = await reusableLoader(slug)
 		} else {
@@ -388,13 +316,9 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 export async function generateStaticParams() {
 	if (process.env.NODE_ENV === 'development') return []
 
-	const [pages, templates, services] = await Promise.all([
-		pageSitemap(),
-		templateSitemap(),
-		serviceSitemap(),
-	])
+	const [pages, products] = await Promise.all([pageSitemap(), productSitemap()])
 
-	return [...pages, ...templates, ...services].map((doc) => {
+	return [...pages, ...products].map((doc) => {
 		if (doc.link) {
 			const slugs = doc.link.split('/').filter(Boolean)
 

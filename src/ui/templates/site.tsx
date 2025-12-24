@@ -5,11 +5,8 @@ import ClientTemplate from '$templates/post-types/client'
 import PageTemplate from '$templates/post-types/page'
 import PostTemplate from '$templates/post-types/post'
 import PostCategoryTemplate from '$templates/post-types/post-category'
+import ProductTemplate from '$templates/post-types/product'
 import ReusableTemplate from '$templates/post-types/reusable'
-import ServiceTemplate from '$templates/post-types/service'
-import TeamTemplate from '$templates/post-types/team'
-import TeamPositionTemplate from '$templates/post-types/team-position'
-import ProjectTemplate from '$templates/post-types/template'
 import LivePreviewListener from '$templates/preview'
 import type { Queried } from '$type'
 
@@ -30,14 +27,8 @@ export default function SiteTemplate({ draft, ...props }: SiteTemplateProps) {
 				<PageTemplate {...props} />
 			) : props.collection === 'clients' ? (
 				<ClientTemplate {...props} />
-			) : props.collection === 'teams' ? (
-				<TeamTemplate {...props} />
-			) : props.collection === 'teamPositions' ? (
-				<TeamPositionTemplate {...props} />
-			) : props.collection === 'templates' ? (
-				<ProjectTemplate {...props} />
-			) : props.collection === 'services' ? (
-				<ServiceTemplate {...props} />
+			) : props.collection === 'products' ? (
+				<ProductTemplate {...props} />
 			) : props.collection === 'reusables' ? (
 				<ReusableTemplate {...props} />
 			) : null}

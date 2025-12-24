@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { BannerBlock } from '$payload-blocks/Banner'
 import { afterReadHookLink } from '$payload-fields/link'
 import { metafield } from '$payload-fields/metadata'
 import {
@@ -10,9 +11,9 @@ import {
 import { revalidateChange, revalidateDelete } from '$payload-libs/hooks/revalidate'
 import { generatePreviewPath } from '$payload-libs/preview-path'
 
-export const Templates: CollectionConfig = {
-	slug: 'templates',
-	dbName: 'tplc',
+export const Products: CollectionConfig = {
+	slug: 'products',
+	dbName: 'pdc',
 	defaultPopulate: {
 		id: true,
 		title: true,
@@ -20,16 +21,13 @@ export const Templates: CollectionConfig = {
 		link: true,
 		excerpt: true,
 		featuredImage: true,
-		available: true,
-		teams: true,
-		services: true,
 		publishedAt: true,
 		createdAt: true,
 		updatedAt: true,
 	},
 	admin: {
 		useAsTitle: 'title',
-		defaultColumns: ['title', 'slug', 'services', '_status', 'updatedAt', 'author'],
+		defaultColumns: ['title', 'slug', '_status', 'updatedAt', 'author'],
 		group: 'Content',
 		livePreview: {
 			url: ({ data, req }) =>
@@ -66,11 +64,13 @@ export const Templates: CollectionConfig = {
 			type: 'tabs',
 			tabs: [
 				{
-					label: 'General',
+					label: 'Banner',
 					fields: [
 						{
-							name: 'available',
-							type: 'checkbox',
+							type: 'group',
+							name: 'banner',
+							label: false,
+							fields: BannerBlock.fields,
 						},
 					],
 				},
@@ -83,57 +83,40 @@ export const Templates: CollectionConfig = {
 							label: false,
 							blocks: [],
 							blockReferences: [
-								'actions',
-								'baseContent',
-								'cardForm',
-								'clientStory',
-								'clientStorySlider',
-								'clientStoryTeams',
-								'collapsibleTab',
-								'contentCards',
-								'contentIconGrid',
-								'contentMedia',
-								'contentMediaCard',
-								'contentCtaCard',
-								'divider',
-								'featuredListingClient',
-								'gallery',
-								'headingListing',
-								'insightDisplay',
-								'listingClient',
-								'listingFaq',
-								'listingPost',
-								'listingPostCategory',
-								'listingService',
-								'listingTeam',
-								'listingTemplate',
-								'media',
-								'showReusable',
-								'solutions',
-								'socialMap',
-								'spacing',
-								'usp',
+								// 'actions',
+								// 'baseContent',
+								// 'cardForm',
+								// 'clientStory',
+								// 'clientStorySlider',
+								// 'clientStoryTeams',
+								// 'collapsibleTab',
+								// 'contentCards',
+								// 'contentIconGrid',
+								// 'contentMedia',
+								// 'contentMediaCard',
+								// 'contentCtaCard',
+								// 'divider',
+								// 'featuredListingClient',
+								// 'gallery',
+								// 'headingListing',
+								// 'insightDisplay',
+								// 'listingClient',
+								// 'listingFaq',
+								// 'listingPost',
+								// 'listingPostCategory',
+								// 'listingProduct',
+								// 'media',
+								// 'showReusable',
+								// 'solutions',
+								// 'socialMap',
+								// 'spacing',
+								// 'usp',
 							],
 						},
 					],
 				},
 			],
 		},
-		...metafield({
-			general: [
-				{
-					name: 'teams',
-					type: 'relationship',
-					relationTo: 'teams',
-					hasMany: true,
-				},
-				{
-					name: 'services',
-					type: 'relationship',
-					relationTo: 'services',
-					hasMany: true,
-				},
-			],
-		}),
+		...metafield(),
 	],
 }

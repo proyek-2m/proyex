@@ -6,23 +6,23 @@ import { type HTMLAttributes } from 'react'
 import Image from '$components/Image'
 import Link from '$components/Link'
 import { useRouter } from '$hooks/use-router'
-import type { Service } from '$payload-types'
+import type { Product } from '$payload-types'
 import { collectionLink } from '$utils/common'
 import { cx } from '$utils/styles'
 
-import stylesServiceGrid from '$styles/layouts/service-grid.module.css'
+import stylesProductGrid from '$styles/layouts/product-grid.module.css'
 
-export type ServiceGridProps = {
-	data: Pick<Service, 'title' | 'link' | 'excerpt' | 'featuredImage'>
+export type ProductGridProps = {
+	data: Pick<Product, 'title' | 'link' | 'excerpt' | 'featuredImage'>
 } & HTMLAttributes<HTMLDivElement>
 
-export function ServiceGrid({ data, ...props }: ServiceGridProps) {
+export function ProductGrid({ data, ...props }: ProductGridProps) {
 	const router = useRouter()
 
 	return (
 		<div
 			{...props}
-			className={cx(stylesServiceGrid.grid, props.className)}
+			className={cx(stylesProductGrid.grid, props.className)}
 			onClick={(e) => {
 				if (props.onClick) {
 					props.onClick(e)
@@ -34,7 +34,7 @@ export function ServiceGrid({ data, ...props }: ServiceGridProps) {
 			<Title
 				order={5}
 				mb="sm"
-				className={stylesServiceGrid.title}
+				className={stylesProductGrid.title}
 			>
 				{data.title}
 			</Title>
@@ -42,7 +42,7 @@ export function ServiceGrid({ data, ...props }: ServiceGridProps) {
 				src={data.featuredImage}
 				width={364}
 				height={244}
-				className={stylesServiceGrid.thumbnail}
+				className={stylesProductGrid.thumbnail}
 			/>
 
 			{data.excerpt ? (
@@ -74,19 +74,19 @@ export function ServiceGrid({ data, ...props }: ServiceGridProps) {
 	)
 }
 
-export function SkeletonServiceGrid(props: Partial<ServiceGridProps>) {
+export function SkeletonProductGrid(props: Partial<ProductGridProps>) {
 	return (
 		<div
 			{...props}
-			className={cx(stylesServiceGrid.grid, props.className)}
+			className={cx(stylesProductGrid.grid, props.className)}
 		>
 			<Skeleton
 				w="65%"
 				h={25}
 				mb="sm"
-				className={stylesServiceGrid.title}
+				className={stylesProductGrid.title}
 			/>
-			<Skeleton className={stylesServiceGrid.thumbnail} />
+			<Skeleton className={stylesProductGrid.thumbnail} />
 
 			<Stack
 				w="100%"

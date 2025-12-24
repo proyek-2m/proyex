@@ -1,23 +1,17 @@
 'use client'
 import {
-	ActionIcon,
 	Button,
 	Center,
 	Group,
 	Loader,
-	MultiSelect,
 	Pagination,
-	Popover,
-	PopoverDropdown,
-	PopoverTarget,
 	Skeleton,
 	Stack,
 	Text,
 	TextInput,
 	ThemeIcon,
-	type OptionsData,
 } from '@mantine/core'
-import { Filter, Search } from 'lucide-react'
+import { Search } from 'lucide-react'
 import type { PaginatedDocs } from 'payload'
 import { useCallback, useEffect, useId, useMemo, useState, useTransition } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -25,7 +19,6 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { FadeContainer, FadeDiv } from '$components/Fade'
 import { StyleGap } from '$components/Style'
 import { ClientCard, SkeletonClientCard, type ClientCardProps } from '$layouts/Client'
-import type { Team, Template } from '$payload-types'
 import { slugify } from '$utils/common'
 import {
 	queryListingClient,
@@ -37,16 +30,12 @@ import styles from '$styles/blocks/listing-client.module.css'
 
 export type ListingClientClientProps = ListingClientProps & {
 	initialResult: PaginatedDocs<ClientCardProps['data']> | null
-	templates: PaginatedDocs<Pick<Template, 'id' | 'title'>> | null
-	teams: PaginatedDocs<Pick<Team, 'id' | 'title'>> | null
 }
 
 export default function ListingClientClient({
 	block,
 	initialResult,
 	queried,
-	templates,
-	teams,
 	withContainer,
 	...props
 }: ListingClientClientProps) {
@@ -57,8 +46,6 @@ export default function ListingClientClient({
 				block={block}
 				initialResult={initialResult}
 				queried={queried}
-				templates={templates}
-				teams={teams}
 			/>
 		)
 	}
@@ -75,8 +62,6 @@ export default function ListingClientClient({
 						block={block}
 						initialResult={initialResult}
 						queried={queried}
-						templates={templates}
-						teams={teams}
 					/>
 				</FadeDiv>
 			</FadeContainer>
@@ -88,8 +73,6 @@ function ListingClientInner({
 	block,
 	initialResult,
 	queried,
-	templates,
-	teams,
 	...props
 }: Omit<ListingClientClientProps, 'withContainer'>) {
 	const compId = useId()
@@ -166,50 +149,6 @@ function ListingClientInner({
 		[handlerPrevClients, queryParams],
 	)
 
-	const handlerTemplate = useCallback(
-		(value?: string[] | null) => {
-			handlerPrevClients(false)
-
-			const templateIds: number[] = []
-
-			value?.forEach((item) => {
-				templateIds.push(Number(item))
-			})
-
-			setQueryParams({
-				...queryParams,
-				page: 1,
-				filter: {
-					...queryParams?.filter,
-					templateIds,
-				},
-			})
-		},
-		[handlerPrevClients, queryParams],
-	)
-
-	const handlerTeam = useCallback(
-		(value?: string[] | null) => {
-			handlerPrevClients(false)
-
-			const teamIds: number[] = []
-
-			value?.forEach((item) => {
-				teamIds.push(Number(item))
-			})
-
-			setQueryParams({
-				...queryParams,
-				page: 1,
-				filter: {
-					...queryParams?.filter,
-					teamIds,
-				},
-			})
-		},
-		[handlerPrevClients, queryParams],
-	)
-
 	const handlerPagination = useCallback(
 		async (page: number) => {
 			handlerPrevClients()
@@ -251,10 +190,6 @@ function ListingClientInner({
 			<FilterListing
 				data={queryParams}
 				block={block}
-				templates={templates}
-				teams={teams}
-				onChangeTemplate={handlerTemplate}
-				onChangeTeam={handlerTeam}
 				onSearch={handlerSearch}
 			/>
 
@@ -465,119 +400,11 @@ function SkeletonItems({ loading, total }: { loading?: boolean; total?: number }
 function FilterListing({
 	data,
 	block,
-	templates,
-	teams,
-	onChangeTemplate,
-	onChangeTeam,
 	onSearch,
-}: Pick<ListingClientClientProps, 'block' | 'templates' | 'teams'> & {
+}: Pick<ListingClientClientProps, 'block'> & {
 	data: OptionsQueryListingClients | null
 	onSearch: (value: string) => void
-	onChangeTemplate: (value?: string[] | null) => void
-	onChangeTeam: (value?: string[] | null) => void
 }) {
-	const optionTemplates = useMemo(() => {
-		if (!templates || !templates.docs || !templates.docs.length) {
-			return []
-		}
-
-		const options: OptionsData = []
-
-		templates.docs.forEach((template) => {
-			if (template.title) {
-				options.push({
-					value: String(template.id),
-					label: template.title,
-				})
-			}
-		})
-
-		return options
-	}, [templates])
-
-	const defaultTemplates = useMemo(() => {
-		const templateIds: string[] = []
-
-		if (
-			block.type === 'selectedTemplates' &&
-			block.selectedTemplates &&
-			block.selectedTemplates.length
-		) {
-			block.selectedTemplates.forEach((template) => {
-				if (typeof template === 'object') {
-					templateIds.push(String(template.id))
-				} else {
-					templateIds.push(String(template))
-				}
-			})
-		}
-
-		return templateIds
-	}, [block])
-
-	const filterTemplates = useMemo(() => {
-		if (data?.filter?.templateIds) {
-			const templateIds: string[] = []
-
-			data.filter.templateIds.forEach((template) => {
-				templateIds.push(String(template))
-			})
-
-			return templateIds
-		}
-
-		return null
-	}, [data])
-
-	const optionTeams = useMemo(() => {
-		if (!teams || !teams.docs || !teams.docs.length) {
-			return []
-		}
-
-		const options: OptionsData = []
-
-		teams.docs.forEach((team) => {
-			if (team.title) {
-				options.push({
-					value: String(team.id),
-					label: team.title,
-				})
-			}
-		})
-
-		return options
-	}, [teams])
-
-	const defaultTeams = useMemo(() => {
-		const teamIds: string[] = []
-
-		if (block.type === 'selectedTeams' && block.selectedTeams && block.selectedTeams.length) {
-			block.selectedTeams.forEach((team) => {
-				if (typeof team === 'object') {
-					teamIds.push(String(team.id))
-				} else {
-					teamIds.push(String(team))
-				}
-			})
-		}
-
-		return teamIds
-	}, [block])
-
-	const filterTeams = useMemo(() => {
-		if (data?.filter?.teamIds) {
-			const teamIds: string[] = []
-
-			data.filter.teamIds.forEach((template) => {
-				teamIds.push(String(template))
-			})
-
-			return teamIds
-		}
-
-		return null
-	}, [data])
-
 	if (!block.showFilter) {
 		return null
 	}
@@ -626,60 +453,6 @@ function FilterListing({
 					}
 				}}
 			/>
-			<Popover position="bottom-end">
-				<PopoverTarget>
-					<ActionIcon
-						variant="light"
-						className={styles.cta_toggle}
-					>
-						<Filter />
-					</ActionIcon>
-				</PopoverTarget>
-				<PopoverDropdown>
-					<Stack
-						gap="xs"
-						w={{
-							base: 'calc(100vw - 62px)',
-							md: 280,
-						}}
-					>
-						<MultiSelect
-							data={optionTemplates}
-							value={filterTemplates ? filterTemplates : undefined}
-							defaultValue={defaultTemplates}
-							clearable
-							placeholder={
-								!templates || !templates.docs.length
-									? 'Template kosong'
-									: 'Pilih template'
-							}
-							comboboxProps={{
-								withinPortal: false,
-								position: 'bottom-end',
-							}}
-							disabled={!templates || !templates.docs.length}
-							onChange={onChangeTemplate}
-							onClear={onChangeTemplate}
-						/>
-						<MultiSelect
-							data={optionTeams}
-							value={filterTeams ? filterTeams : undefined}
-							defaultValue={defaultTeams}
-							clearable
-							placeholder={
-								!teams || !teams.docs.length ? 'Team kosong' : 'Pilih warga'
-							}
-							comboboxProps={{
-								withinPortal: false,
-								position: 'bottom-end',
-							}}
-							disabled={!teams || !teams.docs.length}
-							onChange={onChangeTeam}
-							onClear={onChangeTeam}
-						/>
-					</Stack>
-				</PopoverDropdown>
-			</Popover>
 		</Group>
 	)
 }

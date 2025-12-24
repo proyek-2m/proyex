@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
-import type { Client, Page, Post, PostCategory, Site, Team, Template } from '$payload-types'
+import type { Client, Page, Post, PostCategory, Site } from '$payload-types'
 import { assetUrl } from '$utils/common'
 
 export async function generateMeta(
 	doc: Pick<
-		Post | PostCategory | Page | Team | Client | Template,
+		Post | PostCategory | Page | Client,
 		'meta' | 'excerpt' | 'featuredImage' | 'title' | 'link' | '_status'
 	>,
 	site: Site | null,

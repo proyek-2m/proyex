@@ -4,11 +4,7 @@ export const slugPost = 'blog'
 
 export const slugClient = 'klien2m'
 
-export const slugTeam = 'warga2m'
-
-export const slugService = 'layanan'
-
-export const slugTemplates = 'templates'
+export const slugProduct = 'layanan'
 
 export const slugReusable = 'reusable'
 

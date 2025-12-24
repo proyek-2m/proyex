@@ -6,7 +6,6 @@ import Button from '$blocks/button'
 import CardForm from '$blocks/card-form'
 import ClientStory from '$blocks/client-story'
 import ClientStorySlider from '$blocks/client-story-slider/server'
-import ClientStoryTeams from '$blocks/client-story-teams'
 import CollapsibleTab from '$blocks/collapsible-tab'
 import ContentCards from '$blocks/content-cards'
 import ContentCtaCard from '$blocks/content-cta-card'
@@ -22,9 +21,7 @@ import ListingClient from '$blocks/listing-client/server'
 import ListingFaq from '$blocks/listing-faq/server'
 import ListingPostCategory from '$blocks/listing-post-category/server'
 import ListingPost from '$blocks/listing-post/server'
-import ListingService from '$blocks/listing-service/server'
-import ListingTeam from '$blocks/listing-team/server'
-import ListingTemplate from '$blocks/listing-template/server'
+import ListingProduct from '$blocks/listing-product/server'
 import Media from '$blocks/media'
 import ShowReusable from '$blocks/show-reusable'
 import SocialMap from '$blocks/social-map'
@@ -110,17 +107,6 @@ export default function ShowBlocks({
 		if (block.blockType === 'clientStorySlider') {
 			return (
 				<ClientStorySlider
-					key={keyComp}
-					block={block}
-					withContainer={withContainer}
-					{...props}
-				/>
-			)
-		}
-
-		if (block.blockType === 'clientStoryTeams') {
-			return (
-				<ClientStoryTeams
 					key={keyComp}
 					block={block}
 					withContainer={withContainer}
@@ -297,35 +283,13 @@ export default function ShowBlocks({
 			)
 		}
 
-		if (block.blockType === 'listingService') {
+		if (block.blockType === 'listingProduct') {
 			return (
-				<ListingService
+				<ListingProduct
 					key={keyComp}
 					block={block}
 					withContainer={withContainer}
-					queried={queried?.collection === 'services' ? queried.data : undefined}
-					{...props}
-				/>
-			)
-		}
-
-		if (block.blockType === 'listingTeam') {
-			return (
-				<ListingTeam
-					key={keyComp}
-					block={block}
-					withContainer={withContainer}
-					{...props}
-				/>
-			)
-		}
-
-		if (block.blockType === 'listingTemplate') {
-			return (
-				<ListingTemplate
-					key={keyComp}
-					block={block}
-					withContainer={withContainer}
+					queried={queried?.collection === 'products' ? queried.data : undefined}
 					{...props}
 				/>
 			)

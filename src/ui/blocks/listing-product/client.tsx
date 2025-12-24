@@ -6,30 +6,30 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { FadeContainer, FadeDiv } from '$components/Fade'
 import { StyleGap } from '$components/Style'
-import { ServiceGrid, SkeletonServiceGrid, type ServiceGridProps } from '$layouts/Service'
+import { ProductGrid, SkeletonProductGrid, type ProductGridProps } from '$layouts/Product'
 import { slugify } from '$utils/common'
 import {
-	queryListingService,
-	type ListingServiceProps,
-	type OptionsQueryListingServices,
+	queryListingProduct,
+	type ListingProductProps,
+	type OptionsQueryListingProducts,
 } from './server'
 
-import styles from '$styles/blocks/listing-service.module.css'
+import styles from '$styles/blocks/listing-product.module.css'
 
-export type ListingServiceClientProps = ListingServiceProps & {
-	initialResult: PaginatedDocs<ServiceGridProps['data']> | null
+export type ListingProductClientProps = ListingProductProps & {
+	initialResult: PaginatedDocs<ProductGridProps['data']> | null
 }
 
-export default function ListingServiceClient({
+export default function ListingProductClient({
 	block,
 	initialResult,
 	queried,
 	withContainer,
 	...props
-}: ListingServiceClientProps) {
+}: ListingProductClientProps) {
 	if (!withContainer) {
 		return (
-			<ListingServiceInner
+			<ListingProductInner
 				{...props}
 				block={block}
 				initialResult={initialResult}
@@ -42,11 +42,11 @@ export default function ListingServiceClient({
 		<section
 			{...props}
 			id={block.blockName || props.id}
-			data-slot="listing-service"
+			data-slot="listing-product"
 		>
 			<FadeContainer className="container">
 				<FadeDiv>
-					<ListingServiceInner
+					<ListingProductInner
 						block={block}
 						initialResult={initialResult}
 						queried={queried}
@@ -57,17 +57,17 @@ export default function ListingServiceClient({
 	)
 }
 
-export function ListingServiceInner({
+export function ListingProductInner({
 	block,
 	initialResult,
 	queried,
 	...props
-}: Omit<ListingServiceClientProps, 'withContainer'>) {
+}: Omit<ListingProductClientProps, 'withContainer'>) {
 	const compId = useId()
 
-	const [queryParams, setQueryParams] = useState<OptionsQueryListingServices | null>(null)
-	const [prevServices, setPrevServices] = useState<ServiceGridProps['data'][]>([])
-	const [resultServices, setResultServices] = useState(initialResult)
+	const [queryParams, setQueryParams] = useState<OptionsQueryListingProducts | null>(null)
+	const [prevProducts, setPrevProducts] = useState<ProductGridProps['data'][]>([])
+	const [resultProducts, setResultProducts] = useState(initialResult)
 	const [isLoading, startTransition] = useTransition()
 
 	const refId = useMemo(() => {
@@ -86,60 +86,60 @@ export function ListingServiceInner({
 	}, [block.gap])
 
 	const posts = useMemo(() => {
-		if (!resultServices) {
+		if (!resultProducts) {
 			return []
 		}
 
-		return resultServices?.docs
-	}, [resultServices])
+		return resultProducts?.docs
+	}, [resultProducts])
 
 	const pagination = useMemo(() => {
-		if (!block.pagination || !resultServices) {
+		if (!block.pagination || !resultProducts) {
 			return null
 		}
 
-		return resultServices
-	}, [block, resultServices])
+		return resultProducts
+	}, [block, resultProducts])
 
 	const isCountinuePagination = useMemo(() => {
 		return block.pagination === 'infinite-scroll' || block.pagination === 'load-more'
 	}, [block.pagination])
 
-	const handlerPrevServices = useCallback(
+	const handlerPrevProducts = useCallback(
 		(enabled?: boolean) => {
 			if (enabled !== false && isCountinuePagination) {
-				setPrevServices([...prevServices, ...posts])
+				setPrevProducts([...prevProducts, ...posts])
 			} else {
-				setPrevServices([])
+				setPrevProducts([])
 			}
 		},
-		[isCountinuePagination, prevServices, posts],
+		[isCountinuePagination, prevProducts, posts],
 	)
 
 	const handlerPagination = useCallback(
 		async (page: number) => {
-			handlerPrevServices()
+			handlerPrevProducts()
 
 			setQueryParams({
 				...queryParams,
 				page,
 			})
 		},
-		[handlerPrevServices, queryParams],
+		[handlerPrevProducts, queryParams],
 	)
 
 	useEffect(() => {
 		if (queryParams) {
 			// eslint-disable-next-line react-hooks/set-state-in-effect
-			setResultServices(null)
+			setResultProducts(null)
 
 			startTransition(async () => {
-				const resultService = await queryListingService(block, {
+				const resultProduct = await queryListingProduct(block, {
 					...queryParams,
 					queried,
 				})
 
-				setResultServices(resultService)
+				setResultProducts(resultProduct)
 			})
 		}
 	}, [queryParams, block, queried])
@@ -147,7 +147,7 @@ export function ListingServiceInner({
 	return (
 		<div
 			{...props}
-			data-slot="listing-service-inner"
+			data-slot="listing-product-inner"
 			id={refId}
 			style={{
 				...props.style,
@@ -166,7 +166,7 @@ export function ListingServiceInner({
 			{block.pagination === 'infinite-scroll' ? (
 				<ListingInfiniteScroll
 					column={column}
-					prevServices={prevServices}
+					prevProducts={prevProducts}
 					posts={posts}
 					loading={isLoading}
 					pagination={pagination}
@@ -176,7 +176,7 @@ export function ListingServiceInner({
 				<ListingLoadMore
 					column={column}
 					posts={posts}
-					prevServices={prevServices}
+					prevProducts={prevProducts}
 					loading={isLoading}
 				/>
 			) : (
@@ -207,8 +207,8 @@ function ListingDefault({
 	block,
 	posts,
 	loading,
-}: Pick<ListingServiceClientProps, 'block'> & {
-	posts: ServiceGridProps['data'][]
+}: Pick<ListingProductClientProps, 'block'> & {
+	posts: ProductGridProps['data'][]
 	loading?: boolean
 }) {
 	const compId = useId()
@@ -228,7 +228,7 @@ function ListingDefault({
 		return (
 			<div className={styles.listing}>
 				{posts.map((post, index) => (
-					<ServiceGrid
+					<ProductGrid
 						data={post}
 						key={`${compId}-post-${index}`}
 					/>
@@ -242,28 +242,28 @@ function ListingDefault({
 
 function ListingLoadMore({
 	column,
-	prevServices,
+	prevProducts,
 	posts,
 	loading,
 }: {
 	column: number
-	prevServices: ServiceGridProps['data'][]
-	posts: ServiceGridProps['data'][]
+	prevProducts: ProductGridProps['data'][]
+	posts: ProductGridProps['data'][]
 	loading?: boolean
 }) {
 	const compId = useId()
 
-	if (loading || posts.length || prevServices.length) {
+	if (loading || posts.length || prevProducts.length) {
 		return (
 			<div className={styles.listing}>
-				{prevServices.map((post, index) => (
-					<ServiceGrid
+				{prevProducts.map((post, index) => (
+					<ProductGrid
 						key={`${compId}-prevpost-${index}`}
 						data={post}
 					/>
 				))}
 				{posts.map((post, index) => (
-					<ServiceGrid
+					<ProductGrid
 						data={post}
 						key={`${compId}-post-${index}`}
 					/>
@@ -281,17 +281,17 @@ function ListingLoadMore({
 
 function ListingInfiniteScroll({
 	column,
-	prevServices,
+	prevProducts,
 	posts,
 	loading,
 	pagination,
 	onPaging,
 }: {
 	column: number
-	prevServices: ServiceGridProps['data'][]
-	posts: ServiceGridProps['data'][]
+	prevProducts: ProductGridProps['data'][]
+	posts: ProductGridProps['data'][]
 	loading?: boolean
-	pagination: PaginatedDocs<ServiceGridProps['data']> | null
+	pagination: PaginatedDocs<ProductGridProps['data']> | null
 	onPaging: (value: number) => void
 }) {
 	const compId = useId()
@@ -300,7 +300,7 @@ function ListingInfiniteScroll({
 		<>
 			<InfiniteScroll
 				loader={null}
-				dataLength={prevServices.length + posts.length}
+				dataLength={prevProducts.length + posts.length}
 				hasMore={pagination?.hasNextPage || false}
 				className={styles.listing}
 				next={() => {
@@ -309,14 +309,14 @@ function ListingInfiniteScroll({
 					}
 				}}
 			>
-				{prevServices.map((post, index) => (
-					<ServiceGrid
+				{prevProducts.map((post, index) => (
+					<ProductGrid
 						key={`${compId}-prevpost-${index}`}
 						data={post}
 					/>
 				))}
 				{posts.map((post, index) => (
-					<ServiceGrid
+					<ProductGrid
 						data={post}
 						key={`${compId}-post-${index}`}
 					/>
@@ -355,7 +355,7 @@ function SkeletonItems({ loading, total }: { loading?: boolean; total?: number }
 
 	return Array.from({
 		length: total || 6,
-	}).map((_, index) => <SkeletonServiceGrid key={`${compId}-${index}`} />)
+	}).map((_, index) => <SkeletonProductGrid key={`${compId}-${index}`} />)
 }
 
 function PaginationListing({
@@ -364,8 +364,8 @@ function PaginationListing({
 	loading,
 	onPaging,
 	className,
-}: Pick<ListingServiceClientProps, 'block'> & {
-	data: PaginatedDocs<ServiceGridProps['data']> | null
+}: Pick<ListingProductClientProps, 'block'> & {
+	data: PaginatedDocs<ProductGridProps['data']> | null
 	loading?: boolean
 	onPaging: (value: number) => void
 	className?: string

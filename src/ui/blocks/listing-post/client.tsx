@@ -25,7 +25,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { FadeContainer, FadeDiv } from '$components/Fade'
 import { StyleGap } from '$components/Style'
 import { BlogCard, SkeletonBlogCard, type BlogCardProps } from '$layouts/Blog'
-import type { PostCategory, Team } from '$payload-types'
+import type { PostCategory } from '$payload-types'
 import { slugify } from '$utils/common'
 import { queryListingPost, type ListingPostProps, type OptionsQueryListingPosts } from './server'
 
@@ -34,7 +34,6 @@ import styles from '$styles/blocks/listing-post.module.css'
 export type ListingPostClientProps = ListingPostProps & {
 	initialResult: PaginatedDocs<BlogCardProps['data']> | null
 	categories: PaginatedDocs<Pick<PostCategory, 'id' | 'title'>> | null
-	authors: PaginatedDocs<Pick<Team, 'id' | 'title'>> | null
 }
 
 export default function ListingPostClient({
@@ -42,7 +41,6 @@ export default function ListingPostClient({
 	initialResult,
 	queried,
 	categories,
-	authors,
 	withContainer,
 	...props
 }: ListingPostClientProps) {
@@ -54,7 +52,6 @@ export default function ListingPostClient({
 				initialResult={initialResult}
 				queried={queried}
 				categories={categories}
-				authors={authors}
 			/>
 		)
 	}
@@ -72,7 +69,6 @@ export default function ListingPostClient({
 						initialResult={initialResult}
 						queried={queried}
 						categories={categories}
-						authors={authors}
 					/>
 				</FadeDiv>
 			</FadeContainer>
@@ -85,7 +81,6 @@ function ListingPostInner({
 	initialResult,
 	queried,
 	categories,
-	authors,
 	...props
 }: ListingPostClientProps) {
 	const compId = useId()
@@ -197,10 +192,7 @@ function ListingPostInner({
 			setQueryParams({
 				...queryParams,
 				page: 1,
-				filter: {
-					...queryParams?.filter,
-					teamIds: authorIds,
-				},
+				filter: queryParams?.filter,
 			})
 		},
 		[handlerPrevPosts, queryParams],
@@ -248,7 +240,6 @@ function ListingPostInner({
 				data={queryParams}
 				block={block}
 				categories={categories}
-				authors={authors}
 				onChangeCategory={handlerCategory}
 				onChangeAuthor={handlerAuthor}
 				onSearch={handlerSearch}
@@ -462,11 +453,10 @@ function FilterListing({
 	data,
 	block,
 	categories,
-	authors,
 	onChangeCategory,
 	onChangeAuthor,
 	onSearch,
-}: Pick<ListingPostClientProps, 'block' | 'categories' | 'authors'> & {
+}: Pick<ListingPostClientProps, 'block' | 'categories'> & {
 	data: OptionsQueryListingPosts | null
 	onSearch: (value: string) => void
 	onChangeCategory: (value?: string[] | null) => void
@@ -490,25 +480,6 @@ function FilterListing({
 
 		return options
 	}, [categories])
-
-	const optionAuthors = useMemo(() => {
-		if (!authors || !authors.docs || !authors.docs.length) {
-			return []
-		}
-
-		const options: OptionsData = []
-
-		authors.docs.forEach((author) => {
-			if (author.title) {
-				options.push({
-					value: String(author.id),
-					label: author.title,
-				})
-			}
-		})
-
-		return options
-	}, [authors])
 
 	const defaultCategories = useMemo(() => {
 		const categoryIds: string[] = []
@@ -539,36 +510,6 @@ function FilterListing({
 			})
 
 			return categoryIds
-		}
-
-		return null
-	}, [data])
-
-	const defaultAuthors = useMemo(() => {
-		const authorIds: string[] = []
-
-		if (block.type === 'createdBy' && block.createdBy && block.createdBy.length) {
-			block.createdBy.forEach((author) => {
-				if (typeof author === 'object') {
-					authorIds.push(String(author.id))
-				} else {
-					authorIds.push(String(author))
-				}
-			})
-		}
-
-		return authorIds
-	}, [block])
-
-	const filterAuthors = useMemo(() => {
-		if (data?.filter?.teamIds) {
-			const authorIds: string[] = []
-
-			data.filter.teamIds.forEach((author) => {
-				authorIds.push(String(author))
-			})
-
-			return authorIds
 		}
 
 		return null
@@ -656,24 +597,6 @@ function FilterListing({
 							disabled={!categories || !categories.docs.length}
 							onChange={onChangeCategory}
 							onClear={onChangeCategory}
-						/>
-						<MultiSelect
-							placeholder={
-								!authors || !authors.docs.length
-									? 'Warga2M kosong'
-									: 'Pilih warga2m'
-							}
-							data={optionAuthors}
-							value={filterAuthors ? filterAuthors : undefined}
-							defaultValue={defaultAuthors}
-							searchable
-							clearable
-							comboboxProps={{
-								withinPortal: false,
-								position: 'bottom-end',
-							}}
-							disabled={!authors || !authors.docs.length}
-							onChange={onChangeAuthor}
 						/>
 					</Stack>
 				</PopoverDropdown>

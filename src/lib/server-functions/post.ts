@@ -15,7 +15,6 @@ export type OptionsQueryPosts = Omit<Options<'posts', Record<keyof Post, true>>,
 	filter?: {
 		ids?: number[]
 		categoryIds?: number[]
-		teamIds?: number[]
 	}
 }
 
@@ -63,14 +62,6 @@ export const queryPosts = async <T extends Partial<Record<keyof Post, true>> | u
 				whereAnd.push({
 					category: {
 						in: options.filter.categoryIds,
-					},
-				})
-			}
-
-			if (options.filter.teamIds?.length) {
-				whereAnd.push({
-					createdBy: {
-						in: options.filter.teamIds,
 					},
 				})
 			}

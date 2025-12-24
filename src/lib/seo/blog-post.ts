@@ -1,7 +1,6 @@
 import type { BlogPosting } from 'schema-dts'
 
 import type { Post } from '$payload-types'
-import { personSchema } from '$seo/person'
 import { assetUrl } from '$utils/common'
 
 export const blogPostingSchema = (post: Post): BlogPosting => {
@@ -15,13 +14,5 @@ export const blogPostingSchema = (post: Post): BlogPosting => {
 		dateCreated: post.createdAt || undefined,
 		dateModified: post.updatedAt || undefined,
 		datePublished: post.publishedAt || undefined,
-		author:
-			post.createdBy && typeof post.createdBy === 'object'
-				? personSchema(post.createdBy)
-				: undefined,
-		creator:
-			post.createdBy && typeof post.createdBy === 'object'
-				? personSchema(post.createdBy)
-				: undefined,
 	}
 }

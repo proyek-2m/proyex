@@ -59,7 +59,7 @@ export const BannerBlock: Block = {
 		{
 			name: 'featured',
 			type: 'relationship',
-			relationTo: ['clients', 'templates'],
+			relationTo: ['clients'],
 			admin: {
 				condition: (_, siblingData) => siblingData.type !== 'none',
 			},

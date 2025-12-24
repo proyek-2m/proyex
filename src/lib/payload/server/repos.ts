@@ -183,47 +183,14 @@ export const postCategorySitemap = async () => {
 	}
 }
 
-export const teamSitemap = async () => {
+export const productSitemap = async () => {
 	'use cache'
 	try {
-		cacheTag('sitemap', 'sitemap:teams')
+		cacheTag('sitemap', 'sitemap:products')
 
 		const payload = await getPayload({ config: configPromise })
 		const posts = await payload.find({
-			collection: 'teams',
-			draft: false,
-			limit: 100000,
-			overrideAccess: false,
-			pagination: false,
-			where: {
-				_status: {
-					equals: 'published',
-				},
-			},
-			select: {
-				title: true,
-				slug: true,
-				link: true,
-				positions: true,
-				updatedAt: true,
-			},
-		})
-
-		return posts.docs
-	} catch (error) {
-		console.error('teamSitemap', { error })
-		return []
-	}
-}
-
-export const teamPositionSitemap = async () => {
-	'use cache'
-	try {
-		cacheTag('sitemap', 'sitemap:teamPositions')
-
-		const payload = await getPayload({ config: configPromise })
-		const posts = await payload.find({
-			collection: 'teamPositions',
+			collection: 'products',
 			draft: false,
 			limit: 100000,
 			overrideAccess: false,
@@ -243,80 +210,7 @@ export const teamPositionSitemap = async () => {
 
 		return posts.docs
 	} catch (error) {
-		console.error('teamPositionSitemap', { error })
-		return []
-	}
-}
-
-export const templateSitemap = async () => {
-	'use cache'
-	try {
-		cacheTag('sitemap', 'sitemap:templates')
-
-		const payload = await getPayload({ config: configPromise })
-		const posts = await payload.find({
-			collection: 'templates',
-			draft: false,
-			limit: 100000,
-			overrideAccess: false,
-			pagination: false,
-			where: {
-				and: [
-					{
-						_status: {
-							equals: 'published',
-						},
-					},
-					{
-						available: {
-							equals: true,
-						},
-					},
-				],
-			},
-			select: {
-				title: true,
-				slug: true,
-				link: true,
-				updatedAt: true,
-			},
-		})
-
-		return posts.docs
-	} catch (error) {
-		console.error('templateSitemap', { error })
-		return []
-	}
-}
-
-export const serviceSitemap = async () => {
-	'use cache'
-	try {
-		cacheTag('sitemap', 'sitemap:services')
-
-		const payload = await getPayload({ config: configPromise })
-		const posts = await payload.find({
-			collection: 'services',
-			draft: false,
-			limit: 100000,
-			overrideAccess: false,
-			pagination: false,
-			where: {
-				_status: {
-					equals: 'published',
-				},
-			},
-			select: {
-				title: true,
-				slug: true,
-				link: true,
-				updatedAt: true,
-			},
-		})
-
-		return posts.docs
-	} catch (error) {
-		console.error('templateSitemap', { error })
+		console.error('productSitemap', { error })
 		return []
 	}
 }

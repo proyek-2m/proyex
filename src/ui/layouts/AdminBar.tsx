@@ -119,27 +119,6 @@ export default function AdminBar({ data, collection, ...props }: AdminBarProps) 
 						</Menu.Item>
 						<Menu.Item
 							component={Link}
-							href="/admin/collections/teams"
-							target="_blank"
-						>
-							Teams
-						</Menu.Item>
-						<Menu.Item
-							component={Link}
-							href="/admin/collections/teamPositions"
-							target="_blank"
-						>
-							Team Positions
-						</Menu.Item>
-						<Menu.Item
-							component={Link}
-							href="/admin/collections/templates"
-							target="_blank"
-						>
-							Templates
-						</Menu.Item>
-						<Menu.Item
-							component={Link}
 							href="/admin/collections/pages"
 							target="_blank"
 						>

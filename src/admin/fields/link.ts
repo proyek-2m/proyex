@@ -1,14 +1,5 @@
 import { linkCollection } from '$payload-libs/link-utils'
-import type {
-	Client,
-	Page,
-	Post,
-	PostCategory,
-	Reusable,
-	Team,
-	TeamPosition,
-	Template,
-} from '$payload-types'
+import type { Client, Page, Post, PostCategory, Reusable } from '$payload-types'
 import type { AfterReadHook } from 'node_modules/payload/dist/collections/config/types'
 import type { Field } from 'payload'
 
@@ -26,9 +17,10 @@ export const linkField: Field = {
 	},
 }
 
-export const afterReadHookLink: AfterReadHook<
-	Client | Page | Team | TeamPosition | Post | PostCategory | Template | Reusable
-> = ({ doc, collection }) => {
+export const afterReadHookLink: AfterReadHook<Client | Page | Post | PostCategory | Reusable> = ({
+	doc,
+	collection,
+}) => {
 	const post = {
 		link: linkCollection({
 			collection: collection.slug,

@@ -4,8 +4,6 @@ import type { HTMLAttributes } from 'react'
 
 import type { Client, ListingClient as ListingClientBlock } from '$payload-types'
 import { type OptionsQueryClients, queryClients } from '$server-functions/client'
-import { queryTeams } from '$server-functions/team'
-import { queryTemplates } from '$server-functions/template'
 import ListingClientClient from './client'
 
 export type ListingClientProps = {
@@ -24,8 +22,6 @@ export const queryListingClient = async (
 	let search: OptionsQueryClients['search'] = options?.search
 	let limit = options?.limit || block.total || 6
 	const clientIds: number[] = []
-	const templateIds: number[] = []
-	const teamIds: number[] = []
 
 	if (options?.sort) {
 		sort = options.sort
@@ -53,34 +49,6 @@ export const queryListingClient = async (
 		if (clientIds.length === 0) {
 			return null
 		}
-	} else if (
-		block.type === 'selectedTemplates' &&
-		block.selectedTemplates &&
-		!options?.filter?.templateIds
-	) {
-		block.selectedTemplates.forEach((template) => {
-			if (typeof template === 'object') {
-				templateIds.push(template.id)
-			} else {
-				templateIds.push(template)
-			}
-		})
-
-		if (templateIds.length === 0) {
-			return null
-		}
-	} else if (block.type === 'selectedTeams' && block.selectedTeams && !options?.filter?.teamIds) {
-		block.selectedTeams.forEach((team) => {
-			if (typeof team === 'object') {
-				teamIds.push(team.id)
-			} else {
-				teamIds.push(team)
-			}
-		})
-
-		if (teamIds.length === 0) {
-			return null
-		}
 	} else if (block.type === 'search' && block.search && !search) {
 		search = block.search
 	}
@@ -94,8 +62,6 @@ export const queryListingClient = async (
 			filter: {
 				...options?.filter,
 				ids: options?.filter?.ids || clientIds,
-				templateIds: options?.filter?.templateIds || templateIds,
-				teamIds: options?.filter?.teamIds || teamIds,
 			},
 		},
 		{
@@ -115,54 +81,16 @@ export const queryListingClient = async (
 	)
 }
 
-const queryListingTemplates = async (block: ListingClientProps['block']) => {
-	if (!block.showFilter) {
-		return null
-	}
-
-	return await queryTemplates(
-		{
-			limit: 1000000,
-			pagination: false,
-		},
-		{
-			id: true,
-			title: true,
-		},
-	)
-}
-
-const queryListingTeams = async (block: ListingClientProps['block']) => {
-	if (!block.showFilter) {
-		return null
-	}
-
-	return await queryTeams(
-		{
-			limit: 1000000,
-			pagination: false,
-		},
-		{
-			id: true,
-			title: true,
-		},
-	)
-}
-
 export default async function ListingClient({ block, queried, ...props }: ListingClientProps) {
 	const resultClients = await queryListingClient(block, {
 		queried,
 	})
-	const resultTemplates = await queryListingTemplates(block)
-	const resultTeams = await queryListingTeams(block)
 
 	return (
 		<ListingClientClient
 			{...props}
 			block={block}
 			initialResult={resultClients}
-			templates={resultTemplates}
-			teams={resultTeams}
 			queried={queried}
 		/>
 	)

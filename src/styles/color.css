@@ -90,12 +90,12 @@ html[lang]:root {
 	--stone-soft-color: var(--color-stone-100);
 	--stone-dark-color: var(--color-stone-800);
 
-	--primary-color: var(--color-primary-400);
+	--primary-color: var(--color-primary-700);
 	--primary-soft-color: var(--color-primary-50);
-	--primary-dark-color: var(--color-primary-600);
+	--primary-dark-color: var(--color-primary-800);
 
-	--secondary-color: var(--color-secondary-800);
-	--secondary-soft-color: var(--color-secondary-50);
+	--secondary-color: var(--color-secondary-700);
+	--secondary-soft-color: var(--color-secondary-100);
 	--secondary-dark-color: var(--color-secondary-900);
 
 	--text-base-color: var(--black-color);

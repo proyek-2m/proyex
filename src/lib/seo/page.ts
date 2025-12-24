@@ -7,11 +7,11 @@ import type {
 	WebPage,
 } from 'schema-dts'
 
-import type { Client, Page, Service, Team, Template } from '$payload-types'
+import type { Client, Page, Product } from '$payload-types'
 import { assetUrl } from '$utils/common'
 
 export const pageSchema = (
-	data: Page | Client | Team | Template | Service,
+	data: Page | Client | Product,
 ): WebPage | AboutPage | ContactPage | FAQPage | ProfilePage | SearchResultsPage => {
 	return {
 		'@type': data.meta?.schemaType || 'WebPage',

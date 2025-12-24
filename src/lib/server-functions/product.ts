@@ -4,16 +4,16 @@ import type { Options } from 'node_modules/payload/dist/collections/operations/l
 import { getPayload, type PaginatedDocs, type Where } from 'payload'
 
 import configPromise from '$payload-config'
-import type { Service } from '$payload-types'
+import type { Product } from '$payload-types'
 
-export type OptionsQueryServices = Omit<
-	Options<'services', Record<keyof Service, true>>,
+export type OptionsQueryProducts = Omit<
+	Options<'products', Record<keyof Product, true>>,
 	'collection'
 > & {
 	whereAnd?: Where['and']
 	whereOr?: Where['or']
 	search?: string
-	queried?: Service
+	queried?: Product
 	filter?: {
 		ids?: number[]
 	}
@@ -21,10 +21,10 @@ export type OptionsQueryServices = Omit<
 
 const fieldSearch = ['title', 'excerpt', 'meta.title', 'meta.description']
 
-export const queryServices = async <T extends Partial<Record<keyof Service, true>> | undefined>(
-	options?: OptionsQueryServices,
+export const queryProducts = async <T extends Partial<Record<keyof Product, true>> | undefined>(
+	options?: OptionsQueryProducts,
 	select?: T,
-): Promise<PaginatedDocs<Pick<Service, T extends undefined ? keyof Service : keyof T>> | null> => {
+): Promise<PaginatedDocs<Pick<Product, T extends undefined ? keyof Product : keyof T>> | null> => {
 	'use cache'
 	try {
 		const payload = await getPayload({ config: configPromise })
@@ -76,7 +76,7 @@ export const queryServices = async <T extends Partial<Record<keyof Service, true
 		})
 
 		const result = await payload.find({
-			collection: 'services',
+			collection: 'products',
 			limit,
 			page,
 			sort,
@@ -87,11 +87,11 @@ export const queryServices = async <T extends Partial<Record<keyof Service, true
 			},
 		})
 
-		cacheTag('collection', 'collection:services')
+		cacheTag('collection', 'collection:products')
 
 		return result
 	} catch (error) {
-		console.error('Error fetching services', { error })
+		console.error('Error fetching products', { error })
 		return null
 	}
 }

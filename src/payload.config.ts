@@ -22,14 +22,11 @@ import { Clients } from '$payload-collections/Clients'
 import { Pages } from '$payload-collections/Pages'
 import { PostCategories } from '$payload-collections/PostCategories'
 import { Posts } from '$payload-collections/Posts'
-import { Services } from '$payload-collections/Services'
+import { Products } from '$payload-collections/Products'
 import { Asset } from '$payload-collections/statics/Asset'
 import { Faqs } from '$payload-collections/statics/Faqs'
 import { Reusables } from '$payload-collections/statics/Reusables'
 import { Users } from '$payload-collections/statics/Users'
-import { TeamPositions } from '$payload-collections/TeamPositions'
-import { Teams } from '$payload-collections/Teams'
-import { Templates } from '$payload-collections/Templates'
 
 import { ActionsBlock } from '$payload-blocks/Actions'
 import { BannerBlock } from '$payload-blocks/Banner'
@@ -38,7 +35,6 @@ import { ButtonBlock } from '$payload-blocks/Button'
 import { CardFormBlock } from '$payload-blocks/CardForm'
 import { ClientStoryBlock } from '$payload-blocks/ClientStory'
 import { ClientStorySliderBlock } from '$payload-blocks/ClientStorySlider'
-import { ClientStoryTeamsBlock } from '$payload-blocks/ClientStoryTeams'
 import { CollapsibleTabBlock } from '$payload-blocks/CollapsibleTab'
 import { ContentCardsBlock } from '$payload-blocks/ContentCards'
 import { ContentCTACardBlock } from '$payload-blocks/ContentCTACard'
@@ -54,9 +50,7 @@ import { ListingClientBlock } from '$payload-blocks/ListingClient'
 import { ListingFaqBlock } from '$payload-blocks/ListingFaq'
 import { ListingPostBlock } from '$payload-blocks/ListingPost'
 import { ListingPostCategoryBlock } from '$payload-blocks/ListingPostCategories'
-import { ListingServiceBlock } from '$payload-blocks/ListingService'
-import { ListingTeamBlock } from '$payload-blocks/ListingTeam'
-import { ListingTemplateBlock } from '$payload-blocks/ListingTemplate'
+import { ListingProductBlock } from '$payload-blocks/ListingProduct'
 import { MediaBlock } from '$payload-blocks/Media'
 import { ShowReusableBlock } from '$payload-blocks/Reusable'
 import { SocialMapBlock } from '$payload-blocks/SocialMap'
@@ -101,20 +95,7 @@ export default buildConfig({
 	},
 	debug: process.env.NODE_ENV === 'development',
 	defaultDepth: 5,
-	collections: [
-		Asset,
-		Pages,
-		Posts,
-		PostCategories,
-		Services,
-		Templates,
-		Teams,
-		TeamPositions,
-		Clients,
-		Faqs,
-		Reusables,
-		Users,
-	],
+	collections: [Asset, Pages, Posts, PostCategories, Products, Clients, Faqs, Reusables, Users],
 	cors: [process.env.NEXT_PUBLIC_SITE_URL],
 	globals: [SiteConfig],
 	editor: richTextEditor(),
@@ -140,7 +121,6 @@ export default buildConfig({
 		CardFormBlock,
 		ClientStoryBlock,
 		ClientStorySliderBlock,
-		ClientStoryTeamsBlock,
 		CollapsibleTabBlock,
 		ShowReusableBlock,
 		FeaturedListingClientBlock,
@@ -149,9 +129,7 @@ export default buildConfig({
 		ListingFaqBlock,
 		ListingPostBlock,
 		ListingPostCategoryBlock,
-		ListingTeamBlock,
-		ListingTemplateBlock,
-		ListingServiceBlock,
+		ListingProductBlock,
 	],
 	secret: process.env.PAYLOAD_SECRET,
 	typescript: {
@@ -185,16 +163,7 @@ export default buildConfig({
 	}),
 	plugins: [
 		seoPlugin({
-			collections: [
-				'clients',
-				'pages',
-				'posts',
-				'postCategories',
-				'teams',
-				'teamPositions',
-				'services',
-				'templates',
-			],
+			collections: ['clients', 'pages', 'posts', 'postCategories', 'products'],
 			uploadsCollection: 'asset',
 			tabbedUI: true,
 			fields: (args) => {

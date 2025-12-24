@@ -16,8 +16,6 @@ export type OptionsQueryClients = Omit<
 	queried?: Client
 	filter?: {
 		ids?: number[]
-		templateIds?: number[]
-		teamIds?: number[]
 	}
 }
 
@@ -51,22 +49,6 @@ export const queryClients = async <T extends Partial<Record<keyof Client, true>>
 				whereAnd.push({
 					id: {
 						in: options.filter.ids,
-					},
-				})
-			}
-
-			if (options.filter.templateIds?.length) {
-				whereAnd.push({
-					template: {
-						in: options.filter.templateIds,
-					},
-				})
-			}
-
-			if (options.filter.teamIds?.length) {
-				whereAnd.push({
-					teams: {
-						in: options.filter.teamIds,
 					},
 				})
 			}

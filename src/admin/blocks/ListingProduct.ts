@@ -2,8 +2,8 @@ import type { Block } from 'payload'
 
 import { styleField } from '$payload-fields/style'
 
-export const ListingServiceBlock: Block = {
-	slug: 'listingService',
+export const ListingProductBlock: Block = {
+	slug: 'listingProduct',
 	dbName: (args) => {
 		if (args.tableName) {
 			return args.tableName + '_lscb'
@@ -11,7 +11,7 @@ export const ListingServiceBlock: Block = {
 
 		return 'lscb'
 	},
-	imageURL: '/blocks/listing-service.jpg',
+	imageURL: '/blocks/listing-product.jpg',
 	fields: [
 		{
 			name: 'type',
@@ -19,12 +19,12 @@ export const ListingServiceBlock: Block = {
 			enumName: 'lscbtyp',
 			options: [
 				{
-					label: 'Services',
-					value: 'services',
+					label: 'Products',
+					value: 'products',
 				},
 				{
-					label: 'Selected Services',
-					value: 'selectedServices',
+					label: 'Selected Products',
+					value: 'selectedProducts',
 				},
 				{
 					label: 'Search',
@@ -33,12 +33,12 @@ export const ListingServiceBlock: Block = {
 			],
 		},
 		{
-			name: 'selectedServices',
+			name: 'selectedProducts',
 			type: 'relationship',
-			relationTo: 'services',
+			relationTo: 'products',
 			hasMany: true,
 			admin: {
-				condition: (_, siblingData) => siblingData.type === 'selectedServices',
+				condition: (_, siblingData) => siblingData.type === 'selectedProducts',
 			},
 		},
 		{

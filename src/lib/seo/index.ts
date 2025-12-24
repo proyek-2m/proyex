@@ -8,7 +8,7 @@ import { breadcrumbSchema } from '$seo/breadcrumb'
 import { localBusinessSchema } from '$seo/local-business'
 import { organizationSchema } from '$seo/organization'
 import { pageSchema } from '$seo/page'
-import { personSchema } from '$seo/person'
+import { productSchema } from '$seo/product'
 import type { Queried } from '$type'
 
 export type SeoDts = {
@@ -35,8 +35,8 @@ export const seoSchema = ({ data, collection, site }: SeoDts): Graph => {
 		graph.push(pageSchema(data))
 	}
 
-	if (collection === 'teams') {
-		graph.push(personSchema(data))
+	if (collection === 'products') {
+		productSchema(data)
 	}
 
 	return {

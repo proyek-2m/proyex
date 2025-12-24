@@ -4,7 +4,6 @@ import type { HTMLAttributes } from 'react'
 
 import type { ListingPost as ListingPostBlock, Post } from '$payload-types'
 import { type OptionsQueryPosts, queryPostCategories, queryPosts } from '$server-functions/post'
-import { queryTeams } from '$server-functions/team'
 import ListingPostClient from './client'
 
 export type ListingPostProps = {
@@ -24,7 +23,6 @@ export const queryListingPost = async (
 	let limit = options?.limit || block.total || 6
 	const postIds: number[] = []
 	const categoryIds: number[] = []
-	const teamIds: number[] = []
 
 	if (options?.sort) {
 		sort = options.sort
@@ -68,18 +66,6 @@ export const queryListingPost = async (
 		if (categoryIds.length === 0) {
 			return null
 		}
-	} else if (block.type === 'createdBy' && block.createdBy && !options?.filter?.teamIds) {
-		block.createdBy.forEach((team) => {
-			if (typeof team === 'object') {
-				teamIds.push(team.id)
-			} else {
-				teamIds.push(team)
-			}
-		})
-
-		if (teamIds.length === 0) {
-			return null
-		}
 	} else if (block.type === 'search' && block.search && !search) {
 		search = block.search
 	}
@@ -94,7 +80,6 @@ export const queryListingPost = async (
 				...options?.filter,
 				ids: options?.filter?.ids || postIds,
 				categoryIds: options?.filter?.categoryIds || categoryIds,
-				teamIds: options?.filter?.teamIds || teamIds,
 			},
 		},
 		{
@@ -126,29 +111,11 @@ const queryListingCategories = async (block: ListingPostProps['block']) => {
 	)
 }
 
-const queryListingAuthors = async (block: ListingPostProps['block']) => {
-	if (!block.showFilter) {
-		return null
-	}
-
-	return await queryTeams(
-		{
-			limit: 1000000,
-			pagination: false,
-		},
-		{
-			id: true,
-			title: true,
-		},
-	)
-}
-
 export default async function ListingPost({ block, queried, ...props }: ListingPostProps) {
 	const resultPosts = await queryListingPost(block, {
 		queried,
 	})
 	const resultCategories = await queryListingCategories(block)
-	const resultAuthors = await queryListingAuthors(block)
 
 	return (
 		<ListingPostClient
@@ -156,7 +123,6 @@ export default async function ListingPost({ block, queried, ...props }: ListingP
 			block={block}
 			initialResult={resultPosts}
 			categories={resultCategories}
-			authors={resultAuthors}
 			queried={queried}
 		/>
 	)

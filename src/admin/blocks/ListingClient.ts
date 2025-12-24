@@ -27,14 +27,6 @@ export const ListingClientBlock: Block = {
 					value: 'selectedClients',
 				},
 				{
-					label: 'Selected Templates',
-					value: 'selectedTemplates',
-				},
-				{
-					label: 'Selected Teams',
-					value: 'selectedTeams',
-				},
-				{
 					label: 'Search',
 					value: 'search',
 				},
@@ -47,24 +39,6 @@ export const ListingClientBlock: Block = {
 			hasMany: true,
 			admin: {
 				condition: (_, siblingData) => siblingData.type === 'selectedClients',
-			},
-		},
-		{
-			name: 'selectedTemplates',
-			type: 'relationship',
-			relationTo: 'templates',
-			hasMany: true,
-			admin: {
-				condition: (_, siblingData) => siblingData.type === 'selectedTemplates',
-			},
-		},
-		{
-			name: 'selectedTeams',
-			type: 'relationship',
-			relationTo: 'teams',
-			hasMany: true,
-			admin: {
-				condition: (_, siblingData) => siblingData.type === 'selectedTeams',
 			},
 		},
 		{

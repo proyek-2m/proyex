@@ -181,177 +181,45 @@ export const pageLoader = async (slug: string[]) => {
 	return null
 }
 
-export const serviceLoader = async (slug: string[]) => {
+export const productLoader = async (slug: string[]) => {
 	'use cache'
 	const payload = await getPayload({ config: configPromise })
 	const { isEnabled: draft } = await draftMode()
 
-	const slugService = slug[slug.length - 1]
+	const slugProduct = slug[slug.length - 1]
 
-	const getService = await payload.find({
-		collection: 'services',
+	const getProduct = await payload.find({
+		collection: 'products',
 		draft,
 		limit: 1,
 		pagination: false,
 		overrideAccess: draft,
 		where: {
 			slug: {
-				equals: slugService,
+				equals: slugProduct,
 			},
 		},
 	})
 
-	if (getService.docs.length) {
-		const serviceLink = slug.join('/')
-		const service = getService.docs[0]
+	if (getProduct.docs.length) {
+		const productLink = slug.join('/')
+		const product = getProduct.docs[0]
 
 		if (
 			!draft &&
-			service &&
-			`/${serviceLink}` !==
+			product &&
+			`/${productLink}` !==
 				linkCollection({
-					collection: 'services',
-					doc: service,
+					collection: 'products',
+					doc: product,
 				})
 		) {
 			return null
 		}
 
-		cacheTag('collection', 'collection:services')
+		cacheTag('collection', 'collection:products')
 
-		return service
-	}
-
-	return null
-}
-
-export const teamLoader = async (slug: string[]) => {
-	'use cache'
-	const payload = await getPayload({ config: configPromise })
-	const { isEnabled: draft } = await draftMode()
-
-	const slugTeam = slug[slug.length - 1]
-
-	const getTeam = await payload.find({
-		collection: 'teams',
-		draft,
-		limit: 1,
-		pagination: false,
-		overrideAccess: draft,
-		where: {
-			slug: {
-				equals: slugTeam,
-			},
-		},
-	})
-
-	if (getTeam.docs.length) {
-		const teamLink = slug.join('/')
-		const team = getTeam.docs[0]
-
-		if (
-			!draft &&
-			team &&
-			`/${teamLink}` !==
-				linkCollection({
-					collection: 'teams',
-					doc: team,
-				})
-		) {
-			return null
-		}
-
-		cacheTag('collection', 'collection:teams')
-
-		return team
-	}
-
-	return null
-}
-
-export const teamPositionLoader = async (slug: string[]) => {
-	'use cache'
-	const payload = await getPayload({ config: configPromise })
-	const { isEnabled: draft } = await draftMode()
-
-	const slugTeamPosition = slug[slug.length - 1]
-
-	const getTeamPosition = await payload.find({
-		collection: 'teamPositions',
-		draft,
-		limit: 1,
-		pagination: false,
-		overrideAccess: draft,
-		where: {
-			slug: {
-				equals: slugTeamPosition,
-			},
-		},
-	})
-
-	if (getTeamPosition.docs.length) {
-		const teamPositionLink = slug.join('/')
-		const teamPosition = getTeamPosition.docs[0]
-
-		if (
-			!draft &&
-			teamPosition &&
-			`/${teamPositionLink}` !==
-				linkCollection({
-					collection: 'teamPositions',
-					doc: teamPosition,
-				})
-		) {
-			return null
-		}
-
-		cacheTag('collection', 'collection:teamPositions')
-
-		return teamPosition
-	}
-
-	return null
-}
-
-export const templateLoader = async (slug: string[]) => {
-	'use cache'
-	const payload = await getPayload({ config: configPromise })
-	const { isEnabled: draft } = await draftMode()
-
-	const slugTemplate = slug[slug.length - 1]
-
-	const getTemplate = await payload.find({
-		collection: 'templates',
-		draft,
-		limit: 1,
-		pagination: false,
-		overrideAccess: draft,
-		where: {
-			slug: {
-				equals: slugTemplate,
-			},
-		},
-	})
-
-	if (getTemplate.docs.length) {
-		const templateLink = slug.join('/')
-		const template = getTemplate.docs[0]
-
-		if (
-			!draft &&
-			template &&
-			`/${templateLink}` !==
-				linkCollection({
-					collection: 'templates',
-					doc: template,
-				})
-		) {
-			return null
-		}
-
-		cacheTag('collection', 'collection:templates')
-
-		return template
+		return product
 	}
 
 	return null

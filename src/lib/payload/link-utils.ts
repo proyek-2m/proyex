@@ -1,34 +1,14 @@
 import type { CollectionSlug } from 'payload'
 
-import {
-	slugClient,
-	slugHomepage,
-	slugPost,
-	slugReusable,
-	slugService,
-	slugTeam,
-	slugTemplates,
-} from '$modules/vars'
-import type {
-	Client,
-	Page,
-	Post,
-	PostCategory,
-	Reusable,
-	Team,
-	TeamPosition,
-	Template,
-} from '$payload-types'
+import { slugClient, slugHomepage, slugPost, slugProduct, slugReusable } from '$modules/vars'
+import type { Client, Page, Post, PostCategory, Product, Reusable } from '$payload-types'
 
 export const slugPostType: Record<CollectionSlug, string> = {
 	asset: '',
 	pages: '',
 	posts: slugPost,
 	postCategories: slugPost,
-	services: slugService,
-	templates: slugTemplates,
-	teams: slugTeam,
-	teamPositions: slugTeam,
+	products: slugProduct,
 	clients: slugClient,
 	faqs: '',
 	reusables: slugReusable,
@@ -50,20 +30,8 @@ type LinkCollectionParams =
 			doc: Pick<PostCategory, 'slug'>
 	  }
 	| {
-			collection: 'services'
-			doc: Pick<Template, 'slug'>
-	  }
-	| {
-			collection: 'templates'
-			doc: Pick<Template, 'slug'>
-	  }
-	| {
-			collection: 'teams'
-			doc: Pick<Team, 'slug' | 'positions'>
-	  }
-	| {
-			collection: 'teamPositions'
-			doc: Pick<TeamPosition, 'slug'>
+			collection: 'products'
+			doc: Pick<Product, 'slug'>
 	  }
 	| {
 			collection: 'clients'
@@ -127,25 +95,7 @@ export function linkCollection({ collection, doc }: LinkCollectionParams) {
 		return `/${slugPostType[collection]}/${doc.slug || ''}`
 	}
 
-	if (collection === 'services') {
-		return `/${slugPostType[collection]}/${doc.slug || ''}`
-	}
-
-	if (collection === 'templates') {
-		return `/${slugPostType[collection]}/${doc.slug || ''}`
-	}
-
-	if (collection === 'teams') {
-		link = `/${slugPostType[collection]}/uncategorized/${doc.slug || ''}`
-
-		if (doc.positions?.length && typeof doc.positions[0] === 'object') {
-			link = link.replace('uncategorized', doc.positions[0].slug || '')
-		}
-
-		return link
-	}
-
-	if (collection === 'teamPositions') {
+	if (collection === 'products') {
 		return `/${slugPostType[collection]}/${doc.slug || ''}`
 	}
 

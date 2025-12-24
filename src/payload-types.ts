@@ -86,7 +86,6 @@ export interface Config {
     socialMap: SocialMap;
     clientStory: ClientStory;
     clientStorySlider: ClientStorySlider;
-    clientStoryTeams: ClientStoryTeams;
     collapsibleTab: CollapsibleTab;
     showReusable: ShowReusable;
     featuredListingClient: FeaturedListingClient;
@@ -95,19 +94,14 @@ export interface Config {
     listingFaq: ListingFaq;
     listingPost: ListingPost;
     listingPostCategory: ListingPostCategory;
-    listingTeam: ListingTeam;
-    listingTemplate: ListingTemplate;
-    listingService: ListingService;
+    listingProduct: ListingProduct;
   };
   collections: {
     asset: Asset;
     pages: Page;
     posts: Post;
     postCategories: PostCategory;
-    services: Service;
-    templates: Template;
-    teams: Team;
-    teamPositions: TeamPosition;
+    products: Product;
     clients: Client;
     faqs: Faq;
     reusables: Reusable;
@@ -125,10 +119,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     postCategories: PostCategoriesSelect<false> | PostCategoriesSelect<true>;
-    services: ServicesSelect<false> | ServicesSelect<true>;
-    templates: TemplatesSelect<false> | TemplatesSelect<true>;
-    teams: TeamsSelect<false> | TeamsSelect<true>;
-    teamPositions: TeamPositionsSelect<false> | TeamPositionsSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     reusables: ReusablesSelect<false> | ReusablesSelect<true>;
@@ -891,15 +882,10 @@ export interface Page {
   banner?: {
     type?: ('detail' | 'none') | null;
     align?: ('center' | 'left' | 'right') | null;
-    featured?:
-      | ({
-          relationTo: 'clients';
-          value: number | Client;
-        } | null)
-      | ({
-          relationTo: 'templates';
-          value: number | Template;
-        } | null);
+    featured?: {
+      relationTo: 'clients';
+      value: number | Client;
+    } | null;
     content?: {
       root: {
         type: string;
@@ -1273,40 +1259,7 @@ export interface Page {
       mobile?: (number | null) | Asset;
     };
   };
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | ClientStorySlider
-        | ClientStoryTeams
-        | CollapsibleTab
-        | ContentCards
-        | ContentIconGrid
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | ShowReusable
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
+  content?: unknown[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -1347,15 +1300,10 @@ export interface Client {
   banner?: {
     type?: ('detail' | 'none') | null;
     align?: ('center' | 'left' | 'right') | null;
-    featured?:
-      | ({
-          relationTo: 'clients';
-          value: number | Client;
-        } | null)
-      | ({
-          relationTo: 'templates';
-          value: number | Template;
-        } | null);
+    featured?: {
+      relationTo: 'clients';
+      value: number | Client;
+    } | null;
     content?: {
       root: {
         type: string;
@@ -1729,38 +1677,7 @@ export interface Client {
       mobile?: (number | null) | Asset;
     };
   };
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | ClientStorySlider
-        | ClientStoryTeams
-        | CollapsibleTab
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | ShowReusable
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
+  content?: unknown[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -1777,8 +1694,6 @@ export interface Client {
   link?: string | null;
   excerpt?: string | null;
   featuredImage?: (number | null) | Asset;
-  template?: (number | null) | Template;
-  teams?: (number | Team)[] | null;
   publishedAt?: string | null;
   author?: (number | null) | User;
   updatedAt: string;
@@ -1787,68 +1702,29 @@ export interface Client {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templates".
+ * via the `definition` "users".
  */
-export interface Template {
+export interface User {
   id: number;
-  available?: boolean | null;
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | ClientStorySlider
-        | ClientStoryTeams
-        | CollapsibleTab
-        | ContentCards
-        | ContentIconGrid
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | ShowReusable
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Asset;
-    schemaType?: ('WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'ProfilePage' | 'SearchResultsPage') | null;
-    robots?: string | null;
-    keywords?: string | null;
-  };
-  title: string;
-  slug: string;
-  link?: string | null;
-  excerpt?: string | null;
-  featuredImage?: (number | null) | Asset;
-  teams?: (number | Team)[] | null;
-  services?: (number | Service)[] | null;
-  publishedAt?: string | null;
-  author?: (number | null) | User;
+  name?: string | null;
+  role?: ('admin' | 'editor' | 'author') | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2078,6 +1954,393 @@ export interface Actions {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "banner".
+ */
+export interface Banner {
+  type?: ('detail' | 'none') | null;
+  align?: ('center' | 'left' | 'right') | null;
+  featured?: {
+    relationTo: 'clients';
+    value: number | Client;
+  } | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  actions?:
+    | {
+        label?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        link?: {
+          href?: string | null;
+          target?: ('_self' | '_blank' | '_parent' | '_top') | null;
+        };
+        icon?: {
+          /**
+           * Fill with name of icon from https://lucide.dev/icons
+           */
+          name?: string | null;
+          /**
+           * Number of rem.
+           */
+          size?: number | null;
+          position?: ('left' | 'right') | null;
+          color?: {
+            base?:
+              | (
+                  | 'inherit'
+                  | 'base'
+                  | 'primary'
+                  | 'primary-soft'
+                  | 'primary-dark'
+                  | 'secondary'
+                  | 'secondary-soft'
+                  | 'secondary-dark'
+                  | 'red'
+                  | 'red-soft'
+                  | 'red-dark'
+                  | 'orange'
+                  | 'orange-soft'
+                  | 'orange-dark'
+                  | 'amber'
+                  | 'amber-soft'
+                  | 'amber-dark'
+                  | 'yellow'
+                  | 'yellow-soft'
+                  | 'yellow-dark'
+                  | 'lime'
+                  | 'lime-soft'
+                  | 'lime-dark'
+                  | 'green'
+                  | 'green-soft'
+                  | 'green-dark'
+                  | 'emerald'
+                  | 'emerald-soft'
+                  | 'emerald-dark'
+                  | 'teal'
+                  | 'teal-soft'
+                  | 'teal-dark'
+                  | 'cyan'
+                  | 'cyan-soft'
+                  | 'cyan-dark'
+                  | 'sky'
+                  | 'sky-soft'
+                  | 'sky-dark'
+                  | 'blue'
+                  | 'blue-soft'
+                  | 'blue-dark'
+                  | 'indigo'
+                  | 'indigo-soft'
+                  | 'indigo-dark'
+                  | 'violet'
+                  | 'violet-soft'
+                  | 'violet-dark'
+                  | 'purple'
+                  | 'purple-soft'
+                  | 'purple-dark'
+                  | 'fuchsia'
+                  | 'fuchsia-soft'
+                  | 'fuchsia-dark'
+                  | 'pink'
+                  | 'pink-soft'
+                  | 'pink-dark'
+                  | 'rose'
+                  | 'rose-soft'
+                  | 'rose-dark'
+                  | 'gray'
+                  | 'gray-soft'
+                  | 'gray-dark'
+                  | 'black'
+                  | 'white'
+                  | 'customColor'
+                )
+              | null;
+            /**
+             * Fill the color with hex, rgb, or rgba
+             */
+            custom?: string | null;
+          };
+        };
+        variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
+        size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+        align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
+        rounded?: {
+          base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+          topLeft?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+          topRight?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+          bottomLeft?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+          bottomRight?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+        };
+        color?: {
+          base?:
+            | (
+                | 'primary'
+                | 'primary-soft'
+                | 'primary-dark'
+                | 'secondary'
+                | 'secondary-soft'
+                | 'secondary-dark'
+                | 'red'
+                | 'red-soft'
+                | 'red-dark'
+                | 'orange'
+                | 'orange-soft'
+                | 'orange-dark'
+                | 'amber'
+                | 'amber-soft'
+                | 'amber-dark'
+                | 'yellow'
+                | 'yellow-soft'
+                | 'yellow-dark'
+                | 'lime'
+                | 'lime-soft'
+                | 'lime-dark'
+                | 'green'
+                | 'green-soft'
+                | 'green-dark'
+                | 'emerald'
+                | 'emerald-soft'
+                | 'emerald-dark'
+                | 'teal'
+                | 'teal-soft'
+                | 'teal-dark'
+                | 'cyan'
+                | 'cyan-soft'
+                | 'cyan-dark'
+                | 'sky'
+                | 'sky-soft'
+                | 'sky-dark'
+                | 'blue'
+                | 'blue-soft'
+                | 'blue-dark'
+                | 'indigo'
+                | 'indigo-soft'
+                | 'indigo-dark'
+                | 'violet'
+                | 'violet-soft'
+                | 'violet-dark'
+                | 'purple'
+                | 'purple-soft'
+                | 'purple-dark'
+                | 'fuchsia'
+                | 'fuchsia-soft'
+                | 'fuchsia-dark'
+                | 'pink'
+                | 'pink-soft'
+                | 'pink-dark'
+                | 'rose'
+                | 'rose-soft'
+                | 'rose-dark'
+                | 'gray'
+                | 'gray-soft'
+                | 'gray-dark'
+                | 'black'
+                | 'white'
+                | 'customColor'
+              )
+            | null;
+          /**
+           * Fill the color with hex, rgb, or rgba
+           */
+          custom?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  textColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  backgroundColor?: {
+    base?:
+      | (
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  backgroundImage?: {
+    general?: (number | null) | Asset;
+    mobile?: (number | null) | Asset;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "baseContent".
  */
 export interface BaseContent {
@@ -2265,552 +2528,6 @@ export interface BaseContent {
   id?: string | null;
   blockName?: string | null;
   blockType: 'baseContent';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "clientStory".
- */
-export interface ClientStory {
-  client?: (number | null) | Client;
-  padding?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    top?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    bottom?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    left?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    right?: string | null;
-  };
-  rounded?: {
-    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-    topLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    topRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-  };
-  textColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  backgroundColor?: {
-    base?:
-      | (
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  backgroundImage?: {
-    general?: (number | null) | Asset;
-    mobile?: (number | null) | Asset;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'clientStory';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "clientStorySlider".
- */
-export interface ClientStorySlider {
-  type?: ('clients' | 'selectedClients' | 'selectedTemplates' | 'selectedTeams' | 'search') | null;
-  selectedClients?: (number | Client)[] | null;
-  selectedTemplates?: (number | Template)[] | null;
-  selectedTeams?: (number | Team)[] | null;
-  search?: string | null;
-  order?: ('DESC' | 'ASC') | null;
-  orderBy?: ('date' | 'title') | null;
-  total?: number | null;
-  column?: number | null;
-  rounded?: {
-    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-    topLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    topRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-  };
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'clientStorySlider';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "teams".
- */
-export interface Team {
-  id: number;
-  level?: ('rookie' | 'builder' | 'leader' | 'mentor') | null;
-  gender?: ('male' | 'female') | null;
-  city?: string | null;
-  motivation?: string | null;
-  socials?: {
-    email?: string | null;
-    website?: string | null;
-    github?: string | null;
-    linkedin?: string | null;
-    instagram?: string | null;
-    tiktok?: string | null;
-    youtube?: string | null;
-    facebook?: string | null;
-    twitter?: string | null;
-  };
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | CollapsibleTab
-        | ClientStorySlider
-        | ClientStoryTeams
-        | ContentCards
-        | ContentIconGrid
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | ShowReusable
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Asset;
-    schemaType?: ('WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'ProfilePage' | 'SearchResultsPage') | null;
-    robots?: string | null;
-    keywords?: string | null;
-  };
-  title: string;
-  slug: string;
-  link?: string | null;
-  excerpt?: string | null;
-  featuredImage?: (number | null) | Asset;
-  avatar?: (number | null) | Asset;
-  positions?: (number | TeamPosition)[] | null;
-  user?: (number | null) | User;
-  publishedAt?: string | null;
-  author?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "collapsibleTab".
- */
-export interface CollapsibleTab {
-  variant?: ('default' | 'contained' | 'filled' | 'separated') | null;
-  items?:
-    | {
-        /**
-         * Fill with name of icon from https://lucide.dev/icons
-         */
-        icon?: string | null;
-        heading?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        content?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
-      }[]
-    | null;
-  column?: number | null;
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  iconColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'collapsibleTab';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "clientStoryTeams".
- */
-export interface ClientStoryTeams {
-  client?: (number | null) | Client;
-  textColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'clientStoryTeams';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4915,6 +4632,1564 @@ export interface ContentCtaCard {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insightDisplay".
+ */
+export interface InsightDisplay {
+  featuredText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  actions?:
+    | {
+        label?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        link?: {
+          href?: string | null;
+          target?: ('_self' | '_blank' | '_parent' | '_top') | null;
+        };
+        icon?: {
+          /**
+           * Fill with name of icon from https://lucide.dev/icons
+           */
+          name?: string | null;
+          /**
+           * Number of rem.
+           */
+          size?: number | null;
+          position?: ('left' | 'right') | null;
+          color?: {
+            base?:
+              | (
+                  | 'inherit'
+                  | 'base'
+                  | 'primary'
+                  | 'primary-soft'
+                  | 'primary-dark'
+                  | 'secondary'
+                  | 'secondary-soft'
+                  | 'secondary-dark'
+                  | 'red'
+                  | 'red-soft'
+                  | 'red-dark'
+                  | 'orange'
+                  | 'orange-soft'
+                  | 'orange-dark'
+                  | 'amber'
+                  | 'amber-soft'
+                  | 'amber-dark'
+                  | 'yellow'
+                  | 'yellow-soft'
+                  | 'yellow-dark'
+                  | 'lime'
+                  | 'lime-soft'
+                  | 'lime-dark'
+                  | 'green'
+                  | 'green-soft'
+                  | 'green-dark'
+                  | 'emerald'
+                  | 'emerald-soft'
+                  | 'emerald-dark'
+                  | 'teal'
+                  | 'teal-soft'
+                  | 'teal-dark'
+                  | 'cyan'
+                  | 'cyan-soft'
+                  | 'cyan-dark'
+                  | 'sky'
+                  | 'sky-soft'
+                  | 'sky-dark'
+                  | 'blue'
+                  | 'blue-soft'
+                  | 'blue-dark'
+                  | 'indigo'
+                  | 'indigo-soft'
+                  | 'indigo-dark'
+                  | 'violet'
+                  | 'violet-soft'
+                  | 'violet-dark'
+                  | 'purple'
+                  | 'purple-soft'
+                  | 'purple-dark'
+                  | 'fuchsia'
+                  | 'fuchsia-soft'
+                  | 'fuchsia-dark'
+                  | 'pink'
+                  | 'pink-soft'
+                  | 'pink-dark'
+                  | 'rose'
+                  | 'rose-soft'
+                  | 'rose-dark'
+                  | 'gray'
+                  | 'gray-soft'
+                  | 'gray-dark'
+                  | 'black'
+                  | 'white'
+                  | 'customColor'
+                )
+              | null;
+            /**
+             * Fill the color with hex, rgb, or rgba
+             */
+            custom?: string | null;
+          };
+        };
+        variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
+        size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+        align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
+        rounded?: {
+          base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+          topLeft?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+          topRight?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+          bottomLeft?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+          bottomRight?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            custom?: string | null;
+          };
+        };
+        color?: {
+          base?:
+            | (
+                | 'primary'
+                | 'primary-soft'
+                | 'primary-dark'
+                | 'secondary'
+                | 'secondary-soft'
+                | 'secondary-dark'
+                | 'red'
+                | 'red-soft'
+                | 'red-dark'
+                | 'orange'
+                | 'orange-soft'
+                | 'orange-dark'
+                | 'amber'
+                | 'amber-soft'
+                | 'amber-dark'
+                | 'yellow'
+                | 'yellow-soft'
+                | 'yellow-dark'
+                | 'lime'
+                | 'lime-soft'
+                | 'lime-dark'
+                | 'green'
+                | 'green-soft'
+                | 'green-dark'
+                | 'emerald'
+                | 'emerald-soft'
+                | 'emerald-dark'
+                | 'teal'
+                | 'teal-soft'
+                | 'teal-dark'
+                | 'cyan'
+                | 'cyan-soft'
+                | 'cyan-dark'
+                | 'sky'
+                | 'sky-soft'
+                | 'sky-dark'
+                | 'blue'
+                | 'blue-soft'
+                | 'blue-dark'
+                | 'indigo'
+                | 'indigo-soft'
+                | 'indigo-dark'
+                | 'violet'
+                | 'violet-soft'
+                | 'violet-dark'
+                | 'purple'
+                | 'purple-soft'
+                | 'purple-dark'
+                | 'fuchsia'
+                | 'fuchsia-soft'
+                | 'fuchsia-dark'
+                | 'pink'
+                | 'pink-soft'
+                | 'pink-dark'
+                | 'rose'
+                | 'rose-soft'
+                | 'rose-dark'
+                | 'gray'
+                | 'gray-soft'
+                | 'gray-dark'
+                | 'black'
+                | 'white'
+                | 'customColor'
+              )
+            | null;
+          /**
+           * Fill the color with hex, rgb, or rgba
+           */
+          custom?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media?: {
+    type?: ('image' | 'video') | null;
+    source?: ('internal' | 'external') | null;
+    imageInternal?: (number | null) | Asset;
+    imageExternal?: string | null;
+    videoInternal?: (number | null) | Asset;
+    videoExternal?: string | null;
+    videoOptions?: ('loop' | 'autoplay')[] | null;
+    videoPoster?: (number | null) | Asset;
+    action?: ('none' | 'link' | 'lightbox') | null;
+    actionLink?: string | null;
+    id?: string | null;
+  };
+  align?: ('left' | 'right' | 'center') | null;
+  featuredTextColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  padding?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    top?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    bottom?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    left?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    right?: string | null;
+  };
+  rounded?: {
+    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+    topLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    topRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+  };
+  textColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  backgroundColor?: {
+    base?:
+      | (
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'insightDisplay';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions".
+ */
+export interface Solutions {
+  items?:
+    | {
+        content?: {
+          featuredText?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          content?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+        };
+        actions?:
+          | {
+              label?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              link?: {
+                href?: string | null;
+                target?: ('_self' | '_blank' | '_parent' | '_top') | null;
+              };
+              icon?: {
+                /**
+                 * Fill with name of icon from https://lucide.dev/icons
+                 */
+                name?: string | null;
+                /**
+                 * Number of rem.
+                 */
+                size?: number | null;
+                position?: ('left' | 'right') | null;
+                color?: {
+                  base?:
+                    | (
+                        | 'inherit'
+                        | 'base'
+                        | 'primary'
+                        | 'primary-soft'
+                        | 'primary-dark'
+                        | 'secondary'
+                        | 'secondary-soft'
+                        | 'secondary-dark'
+                        | 'red'
+                        | 'red-soft'
+                        | 'red-dark'
+                        | 'orange'
+                        | 'orange-soft'
+                        | 'orange-dark'
+                        | 'amber'
+                        | 'amber-soft'
+                        | 'amber-dark'
+                        | 'yellow'
+                        | 'yellow-soft'
+                        | 'yellow-dark'
+                        | 'lime'
+                        | 'lime-soft'
+                        | 'lime-dark'
+                        | 'green'
+                        | 'green-soft'
+                        | 'green-dark'
+                        | 'emerald'
+                        | 'emerald-soft'
+                        | 'emerald-dark'
+                        | 'teal'
+                        | 'teal-soft'
+                        | 'teal-dark'
+                        | 'cyan'
+                        | 'cyan-soft'
+                        | 'cyan-dark'
+                        | 'sky'
+                        | 'sky-soft'
+                        | 'sky-dark'
+                        | 'blue'
+                        | 'blue-soft'
+                        | 'blue-dark'
+                        | 'indigo'
+                        | 'indigo-soft'
+                        | 'indigo-dark'
+                        | 'violet'
+                        | 'violet-soft'
+                        | 'violet-dark'
+                        | 'purple'
+                        | 'purple-soft'
+                        | 'purple-dark'
+                        | 'fuchsia'
+                        | 'fuchsia-soft'
+                        | 'fuchsia-dark'
+                        | 'pink'
+                        | 'pink-soft'
+                        | 'pink-dark'
+                        | 'rose'
+                        | 'rose-soft'
+                        | 'rose-dark'
+                        | 'gray'
+                        | 'gray-soft'
+                        | 'gray-dark'
+                        | 'black'
+                        | 'white'
+                        | 'customColor'
+                      )
+                    | null;
+                  /**
+                   * Fill the color with hex, rgb, or rgba
+                   */
+                  custom?: string | null;
+                };
+              };
+              variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
+              size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+              align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
+              rounded?: {
+                base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+                topLeft?: {
+                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+                  custom?: string | null;
+                };
+                topRight?: {
+                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+                  custom?: string | null;
+                };
+                bottomLeft?: {
+                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+                  custom?: string | null;
+                };
+                bottomRight?: {
+                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+                  custom?: string | null;
+                };
+              };
+              color?: {
+                base?:
+                  | (
+                      | 'primary'
+                      | 'primary-soft'
+                      | 'primary-dark'
+                      | 'secondary'
+                      | 'secondary-soft'
+                      | 'secondary-dark'
+                      | 'red'
+                      | 'red-soft'
+                      | 'red-dark'
+                      | 'orange'
+                      | 'orange-soft'
+                      | 'orange-dark'
+                      | 'amber'
+                      | 'amber-soft'
+                      | 'amber-dark'
+                      | 'yellow'
+                      | 'yellow-soft'
+                      | 'yellow-dark'
+                      | 'lime'
+                      | 'lime-soft'
+                      | 'lime-dark'
+                      | 'green'
+                      | 'green-soft'
+                      | 'green-dark'
+                      | 'emerald'
+                      | 'emerald-soft'
+                      | 'emerald-dark'
+                      | 'teal'
+                      | 'teal-soft'
+                      | 'teal-dark'
+                      | 'cyan'
+                      | 'cyan-soft'
+                      | 'cyan-dark'
+                      | 'sky'
+                      | 'sky-soft'
+                      | 'sky-dark'
+                      | 'blue'
+                      | 'blue-soft'
+                      | 'blue-dark'
+                      | 'indigo'
+                      | 'indigo-soft'
+                      | 'indigo-dark'
+                      | 'violet'
+                      | 'violet-soft'
+                      | 'violet-dark'
+                      | 'purple'
+                      | 'purple-soft'
+                      | 'purple-dark'
+                      | 'fuchsia'
+                      | 'fuchsia-soft'
+                      | 'fuchsia-dark'
+                      | 'pink'
+                      | 'pink-soft'
+                      | 'pink-dark'
+                      | 'rose'
+                      | 'rose-soft'
+                      | 'rose-dark'
+                      | 'gray'
+                      | 'gray-soft'
+                      | 'gray-dark'
+                      | 'black'
+                      | 'white'
+                      | 'customColor'
+                    )
+                  | null;
+                /**
+                 * Fill the color with hex, rgb, or rgba
+                 */
+                custom?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        media?: {
+          type?: ('image' | 'video') | null;
+          source?: ('internal' | 'external') | null;
+          imageInternal?: (number | null) | Asset;
+          imageExternal?: string | null;
+          videoInternal?: (number | null) | Asset;
+          videoExternal?: string | null;
+          videoOptions?: ('loop' | 'autoplay')[] | null;
+          videoPoster?: (number | null) | Asset;
+          action?: ('none' | 'link' | 'lightbox') | null;
+          actionLink?: string | null;
+          id?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  desktopPosition?: ('content-media' | 'media-content') | null;
+  mobilePosition?: ('content-media' | 'media-content') | null;
+  align?: ('left' | 'right' | 'center') | null;
+  gap?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    base?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    vertical?: string | null;
+  };
+  textColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  featuredTextColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'solutions';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "usp".
+ */
+export interface Usp {
+  items?:
+    | {
+        /**
+         * Fill with name of icon from https://lucide.dev/icons
+         */
+        icon?: string | null;
+        title?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  column?: number | null;
+  align?: ('left' | 'right' | 'center') | null;
+  gap?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    base?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    vertical?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'usp';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialMap".
+ */
+export interface SocialMap {
+  gmapSource?: string | null;
+  items?:
+    | {
+        /**
+         * Fill with name of icon from https://lucide.dev/icons
+         */
+        icon?: string | null;
+        title?: string | null;
+        label?: string | null;
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  position?: ('top' | 'center' | 'bottom') | null;
+  column?: number | null;
+  rounded?: {
+    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+    topLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    topRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+  };
+  gap?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    base?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    vertical?: string | null;
+  };
+  iconColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  socialRounded?: {
+    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+    topLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    topRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'socialMap';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clientStory".
+ */
+export interface ClientStory {
+  client?: (number | null) | Client;
+  padding?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    top?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    bottom?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    left?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    right?: string | null;
+  };
+  rounded?: {
+    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+    topLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    topRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+  };
+  textColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  backgroundColor?: {
+    base?:
+      | (
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  backgroundImage?: {
+    general?: (number | null) | Asset;
+    mobile?: (number | null) | Asset;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clientStory';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clientStorySlider".
+ */
+export interface ClientStorySlider {
+  type?: ('clients' | 'selectedClients' | 'search') | null;
+  selectedClients?: (number | Client)[] | null;
+  search?: string | null;
+  order?: ('DESC' | 'ASC') | null;
+  orderBy?: ('date' | 'title') | null;
+  total?: number | null;
+  column?: number | null;
+  rounded?: {
+    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+    topLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    topRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomLeft?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+    bottomRight?: {
+      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+      custom?: string | null;
+    };
+  };
+  gap?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    base?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    vertical?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'clientStorySlider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collapsibleTab".
+ */
+export interface CollapsibleTab {
+  variant?: ('default' | 'contained' | 'filled' | 'separated') | null;
+  items?:
+    | {
+        /**
+         * Fill with name of icon from https://lucide.dev/icons
+         */
+        icon?: string | null;
+        heading?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  column?: number | null;
+  gap?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    base?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    vertical?: string | null;
+  };
+  iconColor?: {
+    base?:
+      | (
+          | 'inherit'
+          | 'base'
+          | 'primary'
+          | 'primary-soft'
+          | 'primary-dark'
+          | 'secondary'
+          | 'secondary-soft'
+          | 'secondary-dark'
+          | 'red'
+          | 'red-soft'
+          | 'red-dark'
+          | 'orange'
+          | 'orange-soft'
+          | 'orange-dark'
+          | 'amber'
+          | 'amber-soft'
+          | 'amber-dark'
+          | 'yellow'
+          | 'yellow-soft'
+          | 'yellow-dark'
+          | 'lime'
+          | 'lime-soft'
+          | 'lime-dark'
+          | 'green'
+          | 'green-soft'
+          | 'green-dark'
+          | 'emerald'
+          | 'emerald-soft'
+          | 'emerald-dark'
+          | 'teal'
+          | 'teal-soft'
+          | 'teal-dark'
+          | 'cyan'
+          | 'cyan-soft'
+          | 'cyan-dark'
+          | 'sky'
+          | 'sky-soft'
+          | 'sky-dark'
+          | 'blue'
+          | 'blue-soft'
+          | 'blue-dark'
+          | 'indigo'
+          | 'indigo-soft'
+          | 'indigo-dark'
+          | 'violet'
+          | 'violet-soft'
+          | 'violet-dark'
+          | 'purple'
+          | 'purple-soft'
+          | 'purple-dark'
+          | 'fuchsia'
+          | 'fuchsia-soft'
+          | 'fuchsia-dark'
+          | 'pink'
+          | 'pink-soft'
+          | 'pink-dark'
+          | 'rose'
+          | 'rose-soft'
+          | 'rose-dark'
+          | 'gray'
+          | 'gray-soft'
+          | 'gray-dark'
+          | 'black'
+          | 'white'
+          | 'customColor'
+        )
+      | null;
+    /**
+     * Fill the color with hex, rgb, or rgba
+     */
+    custom?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'collapsibleTab';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "showReusable".
+ */
+export interface ShowReusable {
+  reusable?: (number | null) | Reusable;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'showReusable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reusables".
+ */
+export interface Reusable {
+  id: number;
+  content?: unknown[] | null;
+  title: string;
+  slug: string;
+  link?: string | null;
+  excerpt?: string | null;
+  featuredImage?: (number | null) | Asset;
+  publishedAt?: string | null;
+  author?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "featuredListingClient".
  */
 export interface FeaturedListingClient {
@@ -5155,10 +6430,8 @@ export interface FeaturedListingClient {
         id?: string | null;
       }[]
     | null;
-  type?: ('clients' | 'selectedClients' | 'selectedTemplates' | 'selectedTeams' | 'search') | null;
+  type?: ('clients' | 'selectedClients' | 'search') | null;
   selectedClients?: (number | Client)[] | null;
-  selectedTemplates?: (number | Template)[] | null;
-  selectedTeams?: (number | Team)[] | null;
   search?: string | null;
   order?: ('DESC' | 'ASC') | null;
   orderBy?: ('date' | 'title') | null;
@@ -5727,531 +7000,11 @@ export interface HeadingListing {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "insightDisplay".
- */
-export interface InsightDisplay {
-  featuredText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  actions?:
-    | {
-        label?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        link?: {
-          href?: string | null;
-          target?: ('_self' | '_blank' | '_parent' | '_top') | null;
-        };
-        icon?: {
-          /**
-           * Fill with name of icon from https://lucide.dev/icons
-           */
-          name?: string | null;
-          /**
-           * Number of rem.
-           */
-          size?: number | null;
-          position?: ('left' | 'right') | null;
-          color?: {
-            base?:
-              | (
-                  | 'inherit'
-                  | 'base'
-                  | 'primary'
-                  | 'primary-soft'
-                  | 'primary-dark'
-                  | 'secondary'
-                  | 'secondary-soft'
-                  | 'secondary-dark'
-                  | 'red'
-                  | 'red-soft'
-                  | 'red-dark'
-                  | 'orange'
-                  | 'orange-soft'
-                  | 'orange-dark'
-                  | 'amber'
-                  | 'amber-soft'
-                  | 'amber-dark'
-                  | 'yellow'
-                  | 'yellow-soft'
-                  | 'yellow-dark'
-                  | 'lime'
-                  | 'lime-soft'
-                  | 'lime-dark'
-                  | 'green'
-                  | 'green-soft'
-                  | 'green-dark'
-                  | 'emerald'
-                  | 'emerald-soft'
-                  | 'emerald-dark'
-                  | 'teal'
-                  | 'teal-soft'
-                  | 'teal-dark'
-                  | 'cyan'
-                  | 'cyan-soft'
-                  | 'cyan-dark'
-                  | 'sky'
-                  | 'sky-soft'
-                  | 'sky-dark'
-                  | 'blue'
-                  | 'blue-soft'
-                  | 'blue-dark'
-                  | 'indigo'
-                  | 'indigo-soft'
-                  | 'indigo-dark'
-                  | 'violet'
-                  | 'violet-soft'
-                  | 'violet-dark'
-                  | 'purple'
-                  | 'purple-soft'
-                  | 'purple-dark'
-                  | 'fuchsia'
-                  | 'fuchsia-soft'
-                  | 'fuchsia-dark'
-                  | 'pink'
-                  | 'pink-soft'
-                  | 'pink-dark'
-                  | 'rose'
-                  | 'rose-soft'
-                  | 'rose-dark'
-                  | 'gray'
-                  | 'gray-soft'
-                  | 'gray-dark'
-                  | 'black'
-                  | 'white'
-                  | 'customColor'
-                )
-              | null;
-            /**
-             * Fill the color with hex, rgb, or rgba
-             */
-            custom?: string | null;
-          };
-        };
-        variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
-        size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-        align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
-        rounded?: {
-          base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-          topLeft?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-          topRight?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-          bottomLeft?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-          bottomRight?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-        };
-        color?: {
-          base?:
-            | (
-                | 'primary'
-                | 'primary-soft'
-                | 'primary-dark'
-                | 'secondary'
-                | 'secondary-soft'
-                | 'secondary-dark'
-                | 'red'
-                | 'red-soft'
-                | 'red-dark'
-                | 'orange'
-                | 'orange-soft'
-                | 'orange-dark'
-                | 'amber'
-                | 'amber-soft'
-                | 'amber-dark'
-                | 'yellow'
-                | 'yellow-soft'
-                | 'yellow-dark'
-                | 'lime'
-                | 'lime-soft'
-                | 'lime-dark'
-                | 'green'
-                | 'green-soft'
-                | 'green-dark'
-                | 'emerald'
-                | 'emerald-soft'
-                | 'emerald-dark'
-                | 'teal'
-                | 'teal-soft'
-                | 'teal-dark'
-                | 'cyan'
-                | 'cyan-soft'
-                | 'cyan-dark'
-                | 'sky'
-                | 'sky-soft'
-                | 'sky-dark'
-                | 'blue'
-                | 'blue-soft'
-                | 'blue-dark'
-                | 'indigo'
-                | 'indigo-soft'
-                | 'indigo-dark'
-                | 'violet'
-                | 'violet-soft'
-                | 'violet-dark'
-                | 'purple'
-                | 'purple-soft'
-                | 'purple-dark'
-                | 'fuchsia'
-                | 'fuchsia-soft'
-                | 'fuchsia-dark'
-                | 'pink'
-                | 'pink-soft'
-                | 'pink-dark'
-                | 'rose'
-                | 'rose-soft'
-                | 'rose-dark'
-                | 'gray'
-                | 'gray-soft'
-                | 'gray-dark'
-                | 'black'
-                | 'white'
-                | 'customColor'
-              )
-            | null;
-          /**
-           * Fill the color with hex, rgb, or rgba
-           */
-          custom?: string | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  media?: {
-    type?: ('image' | 'video') | null;
-    source?: ('internal' | 'external') | null;
-    imageInternal?: (number | null) | Asset;
-    imageExternal?: string | null;
-    videoInternal?: (number | null) | Asset;
-    videoExternal?: string | null;
-    videoOptions?: ('loop' | 'autoplay')[] | null;
-    videoPoster?: (number | null) | Asset;
-    action?: ('none' | 'link' | 'lightbox') | null;
-    actionLink?: string | null;
-    id?: string | null;
-  };
-  align?: ('left' | 'right' | 'center') | null;
-  featuredTextColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  padding?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    top?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    bottom?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    left?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    right?: string | null;
-  };
-  rounded?: {
-    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-    topLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    topRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-  };
-  textColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  backgroundColor?: {
-    base?:
-      | (
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'insightDisplay';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "listingClient".
  */
 export interface ListingClient {
-  type?: ('clients' | 'selectedClients' | 'selectedTemplates' | 'selectedTeams' | 'search') | null;
+  type?: ('clients' | 'selectedClients' | 'search') | null;
   selectedClients?: (number | Client)[] | null;
-  selectedTemplates?: (number | Template)[] | null;
-  selectedTeams?: (number | Team)[] | null;
   search?: string | null;
   order?: ('DESC' | 'ASC') | null;
   orderBy?: ('date' | 'title') | null;
@@ -6336,7 +7089,6 @@ export interface ListingPost {
   type?: ('posts' | 'selectedPosts' | 'selectedCategories' | 'createdBy' | 'search') | null;
   selectedPosts?: (number | Post)[] | null;
   selectedCategories?: (number | PostCategory)[] | null;
-  createdBy?: (number | Team)[] | null;
   search?: string | null;
   order?: ('DESC' | 'ASC') | null;
   orderBy?: ('date' | 'title') | null;
@@ -6364,40 +7116,7 @@ export interface ListingPost {
  */
 export interface Post {
   id: number;
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | ClientStorySlider
-        | ClientStoryTeams
-        | CollapsibleTab
-        | ContentCards
-        | ContentIconGrid
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | ShowReusable
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
+  content?: unknown[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -6415,7 +7134,414 @@ export interface Post {
   excerpt?: string | null;
   featuredImage?: (number | null) | Asset;
   category?: (number | null) | PostCategory;
-  createdBy?: (number | null) | Team;
+  publishedAt?: string | null;
+  author?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "postCategories".
+ */
+export interface PostCategory {
+  id: number;
+  banner?: {
+    type?: ('detail' | 'none') | null;
+    align?: ('center' | 'left' | 'right') | null;
+    featured?: {
+      relationTo: 'clients';
+      value: number | Client;
+    } | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    actions?:
+      | {
+          label?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          link?: {
+            href?: string | null;
+            target?: ('_self' | '_blank' | '_parent' | '_top') | null;
+          };
+          icon?: {
+            /**
+             * Fill with name of icon from https://lucide.dev/icons
+             */
+            name?: string | null;
+            /**
+             * Number of rem.
+             */
+            size?: number | null;
+            position?: ('left' | 'right') | null;
+            color?: {
+              base?:
+                | (
+                    | 'inherit'
+                    | 'base'
+                    | 'primary'
+                    | 'primary-soft'
+                    | 'primary-dark'
+                    | 'secondary'
+                    | 'secondary-soft'
+                    | 'secondary-dark'
+                    | 'red'
+                    | 'red-soft'
+                    | 'red-dark'
+                    | 'orange'
+                    | 'orange-soft'
+                    | 'orange-dark'
+                    | 'amber'
+                    | 'amber-soft'
+                    | 'amber-dark'
+                    | 'yellow'
+                    | 'yellow-soft'
+                    | 'yellow-dark'
+                    | 'lime'
+                    | 'lime-soft'
+                    | 'lime-dark'
+                    | 'green'
+                    | 'green-soft'
+                    | 'green-dark'
+                    | 'emerald'
+                    | 'emerald-soft'
+                    | 'emerald-dark'
+                    | 'teal'
+                    | 'teal-soft'
+                    | 'teal-dark'
+                    | 'cyan'
+                    | 'cyan-soft'
+                    | 'cyan-dark'
+                    | 'sky'
+                    | 'sky-soft'
+                    | 'sky-dark'
+                    | 'blue'
+                    | 'blue-soft'
+                    | 'blue-dark'
+                    | 'indigo'
+                    | 'indigo-soft'
+                    | 'indigo-dark'
+                    | 'violet'
+                    | 'violet-soft'
+                    | 'violet-dark'
+                    | 'purple'
+                    | 'purple-soft'
+                    | 'purple-dark'
+                    | 'fuchsia'
+                    | 'fuchsia-soft'
+                    | 'fuchsia-dark'
+                    | 'pink'
+                    | 'pink-soft'
+                    | 'pink-dark'
+                    | 'rose'
+                    | 'rose-soft'
+                    | 'rose-dark'
+                    | 'gray'
+                    | 'gray-soft'
+                    | 'gray-dark'
+                    | 'black'
+                    | 'white'
+                    | 'customColor'
+                  )
+                | null;
+              /**
+               * Fill the color with hex, rgb, or rgba
+               */
+              custom?: string | null;
+            };
+          };
+          variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
+          size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+          align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
+          rounded?: {
+            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+            topLeft?: {
+              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+              custom?: string | null;
+            };
+            topRight?: {
+              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+              custom?: string | null;
+            };
+            bottomLeft?: {
+              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+              custom?: string | null;
+            };
+            bottomRight?: {
+              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
+              custom?: string | null;
+            };
+          };
+          color?: {
+            base?:
+              | (
+                  | 'primary'
+                  | 'primary-soft'
+                  | 'primary-dark'
+                  | 'secondary'
+                  | 'secondary-soft'
+                  | 'secondary-dark'
+                  | 'red'
+                  | 'red-soft'
+                  | 'red-dark'
+                  | 'orange'
+                  | 'orange-soft'
+                  | 'orange-dark'
+                  | 'amber'
+                  | 'amber-soft'
+                  | 'amber-dark'
+                  | 'yellow'
+                  | 'yellow-soft'
+                  | 'yellow-dark'
+                  | 'lime'
+                  | 'lime-soft'
+                  | 'lime-dark'
+                  | 'green'
+                  | 'green-soft'
+                  | 'green-dark'
+                  | 'emerald'
+                  | 'emerald-soft'
+                  | 'emerald-dark'
+                  | 'teal'
+                  | 'teal-soft'
+                  | 'teal-dark'
+                  | 'cyan'
+                  | 'cyan-soft'
+                  | 'cyan-dark'
+                  | 'sky'
+                  | 'sky-soft'
+                  | 'sky-dark'
+                  | 'blue'
+                  | 'blue-soft'
+                  | 'blue-dark'
+                  | 'indigo'
+                  | 'indigo-soft'
+                  | 'indigo-dark'
+                  | 'violet'
+                  | 'violet-soft'
+                  | 'violet-dark'
+                  | 'purple'
+                  | 'purple-soft'
+                  | 'purple-dark'
+                  | 'fuchsia'
+                  | 'fuchsia-soft'
+                  | 'fuchsia-dark'
+                  | 'pink'
+                  | 'pink-soft'
+                  | 'pink-dark'
+                  | 'rose'
+                  | 'rose-soft'
+                  | 'rose-dark'
+                  | 'gray'
+                  | 'gray-soft'
+                  | 'gray-dark'
+                  | 'black'
+                  | 'white'
+                  | 'customColor'
+                )
+              | null;
+            /**
+             * Fill the color with hex, rgb, or rgba
+             */
+            custom?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    textColor?: {
+      base?:
+        | (
+            | 'inherit'
+            | 'base'
+            | 'primary'
+            | 'primary-soft'
+            | 'primary-dark'
+            | 'secondary'
+            | 'secondary-soft'
+            | 'secondary-dark'
+            | 'red'
+            | 'red-soft'
+            | 'red-dark'
+            | 'orange'
+            | 'orange-soft'
+            | 'orange-dark'
+            | 'amber'
+            | 'amber-soft'
+            | 'amber-dark'
+            | 'yellow'
+            | 'yellow-soft'
+            | 'yellow-dark'
+            | 'lime'
+            | 'lime-soft'
+            | 'lime-dark'
+            | 'green'
+            | 'green-soft'
+            | 'green-dark'
+            | 'emerald'
+            | 'emerald-soft'
+            | 'emerald-dark'
+            | 'teal'
+            | 'teal-soft'
+            | 'teal-dark'
+            | 'cyan'
+            | 'cyan-soft'
+            | 'cyan-dark'
+            | 'sky'
+            | 'sky-soft'
+            | 'sky-dark'
+            | 'blue'
+            | 'blue-soft'
+            | 'blue-dark'
+            | 'indigo'
+            | 'indigo-soft'
+            | 'indigo-dark'
+            | 'violet'
+            | 'violet-soft'
+            | 'violet-dark'
+            | 'purple'
+            | 'purple-soft'
+            | 'purple-dark'
+            | 'fuchsia'
+            | 'fuchsia-soft'
+            | 'fuchsia-dark'
+            | 'pink'
+            | 'pink-soft'
+            | 'pink-dark'
+            | 'rose'
+            | 'rose-soft'
+            | 'rose-dark'
+            | 'gray'
+            | 'gray-soft'
+            | 'gray-dark'
+            | 'black'
+            | 'white'
+            | 'customColor'
+          )
+        | null;
+      /**
+       * Fill the color with hex, rgb, or rgba
+       */
+      custom?: string | null;
+    };
+    backgroundColor?: {
+      base?:
+        | (
+            | 'primary'
+            | 'primary-soft'
+            | 'primary-dark'
+            | 'secondary'
+            | 'secondary-soft'
+            | 'secondary-dark'
+            | 'red'
+            | 'red-soft'
+            | 'red-dark'
+            | 'orange'
+            | 'orange-soft'
+            | 'orange-dark'
+            | 'amber'
+            | 'amber-soft'
+            | 'amber-dark'
+            | 'yellow'
+            | 'yellow-soft'
+            | 'yellow-dark'
+            | 'lime'
+            | 'lime-soft'
+            | 'lime-dark'
+            | 'green'
+            | 'green-soft'
+            | 'green-dark'
+            | 'emerald'
+            | 'emerald-soft'
+            | 'emerald-dark'
+            | 'teal'
+            | 'teal-soft'
+            | 'teal-dark'
+            | 'cyan'
+            | 'cyan-soft'
+            | 'cyan-dark'
+            | 'sky'
+            | 'sky-soft'
+            | 'sky-dark'
+            | 'blue'
+            | 'blue-soft'
+            | 'blue-dark'
+            | 'indigo'
+            | 'indigo-soft'
+            | 'indigo-dark'
+            | 'violet'
+            | 'violet-soft'
+            | 'violet-dark'
+            | 'purple'
+            | 'purple-soft'
+            | 'purple-dark'
+            | 'fuchsia'
+            | 'fuchsia-soft'
+            | 'fuchsia-dark'
+            | 'pink'
+            | 'pink-soft'
+            | 'pink-dark'
+            | 'rose'
+            | 'rose-soft'
+            | 'rose-dark'
+            | 'gray'
+            | 'gray-soft'
+            | 'gray-dark'
+            | 'black'
+            | 'white'
+            | 'customColor'
+          )
+        | null;
+      /**
+       * Fill the color with hex, rgb, or rgba
+       */
+      custom?: string | null;
+    };
+    backgroundImage?: {
+      general?: (number | null) | Asset;
+      mobile?: (number | null) | Asset;
+    };
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Asset;
+    schemaType?: ('WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'ProfilePage' | 'SearchResultsPage') | null;
+    robots?: string | null;
+    keywords?: string | null;
+  };
+  title: string;
+  slug: string;
+  link?: string | null;
+  excerpt?: string | null;
+  featuredImage?: (number | null) | Asset;
   publishedAt?: string | null;
   author?: (number | null) | User;
   updatedAt: string;
@@ -6451,22 +7577,44 @@ export interface ListingPostCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "postCategories".
+ * via the `definition` "listingProduct".
  */
-export interface PostCategory {
+export interface ListingProduct {
+  type?: ('products' | 'selectedProducts' | 'search') | null;
+  selectedProducts?: (number | Product)[] | null;
+  search?: string | null;
+  order?: ('DESC' | 'ASC') | null;
+  orderBy?: ('date' | 'title') | null;
+  total?: number | null;
+  pagination?: ('none' | 'paged' | 'load-more' | 'infinite-scroll') | null;
+  column?: number | null;
+  gap?: {
+    /**
+     * Fill the units with px, %, or em
+     */
+    base?: string | null;
+    /**
+     * Fill the units with px, %, or em
+     */
+    vertical?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'listingProduct';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
   id: number;
   banner?: {
     type?: ('detail' | 'none') | null;
     align?: ('center' | 'left' | 'right') | null;
-    featured?:
-      | ({
-          relationTo: 'clients';
-          value: number | Client;
-        } | null)
-      | ({
-          relationTo: 'templates';
-          value: number | Template;
-        } | null);
+    featured?: {
+      relationTo: 'clients';
+      value: number | Client;
+    } | null;
     content?: {
       root: {
         type: string;
@@ -6840,6 +7988,7 @@ export interface PostCategory {
       mobile?: (number | null) | Asset;
     };
   };
+  content?: unknown[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -6861,2065 +8010,6 @@ export interface PostCategory {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  name?: string | null;
-  role?: ('admin' | 'editor' | 'author') | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "listingService".
- */
-export interface ListingService {
-  type?: ('services' | 'selectedServices' | 'search') | null;
-  selectedServices?: (number | Service)[] | null;
-  search?: string | null;
-  order?: ('DESC' | 'ASC') | null;
-  orderBy?: ('date' | 'title') | null;
-  total?: number | null;
-  pagination?: ('none' | 'paged' | 'load-more' | 'infinite-scroll') | null;
-  column?: number | null;
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'listingService';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services".
- */
-export interface Service {
-  id: number;
-  banner?: {
-    type?: ('detail' | 'none') | null;
-    align?: ('center' | 'left' | 'right') | null;
-    featured?:
-      | ({
-          relationTo: 'clients';
-          value: number | Client;
-        } | null)
-      | ({
-          relationTo: 'templates';
-          value: number | Template;
-        } | null);
-    content?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    actions?:
-      | {
-          label?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
-          link?: {
-            href?: string | null;
-            target?: ('_self' | '_blank' | '_parent' | '_top') | null;
-          };
-          icon?: {
-            /**
-             * Fill with name of icon from https://lucide.dev/icons
-             */
-            name?: string | null;
-            /**
-             * Number of rem.
-             */
-            size?: number | null;
-            position?: ('left' | 'right') | null;
-            color?: {
-              base?:
-                | (
-                    | 'inherit'
-                    | 'base'
-                    | 'primary'
-                    | 'primary-soft'
-                    | 'primary-dark'
-                    | 'secondary'
-                    | 'secondary-soft'
-                    | 'secondary-dark'
-                    | 'red'
-                    | 'red-soft'
-                    | 'red-dark'
-                    | 'orange'
-                    | 'orange-soft'
-                    | 'orange-dark'
-                    | 'amber'
-                    | 'amber-soft'
-                    | 'amber-dark'
-                    | 'yellow'
-                    | 'yellow-soft'
-                    | 'yellow-dark'
-                    | 'lime'
-                    | 'lime-soft'
-                    | 'lime-dark'
-                    | 'green'
-                    | 'green-soft'
-                    | 'green-dark'
-                    | 'emerald'
-                    | 'emerald-soft'
-                    | 'emerald-dark'
-                    | 'teal'
-                    | 'teal-soft'
-                    | 'teal-dark'
-                    | 'cyan'
-                    | 'cyan-soft'
-                    | 'cyan-dark'
-                    | 'sky'
-                    | 'sky-soft'
-                    | 'sky-dark'
-                    | 'blue'
-                    | 'blue-soft'
-                    | 'blue-dark'
-                    | 'indigo'
-                    | 'indigo-soft'
-                    | 'indigo-dark'
-                    | 'violet'
-                    | 'violet-soft'
-                    | 'violet-dark'
-                    | 'purple'
-                    | 'purple-soft'
-                    | 'purple-dark'
-                    | 'fuchsia'
-                    | 'fuchsia-soft'
-                    | 'fuchsia-dark'
-                    | 'pink'
-                    | 'pink-soft'
-                    | 'pink-dark'
-                    | 'rose'
-                    | 'rose-soft'
-                    | 'rose-dark'
-                    | 'gray'
-                    | 'gray-soft'
-                    | 'gray-dark'
-                    | 'black'
-                    | 'white'
-                    | 'customColor'
-                  )
-                | null;
-              /**
-               * Fill the color with hex, rgb, or rgba
-               */
-              custom?: string | null;
-            };
-          };
-          variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
-          size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-          align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
-          rounded?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            topLeft?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-            topRight?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-            bottomLeft?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-            bottomRight?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-          };
-          color?: {
-            base?:
-              | (
-                  | 'primary'
-                  | 'primary-soft'
-                  | 'primary-dark'
-                  | 'secondary'
-                  | 'secondary-soft'
-                  | 'secondary-dark'
-                  | 'red'
-                  | 'red-soft'
-                  | 'red-dark'
-                  | 'orange'
-                  | 'orange-soft'
-                  | 'orange-dark'
-                  | 'amber'
-                  | 'amber-soft'
-                  | 'amber-dark'
-                  | 'yellow'
-                  | 'yellow-soft'
-                  | 'yellow-dark'
-                  | 'lime'
-                  | 'lime-soft'
-                  | 'lime-dark'
-                  | 'green'
-                  | 'green-soft'
-                  | 'green-dark'
-                  | 'emerald'
-                  | 'emerald-soft'
-                  | 'emerald-dark'
-                  | 'teal'
-                  | 'teal-soft'
-                  | 'teal-dark'
-                  | 'cyan'
-                  | 'cyan-soft'
-                  | 'cyan-dark'
-                  | 'sky'
-                  | 'sky-soft'
-                  | 'sky-dark'
-                  | 'blue'
-                  | 'blue-soft'
-                  | 'blue-dark'
-                  | 'indigo'
-                  | 'indigo-soft'
-                  | 'indigo-dark'
-                  | 'violet'
-                  | 'violet-soft'
-                  | 'violet-dark'
-                  | 'purple'
-                  | 'purple-soft'
-                  | 'purple-dark'
-                  | 'fuchsia'
-                  | 'fuchsia-soft'
-                  | 'fuchsia-dark'
-                  | 'pink'
-                  | 'pink-soft'
-                  | 'pink-dark'
-                  | 'rose'
-                  | 'rose-soft'
-                  | 'rose-dark'
-                  | 'gray'
-                  | 'gray-soft'
-                  | 'gray-dark'
-                  | 'black'
-                  | 'white'
-                  | 'customColor'
-                )
-              | null;
-            /**
-             * Fill the color with hex, rgb, or rgba
-             */
-            custom?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    textColor?: {
-      base?:
-        | (
-            | 'inherit'
-            | 'base'
-            | 'primary'
-            | 'primary-soft'
-            | 'primary-dark'
-            | 'secondary'
-            | 'secondary-soft'
-            | 'secondary-dark'
-            | 'red'
-            | 'red-soft'
-            | 'red-dark'
-            | 'orange'
-            | 'orange-soft'
-            | 'orange-dark'
-            | 'amber'
-            | 'amber-soft'
-            | 'amber-dark'
-            | 'yellow'
-            | 'yellow-soft'
-            | 'yellow-dark'
-            | 'lime'
-            | 'lime-soft'
-            | 'lime-dark'
-            | 'green'
-            | 'green-soft'
-            | 'green-dark'
-            | 'emerald'
-            | 'emerald-soft'
-            | 'emerald-dark'
-            | 'teal'
-            | 'teal-soft'
-            | 'teal-dark'
-            | 'cyan'
-            | 'cyan-soft'
-            | 'cyan-dark'
-            | 'sky'
-            | 'sky-soft'
-            | 'sky-dark'
-            | 'blue'
-            | 'blue-soft'
-            | 'blue-dark'
-            | 'indigo'
-            | 'indigo-soft'
-            | 'indigo-dark'
-            | 'violet'
-            | 'violet-soft'
-            | 'violet-dark'
-            | 'purple'
-            | 'purple-soft'
-            | 'purple-dark'
-            | 'fuchsia'
-            | 'fuchsia-soft'
-            | 'fuchsia-dark'
-            | 'pink'
-            | 'pink-soft'
-            | 'pink-dark'
-            | 'rose'
-            | 'rose-soft'
-            | 'rose-dark'
-            | 'gray'
-            | 'gray-soft'
-            | 'gray-dark'
-            | 'black'
-            | 'white'
-            | 'customColor'
-          )
-        | null;
-      /**
-       * Fill the color with hex, rgb, or rgba
-       */
-      custom?: string | null;
-    };
-    backgroundColor?: {
-      base?:
-        | (
-            | 'primary'
-            | 'primary-soft'
-            | 'primary-dark'
-            | 'secondary'
-            | 'secondary-soft'
-            | 'secondary-dark'
-            | 'red'
-            | 'red-soft'
-            | 'red-dark'
-            | 'orange'
-            | 'orange-soft'
-            | 'orange-dark'
-            | 'amber'
-            | 'amber-soft'
-            | 'amber-dark'
-            | 'yellow'
-            | 'yellow-soft'
-            | 'yellow-dark'
-            | 'lime'
-            | 'lime-soft'
-            | 'lime-dark'
-            | 'green'
-            | 'green-soft'
-            | 'green-dark'
-            | 'emerald'
-            | 'emerald-soft'
-            | 'emerald-dark'
-            | 'teal'
-            | 'teal-soft'
-            | 'teal-dark'
-            | 'cyan'
-            | 'cyan-soft'
-            | 'cyan-dark'
-            | 'sky'
-            | 'sky-soft'
-            | 'sky-dark'
-            | 'blue'
-            | 'blue-soft'
-            | 'blue-dark'
-            | 'indigo'
-            | 'indigo-soft'
-            | 'indigo-dark'
-            | 'violet'
-            | 'violet-soft'
-            | 'violet-dark'
-            | 'purple'
-            | 'purple-soft'
-            | 'purple-dark'
-            | 'fuchsia'
-            | 'fuchsia-soft'
-            | 'fuchsia-dark'
-            | 'pink'
-            | 'pink-soft'
-            | 'pink-dark'
-            | 'rose'
-            | 'rose-soft'
-            | 'rose-dark'
-            | 'gray'
-            | 'gray-soft'
-            | 'gray-dark'
-            | 'black'
-            | 'white'
-            | 'customColor'
-          )
-        | null;
-      /**
-       * Fill the color with hex, rgb, or rgba
-       */
-      custom?: string | null;
-    };
-    backgroundImage?: {
-      general?: (number | null) | Asset;
-      mobile?: (number | null) | Asset;
-    };
-  };
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | ClientStorySlider
-        | ClientStoryTeams
-        | CollapsibleTab
-        | ContentCards
-        | ContentIconGrid
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | ShowReusable
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Asset;
-    schemaType?: ('WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'ProfilePage' | 'SearchResultsPage') | null;
-    robots?: string | null;
-    keywords?: string | null;
-  };
-  title: string;
-  slug: string;
-  link?: string | null;
-  excerpt?: string | null;
-  featuredImage?: (number | null) | Asset;
-  publishedAt?: string | null;
-  author?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "listingTeam".
- */
-export interface ListingTeam {
-  type?: ('teams' | 'selectedTeams' | 'selectedPositions' | 'selectedGender' | 'selectedLevels' | 'search') | null;
-  selectedTeams?: (number | Team)[] | null;
-  selectedPositions?: (number | TeamPosition)[] | null;
-  selectedGender?: ('male' | 'female') | null;
-  selectedLevels?: ('rookie' | 'builder' | 'leader' | 'mentor')[] | null;
-  search?: string | null;
-  order?: ('DESC' | 'ASC') | null;
-  orderBy?: ('date' | 'title') | null;
-  total?: number | null;
-  showFilter?: boolean | null;
-  pagination?: ('none' | 'paged' | 'load-more' | 'infinite-scroll') | null;
-  column?: number | null;
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'listingTeam';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "teamPositions".
- */
-export interface TeamPosition {
-  id: number;
-  banner?: {
-    type?: ('detail' | 'none') | null;
-    align?: ('center' | 'left' | 'right') | null;
-    featured?:
-      | ({
-          relationTo: 'clients';
-          value: number | Client;
-        } | null)
-      | ({
-          relationTo: 'templates';
-          value: number | Template;
-        } | null);
-    content?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    actions?:
-      | {
-          label?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
-          link?: {
-            href?: string | null;
-            target?: ('_self' | '_blank' | '_parent' | '_top') | null;
-          };
-          icon?: {
-            /**
-             * Fill with name of icon from https://lucide.dev/icons
-             */
-            name?: string | null;
-            /**
-             * Number of rem.
-             */
-            size?: number | null;
-            position?: ('left' | 'right') | null;
-            color?: {
-              base?:
-                | (
-                    | 'inherit'
-                    | 'base'
-                    | 'primary'
-                    | 'primary-soft'
-                    | 'primary-dark'
-                    | 'secondary'
-                    | 'secondary-soft'
-                    | 'secondary-dark'
-                    | 'red'
-                    | 'red-soft'
-                    | 'red-dark'
-                    | 'orange'
-                    | 'orange-soft'
-                    | 'orange-dark'
-                    | 'amber'
-                    | 'amber-soft'
-                    | 'amber-dark'
-                    | 'yellow'
-                    | 'yellow-soft'
-                    | 'yellow-dark'
-                    | 'lime'
-                    | 'lime-soft'
-                    | 'lime-dark'
-                    | 'green'
-                    | 'green-soft'
-                    | 'green-dark'
-                    | 'emerald'
-                    | 'emerald-soft'
-                    | 'emerald-dark'
-                    | 'teal'
-                    | 'teal-soft'
-                    | 'teal-dark'
-                    | 'cyan'
-                    | 'cyan-soft'
-                    | 'cyan-dark'
-                    | 'sky'
-                    | 'sky-soft'
-                    | 'sky-dark'
-                    | 'blue'
-                    | 'blue-soft'
-                    | 'blue-dark'
-                    | 'indigo'
-                    | 'indigo-soft'
-                    | 'indigo-dark'
-                    | 'violet'
-                    | 'violet-soft'
-                    | 'violet-dark'
-                    | 'purple'
-                    | 'purple-soft'
-                    | 'purple-dark'
-                    | 'fuchsia'
-                    | 'fuchsia-soft'
-                    | 'fuchsia-dark'
-                    | 'pink'
-                    | 'pink-soft'
-                    | 'pink-dark'
-                    | 'rose'
-                    | 'rose-soft'
-                    | 'rose-dark'
-                    | 'gray'
-                    | 'gray-soft'
-                    | 'gray-dark'
-                    | 'black'
-                    | 'white'
-                    | 'customColor'
-                  )
-                | null;
-              /**
-               * Fill the color with hex, rgb, or rgba
-               */
-              custom?: string | null;
-            };
-          };
-          variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
-          size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-          align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
-          rounded?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            topLeft?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-            topRight?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-            bottomLeft?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-            bottomRight?: {
-              base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-              custom?: string | null;
-            };
-          };
-          color?: {
-            base?:
-              | (
-                  | 'primary'
-                  | 'primary-soft'
-                  | 'primary-dark'
-                  | 'secondary'
-                  | 'secondary-soft'
-                  | 'secondary-dark'
-                  | 'red'
-                  | 'red-soft'
-                  | 'red-dark'
-                  | 'orange'
-                  | 'orange-soft'
-                  | 'orange-dark'
-                  | 'amber'
-                  | 'amber-soft'
-                  | 'amber-dark'
-                  | 'yellow'
-                  | 'yellow-soft'
-                  | 'yellow-dark'
-                  | 'lime'
-                  | 'lime-soft'
-                  | 'lime-dark'
-                  | 'green'
-                  | 'green-soft'
-                  | 'green-dark'
-                  | 'emerald'
-                  | 'emerald-soft'
-                  | 'emerald-dark'
-                  | 'teal'
-                  | 'teal-soft'
-                  | 'teal-dark'
-                  | 'cyan'
-                  | 'cyan-soft'
-                  | 'cyan-dark'
-                  | 'sky'
-                  | 'sky-soft'
-                  | 'sky-dark'
-                  | 'blue'
-                  | 'blue-soft'
-                  | 'blue-dark'
-                  | 'indigo'
-                  | 'indigo-soft'
-                  | 'indigo-dark'
-                  | 'violet'
-                  | 'violet-soft'
-                  | 'violet-dark'
-                  | 'purple'
-                  | 'purple-soft'
-                  | 'purple-dark'
-                  | 'fuchsia'
-                  | 'fuchsia-soft'
-                  | 'fuchsia-dark'
-                  | 'pink'
-                  | 'pink-soft'
-                  | 'pink-dark'
-                  | 'rose'
-                  | 'rose-soft'
-                  | 'rose-dark'
-                  | 'gray'
-                  | 'gray-soft'
-                  | 'gray-dark'
-                  | 'black'
-                  | 'white'
-                  | 'customColor'
-                )
-              | null;
-            /**
-             * Fill the color with hex, rgb, or rgba
-             */
-            custom?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    textColor?: {
-      base?:
-        | (
-            | 'inherit'
-            | 'base'
-            | 'primary'
-            | 'primary-soft'
-            | 'primary-dark'
-            | 'secondary'
-            | 'secondary-soft'
-            | 'secondary-dark'
-            | 'red'
-            | 'red-soft'
-            | 'red-dark'
-            | 'orange'
-            | 'orange-soft'
-            | 'orange-dark'
-            | 'amber'
-            | 'amber-soft'
-            | 'amber-dark'
-            | 'yellow'
-            | 'yellow-soft'
-            | 'yellow-dark'
-            | 'lime'
-            | 'lime-soft'
-            | 'lime-dark'
-            | 'green'
-            | 'green-soft'
-            | 'green-dark'
-            | 'emerald'
-            | 'emerald-soft'
-            | 'emerald-dark'
-            | 'teal'
-            | 'teal-soft'
-            | 'teal-dark'
-            | 'cyan'
-            | 'cyan-soft'
-            | 'cyan-dark'
-            | 'sky'
-            | 'sky-soft'
-            | 'sky-dark'
-            | 'blue'
-            | 'blue-soft'
-            | 'blue-dark'
-            | 'indigo'
-            | 'indigo-soft'
-            | 'indigo-dark'
-            | 'violet'
-            | 'violet-soft'
-            | 'violet-dark'
-            | 'purple'
-            | 'purple-soft'
-            | 'purple-dark'
-            | 'fuchsia'
-            | 'fuchsia-soft'
-            | 'fuchsia-dark'
-            | 'pink'
-            | 'pink-soft'
-            | 'pink-dark'
-            | 'rose'
-            | 'rose-soft'
-            | 'rose-dark'
-            | 'gray'
-            | 'gray-soft'
-            | 'gray-dark'
-            | 'black'
-            | 'white'
-            | 'customColor'
-          )
-        | null;
-      /**
-       * Fill the color with hex, rgb, or rgba
-       */
-      custom?: string | null;
-    };
-    backgroundColor?: {
-      base?:
-        | (
-            | 'primary'
-            | 'primary-soft'
-            | 'primary-dark'
-            | 'secondary'
-            | 'secondary-soft'
-            | 'secondary-dark'
-            | 'red'
-            | 'red-soft'
-            | 'red-dark'
-            | 'orange'
-            | 'orange-soft'
-            | 'orange-dark'
-            | 'amber'
-            | 'amber-soft'
-            | 'amber-dark'
-            | 'yellow'
-            | 'yellow-soft'
-            | 'yellow-dark'
-            | 'lime'
-            | 'lime-soft'
-            | 'lime-dark'
-            | 'green'
-            | 'green-soft'
-            | 'green-dark'
-            | 'emerald'
-            | 'emerald-soft'
-            | 'emerald-dark'
-            | 'teal'
-            | 'teal-soft'
-            | 'teal-dark'
-            | 'cyan'
-            | 'cyan-soft'
-            | 'cyan-dark'
-            | 'sky'
-            | 'sky-soft'
-            | 'sky-dark'
-            | 'blue'
-            | 'blue-soft'
-            | 'blue-dark'
-            | 'indigo'
-            | 'indigo-soft'
-            | 'indigo-dark'
-            | 'violet'
-            | 'violet-soft'
-            | 'violet-dark'
-            | 'purple'
-            | 'purple-soft'
-            | 'purple-dark'
-            | 'fuchsia'
-            | 'fuchsia-soft'
-            | 'fuchsia-dark'
-            | 'pink'
-            | 'pink-soft'
-            | 'pink-dark'
-            | 'rose'
-            | 'rose-soft'
-            | 'rose-dark'
-            | 'gray'
-            | 'gray-soft'
-            | 'gray-dark'
-            | 'black'
-            | 'white'
-            | 'customColor'
-          )
-        | null;
-      /**
-       * Fill the color with hex, rgb, or rgba
-       */
-      custom?: string | null;
-    };
-    backgroundImage?: {
-      general?: (number | null) | Asset;
-      mobile?: (number | null) | Asset;
-    };
-  };
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Asset;
-    schemaType?: ('WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'ProfilePage' | 'SearchResultsPage') | null;
-    robots?: string | null;
-    keywords?: string | null;
-  };
-  title: string;
-  slug: string;
-  link?: string | null;
-  excerpt?: string | null;
-  featuredImage?: (number | null) | Asset;
-  publishedAt?: string | null;
-  author?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "listingTemplate".
- */
-export interface ListingTemplate {
-  type?: ('templates' | 'selectedTemplates' | 'selectedServices' | 'selectedTeams' | 'search') | null;
-  selectedTemplates?: (number | Template)[] | null;
-  selectedServices?: (number | Service)[] | null;
-  selectedTeams?: (number | Team)[] | null;
-  search?: string | null;
-  order?: ('DESC' | 'ASC') | null;
-  orderBy?: ('date' | 'title') | null;
-  total?: number | null;
-  showFilter?: boolean | null;
-  pagination?: ('none' | 'paged' | 'load-more' | 'infinite-scroll') | null;
-  column?: number | null;
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'listingTemplate';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "showReusable".
- */
-export interface ShowReusable {
-  reusable?: (number | null) | Reusable;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'showReusable';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "reusables".
- */
-export interface Reusable {
-  id: number;
-  content?:
-    | (
-        | Actions
-        | BaseContent
-        | CardForm
-        | ClientStory
-        | ClientStorySlider
-        | ClientStoryTeams
-        | CollapsibleTab
-        | ContentCards
-        | ContentIconGrid
-        | ContentMedia
-        | ContentMediaCard
-        | ContentCtaCard
-        | Divider
-        | FeaturedListingClient
-        | Gallery
-        | HeadingListing
-        | InsightDisplay
-        | ListingClient
-        | ListingFaq
-        | ListingPost
-        | ListingPostCategory
-        | ListingService
-        | ListingTeam
-        | ListingTemplate
-        | Media
-        | Solutions
-        | SocialMap
-        | Spacing
-        | Usp
-      )[]
-    | null;
-  title: string;
-  slug: string;
-  link?: string | null;
-  excerpt?: string | null;
-  featuredImage?: (number | null) | Asset;
-  publishedAt?: string | null;
-  author?: (number | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "solutions".
- */
-export interface Solutions {
-  items?:
-    | {
-        content?: {
-          featuredText?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
-          content?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
-        };
-        actions?:
-          | {
-              label?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              link?: {
-                href?: string | null;
-                target?: ('_self' | '_blank' | '_parent' | '_top') | null;
-              };
-              icon?: {
-                /**
-                 * Fill with name of icon from https://lucide.dev/icons
-                 */
-                name?: string | null;
-                /**
-                 * Number of rem.
-                 */
-                size?: number | null;
-                position?: ('left' | 'right') | null;
-                color?: {
-                  base?:
-                    | (
-                        | 'inherit'
-                        | 'base'
-                        | 'primary'
-                        | 'primary-soft'
-                        | 'primary-dark'
-                        | 'secondary'
-                        | 'secondary-soft'
-                        | 'secondary-dark'
-                        | 'red'
-                        | 'red-soft'
-                        | 'red-dark'
-                        | 'orange'
-                        | 'orange-soft'
-                        | 'orange-dark'
-                        | 'amber'
-                        | 'amber-soft'
-                        | 'amber-dark'
-                        | 'yellow'
-                        | 'yellow-soft'
-                        | 'yellow-dark'
-                        | 'lime'
-                        | 'lime-soft'
-                        | 'lime-dark'
-                        | 'green'
-                        | 'green-soft'
-                        | 'green-dark'
-                        | 'emerald'
-                        | 'emerald-soft'
-                        | 'emerald-dark'
-                        | 'teal'
-                        | 'teal-soft'
-                        | 'teal-dark'
-                        | 'cyan'
-                        | 'cyan-soft'
-                        | 'cyan-dark'
-                        | 'sky'
-                        | 'sky-soft'
-                        | 'sky-dark'
-                        | 'blue'
-                        | 'blue-soft'
-                        | 'blue-dark'
-                        | 'indigo'
-                        | 'indigo-soft'
-                        | 'indigo-dark'
-                        | 'violet'
-                        | 'violet-soft'
-                        | 'violet-dark'
-                        | 'purple'
-                        | 'purple-soft'
-                        | 'purple-dark'
-                        | 'fuchsia'
-                        | 'fuchsia-soft'
-                        | 'fuchsia-dark'
-                        | 'pink'
-                        | 'pink-soft'
-                        | 'pink-dark'
-                        | 'rose'
-                        | 'rose-soft'
-                        | 'rose-dark'
-                        | 'gray'
-                        | 'gray-soft'
-                        | 'gray-dark'
-                        | 'black'
-                        | 'white'
-                        | 'customColor'
-                      )
-                    | null;
-                  /**
-                   * Fill the color with hex, rgb, or rgba
-                   */
-                  custom?: string | null;
-                };
-              };
-              variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
-              size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-              align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
-              rounded?: {
-                base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-                topLeft?: {
-                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-                  custom?: string | null;
-                };
-                topRight?: {
-                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-                  custom?: string | null;
-                };
-                bottomLeft?: {
-                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-                  custom?: string | null;
-                };
-                bottomRight?: {
-                  base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-                  custom?: string | null;
-                };
-              };
-              color?: {
-                base?:
-                  | (
-                      | 'primary'
-                      | 'primary-soft'
-                      | 'primary-dark'
-                      | 'secondary'
-                      | 'secondary-soft'
-                      | 'secondary-dark'
-                      | 'red'
-                      | 'red-soft'
-                      | 'red-dark'
-                      | 'orange'
-                      | 'orange-soft'
-                      | 'orange-dark'
-                      | 'amber'
-                      | 'amber-soft'
-                      | 'amber-dark'
-                      | 'yellow'
-                      | 'yellow-soft'
-                      | 'yellow-dark'
-                      | 'lime'
-                      | 'lime-soft'
-                      | 'lime-dark'
-                      | 'green'
-                      | 'green-soft'
-                      | 'green-dark'
-                      | 'emerald'
-                      | 'emerald-soft'
-                      | 'emerald-dark'
-                      | 'teal'
-                      | 'teal-soft'
-                      | 'teal-dark'
-                      | 'cyan'
-                      | 'cyan-soft'
-                      | 'cyan-dark'
-                      | 'sky'
-                      | 'sky-soft'
-                      | 'sky-dark'
-                      | 'blue'
-                      | 'blue-soft'
-                      | 'blue-dark'
-                      | 'indigo'
-                      | 'indigo-soft'
-                      | 'indigo-dark'
-                      | 'violet'
-                      | 'violet-soft'
-                      | 'violet-dark'
-                      | 'purple'
-                      | 'purple-soft'
-                      | 'purple-dark'
-                      | 'fuchsia'
-                      | 'fuchsia-soft'
-                      | 'fuchsia-dark'
-                      | 'pink'
-                      | 'pink-soft'
-                      | 'pink-dark'
-                      | 'rose'
-                      | 'rose-soft'
-                      | 'rose-dark'
-                      | 'gray'
-                      | 'gray-soft'
-                      | 'gray-dark'
-                      | 'black'
-                      | 'white'
-                      | 'customColor'
-                    )
-                  | null;
-                /**
-                 * Fill the color with hex, rgb, or rgba
-                 */
-                custom?: string | null;
-              };
-              id?: string | null;
-            }[]
-          | null;
-        media?: {
-          type?: ('image' | 'video') | null;
-          source?: ('internal' | 'external') | null;
-          imageInternal?: (number | null) | Asset;
-          imageExternal?: string | null;
-          videoInternal?: (number | null) | Asset;
-          videoExternal?: string | null;
-          videoOptions?: ('loop' | 'autoplay')[] | null;
-          videoPoster?: (number | null) | Asset;
-          action?: ('none' | 'link' | 'lightbox') | null;
-          actionLink?: string | null;
-          id?: string | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  desktopPosition?: ('content-media' | 'media-content') | null;
-  mobilePosition?: ('content-media' | 'media-content') | null;
-  align?: ('left' | 'right' | 'center') | null;
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  textColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  featuredTextColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'solutions';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "socialMap".
- */
-export interface SocialMap {
-  gmapSource?: string | null;
-  items?:
-    | {
-        /**
-         * Fill with name of icon from https://lucide.dev/icons
-         */
-        icon?: string | null;
-        title?: string | null;
-        label?: string | null;
-        link?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  position?: ('top' | 'center' | 'bottom') | null;
-  column?: number | null;
-  rounded?: {
-    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-    topLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    topRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-  };
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  iconColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  socialRounded?: {
-    base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-    topLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    topRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomLeft?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-    bottomRight?: {
-      base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-      custom?: string | null;
-    };
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'socialMap';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "usp".
- */
-export interface Usp {
-  items?:
-    | {
-        /**
-         * Fill with name of icon from https://lucide.dev/icons
-         */
-        icon?: string | null;
-        title?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        content?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
-      }[]
-    | null;
-  column?: number | null;
-  align?: ('left' | 'right' | 'center') | null;
-  gap?: {
-    /**
-     * Fill the units with px, %, or em
-     */
-    base?: string | null;
-    /**
-     * Fill the units with px, %, or em
-     */
-    vertical?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'usp';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "banner".
- */
-export interface Banner {
-  type?: ('detail' | 'none') | null;
-  align?: ('center' | 'left' | 'right') | null;
-  featured?:
-    | ({
-        relationTo: 'clients';
-        value: number | Client;
-      } | null)
-    | ({
-        relationTo: 'templates';
-        value: number | Template;
-      } | null);
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  actions?:
-    | {
-        label?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        link?: {
-          href?: string | null;
-          target?: ('_self' | '_blank' | '_parent' | '_top') | null;
-        };
-        icon?: {
-          /**
-           * Fill with name of icon from https://lucide.dev/icons
-           */
-          name?: string | null;
-          /**
-           * Number of rem.
-           */
-          size?: number | null;
-          position?: ('left' | 'right') | null;
-          color?: {
-            base?:
-              | (
-                  | 'inherit'
-                  | 'base'
-                  | 'primary'
-                  | 'primary-soft'
-                  | 'primary-dark'
-                  | 'secondary'
-                  | 'secondary-soft'
-                  | 'secondary-dark'
-                  | 'red'
-                  | 'red-soft'
-                  | 'red-dark'
-                  | 'orange'
-                  | 'orange-soft'
-                  | 'orange-dark'
-                  | 'amber'
-                  | 'amber-soft'
-                  | 'amber-dark'
-                  | 'yellow'
-                  | 'yellow-soft'
-                  | 'yellow-dark'
-                  | 'lime'
-                  | 'lime-soft'
-                  | 'lime-dark'
-                  | 'green'
-                  | 'green-soft'
-                  | 'green-dark'
-                  | 'emerald'
-                  | 'emerald-soft'
-                  | 'emerald-dark'
-                  | 'teal'
-                  | 'teal-soft'
-                  | 'teal-dark'
-                  | 'cyan'
-                  | 'cyan-soft'
-                  | 'cyan-dark'
-                  | 'sky'
-                  | 'sky-soft'
-                  | 'sky-dark'
-                  | 'blue'
-                  | 'blue-soft'
-                  | 'blue-dark'
-                  | 'indigo'
-                  | 'indigo-soft'
-                  | 'indigo-dark'
-                  | 'violet'
-                  | 'violet-soft'
-                  | 'violet-dark'
-                  | 'purple'
-                  | 'purple-soft'
-                  | 'purple-dark'
-                  | 'fuchsia'
-                  | 'fuchsia-soft'
-                  | 'fuchsia-dark'
-                  | 'pink'
-                  | 'pink-soft'
-                  | 'pink-dark'
-                  | 'rose'
-                  | 'rose-soft'
-                  | 'rose-dark'
-                  | 'gray'
-                  | 'gray-soft'
-                  | 'gray-dark'
-                  | 'black'
-                  | 'white'
-                  | 'customColor'
-                )
-              | null;
-            /**
-             * Fill the color with hex, rgb, or rgba
-             */
-            custom?: string | null;
-          };
-        };
-        variant?: ('filled' | 'outline' | 'light' | 'subtle' | 'transparent') | null;
-        size?: ('xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
-        align?: ('inline' | 'left' | 'right' | 'center' | 'full') | null;
-        rounded?: {
-          base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-          topLeft?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-          topRight?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-          bottomLeft?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-          bottomRight?: {
-            base?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full' | 'custom') | null;
-            custom?: string | null;
-          };
-        };
-        color?: {
-          base?:
-            | (
-                | 'primary'
-                | 'primary-soft'
-                | 'primary-dark'
-                | 'secondary'
-                | 'secondary-soft'
-                | 'secondary-dark'
-                | 'red'
-                | 'red-soft'
-                | 'red-dark'
-                | 'orange'
-                | 'orange-soft'
-                | 'orange-dark'
-                | 'amber'
-                | 'amber-soft'
-                | 'amber-dark'
-                | 'yellow'
-                | 'yellow-soft'
-                | 'yellow-dark'
-                | 'lime'
-                | 'lime-soft'
-                | 'lime-dark'
-                | 'green'
-                | 'green-soft'
-                | 'green-dark'
-                | 'emerald'
-                | 'emerald-soft'
-                | 'emerald-dark'
-                | 'teal'
-                | 'teal-soft'
-                | 'teal-dark'
-                | 'cyan'
-                | 'cyan-soft'
-                | 'cyan-dark'
-                | 'sky'
-                | 'sky-soft'
-                | 'sky-dark'
-                | 'blue'
-                | 'blue-soft'
-                | 'blue-dark'
-                | 'indigo'
-                | 'indigo-soft'
-                | 'indigo-dark'
-                | 'violet'
-                | 'violet-soft'
-                | 'violet-dark'
-                | 'purple'
-                | 'purple-soft'
-                | 'purple-dark'
-                | 'fuchsia'
-                | 'fuchsia-soft'
-                | 'fuchsia-dark'
-                | 'pink'
-                | 'pink-soft'
-                | 'pink-dark'
-                | 'rose'
-                | 'rose-soft'
-                | 'rose-dark'
-                | 'gray'
-                | 'gray-soft'
-                | 'gray-dark'
-                | 'black'
-                | 'white'
-                | 'customColor'
-              )
-            | null;
-          /**
-           * Fill the color with hex, rgb, or rgba
-           */
-          custom?: string | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  textColor?: {
-    base?:
-      | (
-          | 'inherit'
-          | 'base'
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  backgroundColor?: {
-    base?:
-      | (
-          | 'primary'
-          | 'primary-soft'
-          | 'primary-dark'
-          | 'secondary'
-          | 'secondary-soft'
-          | 'secondary-dark'
-          | 'red'
-          | 'red-soft'
-          | 'red-dark'
-          | 'orange'
-          | 'orange-soft'
-          | 'orange-dark'
-          | 'amber'
-          | 'amber-soft'
-          | 'amber-dark'
-          | 'yellow'
-          | 'yellow-soft'
-          | 'yellow-dark'
-          | 'lime'
-          | 'lime-soft'
-          | 'lime-dark'
-          | 'green'
-          | 'green-soft'
-          | 'green-dark'
-          | 'emerald'
-          | 'emerald-soft'
-          | 'emerald-dark'
-          | 'teal'
-          | 'teal-soft'
-          | 'teal-dark'
-          | 'cyan'
-          | 'cyan-soft'
-          | 'cyan-dark'
-          | 'sky'
-          | 'sky-soft'
-          | 'sky-dark'
-          | 'blue'
-          | 'blue-soft'
-          | 'blue-dark'
-          | 'indigo'
-          | 'indigo-soft'
-          | 'indigo-dark'
-          | 'violet'
-          | 'violet-soft'
-          | 'violet-dark'
-          | 'purple'
-          | 'purple-soft'
-          | 'purple-dark'
-          | 'fuchsia'
-          | 'fuchsia-soft'
-          | 'fuchsia-dark'
-          | 'pink'
-          | 'pink-soft'
-          | 'pink-dark'
-          | 'rose'
-          | 'rose-soft'
-          | 'rose-dark'
-          | 'gray'
-          | 'gray-soft'
-          | 'gray-dark'
-          | 'black'
-          | 'white'
-          | 'customColor'
-        )
-      | null;
-    /**
-     * Fill the color with hex, rgb, or rgba
-     */
-    custom?: string | null;
-  };
-  backgroundImage?: {
-    general?: (number | null) | Asset;
-    mobile?: (number | null) | Asset;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -8979,20 +8069,8 @@ export interface PayloadLockedDocument {
         value: number | PostCategory;
       } | null)
     | ({
-        relationTo: 'services';
-        value: number | Service;
-      } | null)
-    | ({
-        relationTo: 'templates';
-        value: number | Template;
-      } | null)
-    | ({
-        relationTo: 'teams';
-        value: number | Team;
-      } | null)
-    | ({
-        relationTo: 'teamPositions';
-        value: number | TeamPosition;
+        relationTo: 'products';
+        value: number | Product;
       } | null)
     | ({
         relationTo: 'clients';
@@ -9218,7 +8296,6 @@ export interface PostsSelect<T extends boolean = true> {
   excerpt?: T;
   featuredImage?: T;
   category?: T;
-  createdBy?: T;
   publishedAt?: T;
   author?: T;
   updatedAt?: T;
@@ -9342,9 +8419,9 @@ export interface PostCategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services_select".
+ * via the `definition` "products_select".
  */
-export interface ServicesSelect<T extends boolean = true> {
+export interface ProductsSelect<T extends boolean = true> {
   banner?:
     | T
     | {
@@ -9435,198 +8512,6 @@ export interface ServicesSelect<T extends boolean = true> {
             };
       };
   content?: T | {};
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-        schemaType?: T;
-        robots?: T;
-        keywords?: T;
-      };
-  title?: T;
-  slug?: T;
-  link?: T;
-  excerpt?: T;
-  featuredImage?: T;
-  publishedAt?: T;
-  author?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templates_select".
- */
-export interface TemplatesSelect<T extends boolean = true> {
-  available?: T;
-  content?: T | {};
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-        schemaType?: T;
-        robots?: T;
-        keywords?: T;
-      };
-  title?: T;
-  slug?: T;
-  link?: T;
-  excerpt?: T;
-  featuredImage?: T;
-  teams?: T;
-  services?: T;
-  publishedAt?: T;
-  author?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "teams_select".
- */
-export interface TeamsSelect<T extends boolean = true> {
-  level?: T;
-  gender?: T;
-  city?: T;
-  motivation?: T;
-  socials?:
-    | T
-    | {
-        email?: T;
-        website?: T;
-        github?: T;
-        linkedin?: T;
-        instagram?: T;
-        tiktok?: T;
-        youtube?: T;
-        facebook?: T;
-        twitter?: T;
-      };
-  content?: T | {};
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-        schemaType?: T;
-        robots?: T;
-        keywords?: T;
-      };
-  title?: T;
-  slug?: T;
-  link?: T;
-  excerpt?: T;
-  featuredImage?: T;
-  avatar?: T;
-  positions?: T;
-  user?: T;
-  publishedAt?: T;
-  author?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "teamPositions_select".
- */
-export interface TeamPositionsSelect<T extends boolean = true> {
-  banner?:
-    | T
-    | {
-        type?: T;
-        align?: T;
-        featured?: T;
-        content?: T;
-        actions?:
-          | T
-          | {
-              label?: T;
-              link?:
-                | T
-                | {
-                    href?: T;
-                    target?: T;
-                  };
-              icon?:
-                | T
-                | {
-                    name?: T;
-                    size?: T;
-                    position?: T;
-                    color?:
-                      | T
-                      | {
-                          base?: T;
-                          custom?: T;
-                        };
-                  };
-              variant?: T;
-              size?: T;
-              align?: T;
-              rounded?:
-                | T
-                | {
-                    base?: T;
-                    topLeft?:
-                      | T
-                      | {
-                          base?: T;
-                          custom?: T;
-                        };
-                    topRight?:
-                      | T
-                      | {
-                          base?: T;
-                          custom?: T;
-                        };
-                    bottomLeft?:
-                      | T
-                      | {
-                          base?: T;
-                          custom?: T;
-                        };
-                    bottomRight?:
-                      | T
-                      | {
-                          base?: T;
-                          custom?: T;
-                        };
-                  };
-              color?:
-                | T
-                | {
-                    base?: T;
-                    custom?: T;
-                  };
-              id?: T;
-            };
-        textColor?:
-          | T
-          | {
-              base?: T;
-              custom?: T;
-            };
-        backgroundColor?:
-          | T
-          | {
-              base?: T;
-              custom?: T;
-            };
-        backgroundImage?:
-          | T
-          | {
-              general?: T;
-              mobile?: T;
-            };
-      };
   meta?:
     | T
     | {
@@ -9766,8 +8651,6 @@ export interface ClientsSelect<T extends boolean = true> {
   link?: T;
   excerpt?: T;
   featuredImage?: T;
-  template?: T;
-  teams?: T;
   publishedAt?: T;
   author?: T;
   updatedAt?: T;

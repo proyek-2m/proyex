@@ -59,15 +59,6 @@ export const ListingPostBlock: Block = {
 			},
 		},
 		{
-			name: 'createdBy',
-			type: 'relationship',
-			relationTo: 'teams',
-			hasMany: true,
-			admin: {
-				condition: (_, siblingData) => siblingData.type === 'createdBy',
-			},
-		},
-		{
 			name: 'search',
 			type: 'text',
 			admin: {
