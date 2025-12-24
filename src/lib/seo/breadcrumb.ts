@@ -143,7 +143,7 @@ export const breadcrumbSchema = ({ data, collection, site }: SeoDts): Breadcrumb
 				'@type': 'ListItem',
 				position: listElements.length + 1,
 				name: 'Client Overview', // TODO: should match with template team overview title
-				item: `${siteUrl}/${slugPostType.teams}`,
+				item: `${siteUrl}/${slugPostType.templates}`,
 			})
 
 			listElements.push({

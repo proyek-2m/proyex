@@ -144,11 +144,13 @@ const queryListingAuthors = async (block: ListingPostProps['block']) => {
 }
 
 export default async function ListingPost({ block, queried, ...props }: ListingPostProps) {
-	const resultPosts = await queryListingPost(block, {
-		queried,
-	})
-	const resultCategories = await queryListingCategories(block)
-	const resultAuthors = await queryListingAuthors(block)
+	const [resultPosts, resultCategories, resultAuthors] = await Promise.all([
+		queryListingPost(block, {
+			queried,
+		}),
+		queryListingCategories(block),
+		queryListingAuthors(block),
+	])
 
 	return (
 		<ListingPostClient

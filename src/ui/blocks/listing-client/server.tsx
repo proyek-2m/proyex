@@ -150,11 +150,13 @@ const queryListingTeams = async (block: ListingClientProps['block']) => {
 }
 
 export default async function ListingClient({ block, queried, ...props }: ListingClientProps) {
-	const resultClients = await queryListingClient(block, {
-		queried,
-	})
-	const resultTemplates = await queryListingTemplates(block)
-	const resultTeams = await queryListingTeams(block)
+	const [resultClients, resultTemplates, resultTeams] = await Promise.all([
+		queryListingClient(block, {
+			queried,
+		}),
+		queryListingTemplates(block),
+		queryListingTeams(block),
+	])
 
 	return (
 		<ListingClientClient

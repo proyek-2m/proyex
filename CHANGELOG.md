@@ -6,6 +6,14 @@ dan versi mengikuti [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.2] - 2025-24-12
+
+### Upgrade
+
+- update packages
+- lint run on build
+- optimize queries on one promise call
+
 ## [1.1.1] - 2025-24-10
 
 ### Upgrade

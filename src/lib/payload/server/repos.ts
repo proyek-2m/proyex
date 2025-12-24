@@ -316,7 +316,7 @@ export const serviceSitemap = async () => {
 
 		return posts.docs
 	} catch (error) {
-		console.error('templateSitemap', { error })
+		console.error('serviceSitemap', { error })
 		return []
 	}
 }

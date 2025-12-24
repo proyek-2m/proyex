@@ -15,6 +15,7 @@ import type {
 	Post,
 	PostCategory,
 	Reusable,
+	Service,
 	Team,
 	TeamPosition,
 	Template,
@@ -38,6 +39,7 @@ export const slugPostType: Record<CollectionSlug, string> = {
 	'payload-locked-documents': '',
 	'payload-preferences': '',
 	'payload-migrations': '',
+	'payload-kv': '',
 }
 
 type LinkCollectionParams =
@@ -51,7 +53,7 @@ type LinkCollectionParams =
 	  }
 	| {
 			collection: 'services'
-			doc: Pick<Template, 'slug'>
+			doc: Pick<Service, 'slug'>
 	  }
 	| {
 			collection: 'templates'

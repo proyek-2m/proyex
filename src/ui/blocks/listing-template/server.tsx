@@ -126,10 +126,12 @@ const queryListingServices = async (block: ListingTemplateProps['block']) => {
 }
 
 export default async function ListingTemplate({ block, queried, ...props }: ListingTemplateProps) {
-	const resultTemplates = await queryListingTemplate(block, {
-		queried,
-	})
-	const resultServices = await queryListingServices(block)
+	const [resultTemplates, resultServices] = await Promise.all([
+		queryListingTemplate(block, {
+			queried,
+		}),
+		queryListingServices(block),
+	])
 
 	return (
 		<ListingTemplateClient

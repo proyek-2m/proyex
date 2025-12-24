@@ -130,10 +130,12 @@ const queryListingPositions = async (block: ListingTeamProps['block']) => {
 }
 
 export default async function ListingTeam({ block, queried, ...props }: ListingTeamProps) {
-	const resultTeams = await queryListingTeam(block, {
-		queried,
-	})
-	const resultPositions = await queryListingPositions(block)
+	const [resultTeams, resultPositions] = await Promise.all([
+		queryListingTeam(block, {
+			queried,
+		}),
+		queryListingPositions(block),
+	])
 
 	return (
 		<ListingTeamClient
