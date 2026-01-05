@@ -4,8 +4,8 @@ export const Icon = () => {
 		<Image
 			src="/favicon.jpg"
 			alt="SMFOODSMart Logo"
-			width={512}
-			height={512}
+			width={120}
+			height={120}
 		/>
 	)
 }
@@ -15,8 +15,8 @@ export const Logo = () => {
 		<Image
 			src="/favicon.jpg"
 			alt="SMFOODSMart Logo"
-			width={220}
-			height={220}
+			width={120}
+			height={120}
 		/>
 	)
 }

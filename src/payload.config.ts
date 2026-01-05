@@ -70,6 +70,7 @@ export default buildConfig({
 		importMap: {
 			baseDir: '@',
 		},
+		autoRefresh: true,
 		meta: {
 			titleSuffix: ' | SMFOODSMart Dashboard',
 			icons: '/favicon.jpg',

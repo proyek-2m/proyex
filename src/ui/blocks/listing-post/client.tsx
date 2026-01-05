@@ -454,7 +454,6 @@ function FilterListing({
 	block,
 	categories,
 	onChangeCategory,
-	onChangeAuthor,
 	onSearch,
 }: Pick<ListingPostClientProps, 'block' | 'categories'> & {
 	data: OptionsQueryListingPosts | null

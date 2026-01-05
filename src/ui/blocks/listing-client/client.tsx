@@ -417,6 +417,7 @@ function FilterListing({
 			<TextInput
 				type="search"
 				placeholder="Cari klien..."
+				defaultValue={data?.search || ''}
 				className={styles.search}
 				rightSection={
 					<ThemeIcon
